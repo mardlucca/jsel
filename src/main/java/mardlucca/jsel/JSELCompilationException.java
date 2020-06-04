@@ -1,7 +1,7 @@
 /*
- * File: settings.gradle
+ * File: JSELCompilationException.java
  *
- * Copyright 2019 Marcio D. Lucca
+ * Copyright 2020 Marcio D. Lucca
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,4 +15,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package mardlucca.jsel;
 
+import java.util.List;
+
+public class JSELCompilationException extends Exception
+{
+    private List<String> errors;
+
+    public JSELCompilationException(List<String> aInErrors)
+    {
+        errors = aInErrors;
+    }
+
+    @Override
+    public String getMessage()
+    {
+        return "Compilation failed with the following errors: \n" +
+                String.join("\n", errors);
+    }
+
+    public List<String> getErrors()
+    {
+        return errors;
+    }
+}

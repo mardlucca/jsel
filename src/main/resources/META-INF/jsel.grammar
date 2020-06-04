@@ -1,0 +1,107 @@
+#////////////////////////////////////////////////////////////
+#//
+#// File: jsel.grammar
+#//
+#////////////////////////////////////////////////////////////
+#//
+#// Author: Marcio Lucca
+#//
+#// Nokia - Confidential
+#// Do not use, distribute, or copy without consent of Nokia.
+#// Copyright (c) 2018 Nokia. All rights reserved.
+#//
+#////////////////////////////////////////////////////////////
+
+# Parse table for this can be generated using
+# "http://jsmachines.sourceforge.net/machines/lalr1.html"
+
+# NOTE: in state 41, when a ) is found the parser doesn't know whether to reduce
+# "AC -> id" or "PARAMS2 -> id". To solve this we need to do another look ahead
+# to see what the next token is. If the next token is "=>" it means this is a
+# lambda, so we tell the parser to reduce "PARAMS2 -> id". Otherwise this is a
+# regular id surrounded by parenthesis in which case we tell the parser to
+# reduce "AC -> id"
+
+E' -> E
+E -> id => E
+E -> ( PARAMS ) => E
+E -> LO ? E : E
+E -> LO
+LO -> LO || LA
+LO -> LA
+LA -> LA && BO
+LA -> BO
+BO -> BO | BX
+BO -> BX
+BX -> BX ^ BA
+BX -> BA
+BA -> BA & EQ
+BA -> EQ
+EQ -> EQ == REL
+EQ -> EQ === REL
+EQ -> EQ != REL
+EQ -> EQ !== REL
+EQ -> REL
+REL -> REL <= SFT
+REL -> REL < SFT
+REL -> REL > SFT
+REL -> REL >= SFT
+REL -> REL in SFT
+REL -> REL instof SFT
+REL -> SFT
+SFT -> SFT << AD
+SFT -> SFT >> AD
+SFT -> SFT >>> AD
+SFT -> AD
+AD -> AD + MUL
+AD -> AD - MUL
+AD -> MUL
+MUL -> MUL * UNR
+MUL -> MUL / UNR
+MUL -> MUL % UNR
+MUL -> UNR
+UNR -> + UNR
+UNR -> - UNR
+UNR -> not UNR
+UNR -> ~ UNR
+UNR -> typeof UNR
+UNR -> void UNR
+UNR -> CALL
+UNR -> NEW
+CALL -> AC ( ARGS )
+CALL -> CALL ( ARGS )
+CALL -> CALL [ E ]
+CALL -> CALL . id
+NEW -> new AC
+NEW -> AC
+AC -> AC [ E ]
+AC -> AC . id
+AC -> new AC ( ARGS )
+AC -> VAL
+VAL -> ( E )
+VAL -> id
+VAL -> num
+VAL -> str
+VAL -> true
+VAL -> false
+VAL -> undefined
+VAL -> null
+VAL -> nan
+VAL -> inf
+VAL -> regex
+VAL -> [ ARGS ]
+VAL -> { PROPS }
+ARGS -> ARGS2
+ARGS -> ''
+ARGS2 -> ARGS2 , E
+ARGS2 -> E
+PROPS -> PROPS2
+PROPS -> ''
+PROPS2 -> PROPS2 , PROP
+PROPS2 -> PROP
+PROP -> str : E
+PROP -> id : E
+PARAMS -> PARAMS2
+PARAMS -> ''
+PARAMS2 -> PARAMS2 , id
+PARAMS2 -> id

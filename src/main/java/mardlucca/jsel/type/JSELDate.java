@@ -1,7 +1,7 @@
 /*
- * File: settings.gradle
+ * File: JSELDate.java
  *
- * Copyright 2019 Marcio D. Lucca
+ * Copyright 2020 Marcio D. Lucca
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,4 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package mardlucca.jsel.type;
 
+public class JSELDate extends JSELObject
+{
+    @Override
+    protected JSELValue defaultValue(GetHint aInHint)
+    {
+        // if type is Date and no hint, convert to String
+        // see http://www.ecma-international.org/ecma-262/5.1/#sec-8.12.8
+
+        return aInHint == null ?
+                defaultValue(GetHint.STRING) :
+                super.defaultValue(aInHint);
+    }
+}

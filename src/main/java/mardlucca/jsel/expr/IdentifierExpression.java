@@ -1,7 +1,7 @@
 /*
- * File: settings.gradle
+ * File: IdentifierExpression.java
  *
- * Copyright 2019 Marcio D. Lucca
+ * Copyright 2020 Marcio D. Lucca
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,4 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package mardlucca.jsel.expr;
 
+import mardlucca.jsel.env.ExecutionContext;
+import mardlucca.jsel.type.JSELValue;
+import mardlucca.jsel.type.JSELValue;
+
+public class IdentifierExpression implements JSELExpression
+{
+    private String identifier;
+
+    public IdentifierExpression(String aInIdentifier)
+    {
+        identifier = aInIdentifier;
+    }
+
+    @Override
+    public JSELValue execute(ExecutionContext aInContext)
+    {
+        return aInContext.resolve(identifier);
+    }
+}

@@ -1,0 +1,173 @@
+#////////////////////////////////////////////////////////////
+#//
+#// File: jsel.grammar
+#//
+#////////////////////////////////////////////////////////////
+#//
+#// Author: Marcio Lucca
+#//
+#// Nokia - Confidential
+#// Do not use, distribute, or copy without consent of Nokia.
+#// Copyright (c) 2018 Nokia. All rights reserved.
+#//
+#////////////////////////////////////////////////////////////
+
+# Parse table for this was generated using
+# "http://jsmachines.sourceforge.net/machines/lalr1.html". It's unlikely that
+# you will ever want to edit this manually
+
+# NOTE: in state 41, when a ) is found the parser doesn't know whether to reduce
+# "AC -> id" or "PARAMS2 -> id". To solve this we need to do another look ahead
+# to see what the next token is. If the next token is "=>" it means this is a
+# lambda, so we tell the parser to reduce "PARAMS2 -> id". Otherwise this is a
+# regular id surrounded by parenthesis in which case we tell the parser to
+# reduce "AC -> id". This is done as a special action in Java.
+
+	id	=>	(	)	?	:	||	&&	|	^	&	==	===	!=	!==	<=	<	>	>=	in	instof	<<	>>	>>>	+	-	*	/	%	not	~	typeof	void	[	]	.	new	num	str	true	false	undefined	null	nan	inf	regex	{	}	,	$	E'	E	LO	LA	BO	BX	BA	EQ	REL	SFT	AD	MUL	UNR	CALL	NEW	AC	VAL	ARGS	ARGS2	PROPS	PROPS2	PROP	PARAMS	PARAMS2
+0	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	1	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+1	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	acc
+2	 	s37	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	 	 	 	 	r57	r57	r57	 	 	 	 	 	 	 	 	 	 	 	r57	r57	r57
+3	s41	 	s3	r80	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	39	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25	 	 	 	 	 	38	40
+4	 	 	 	r4	s42	r4	s43	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r4	 	 	 	 	 	 	 	 	 	 	 	 	r4	r4	r4
+5	 	 	 	r6	r6	r6	r6	s44	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r6	 	 	 	 	 	 	 	 	 	 	 	 	r6	r6	r6
+6	 	 	 	r8	r8	r8	r8	r8	s45	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r8	 	 	 	 	 	 	 	 	 	 	 	 	r8	r8	r8
+7	 	 	 	r10	r10	r10	r10	r10	r10	s46	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r10	 	 	 	 	 	 	 	 	 	 	 	 	r10	r10	r10
+8	 	 	 	r12	r12	r12	r12	r12	r12	r12	s47	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r12	 	 	 	 	 	 	 	 	 	 	 	 	r12	r12	r12
+9	 	 	 	r14	r14	r14	r14	r14	r14	r14	r14	s48	s49	s50	s51	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r14	 	 	 	 	 	 	 	 	 	 	 	 	r14	r14	r14
+10	 	 	 	r19	r19	r19	r19	r19	r19	r19	r19	r19	r19	r19	r19	s52	s53	s54	s55	s56	s57	 	 	 	 	 	 	 	 	 	 	 	 	 	r19	 	 	 	 	 	 	 	 	 	 	 	 	r19	r19	r19
+11	 	 	 	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	r26	s58	s59	s60	 	 	 	 	 	 	 	 	 	 	r26	 	 	 	 	 	 	 	 	 	 	 	 	r26	r26	r26
+12	 	 	 	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	r30	s61	s62	 	 	 	 	 	 	 	 	r30	 	 	 	 	 	 	 	 	 	 	 	 	r30	r30	r30
+13	 	 	 	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	r33	s63	s64	s65	 	 	 	 	 	r33	 	 	 	 	 	 	 	 	 	 	 	 	r33	r33	r33
+14	 	 	 	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	r37	 	 	 	 	 	r37	 	 	 	 	 	 	 	 	 	 	 	 	r37	r37	r37
+15	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	66	21	22	23	25
+16	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	69	21	22	23	25
+17	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	70	21	22	23	25
+18	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	71	21	22	23	25
+19	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	72	21	22	23	25
+20	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	73	21	22	23	25
+21	 	 	s74	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	r44	 	 	 	 	s75	r44	s76	 	 	 	 	 	 	 	 	 	 	 	r44	r44	r44
+22	 	 	 	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	r45	 	 	 	 	 	r45	 	 	 	 	 	 	 	 	 	 	 	 	r45	r45	r45
+23	 	 	s77	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	r51	 	 	 	 	s78	r51	s79	 	 	 	 	 	 	 	 	 	 	 	r51	r51	r51
+24	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s35	 	 	s81	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	80	25
+25	 	 	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	r55	 	 	 	 	r55	r55	r55	 	 	 	 	 	 	 	 	 	 	 	r55	r55	r55
+26	 	 	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	r58	 	 	 	 	r58	r58	r58	 	 	 	 	 	 	 	 	 	 	 	r58	r58	r58
+27	 	 	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	r59	 	 	 	 	r59	r59	r59	 	 	 	 	 	 	 	 	 	 	 	r59	r59	r59
+28	 	 	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	r60	 	 	 	 	r60	r60	r60	 	 	 	 	 	 	 	 	 	 	 	r60	r60	r60
+29	 	 	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	r61	 	 	 	 	r61	r61	r61	 	 	 	 	 	 	 	 	 	 	 	r61	r61	r61
+30	 	 	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	 	 	 	 	r62	r62	r62	 	 	 	 	 	 	 	 	 	 	 	r62	r62	r62
+31	 	 	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	r63	 	 	 	 	r63	r63	r63	 	 	 	 	 	 	 	 	 	 	 	r63	r63	r63
+32	 	 	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	r64	 	 	 	 	r64	r64	r64	 	 	 	 	 	 	 	 	 	 	 	r64	r64	r64
+33	 	 	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	r65	 	 	 	 	r65	r65	r65	 	 	 	 	 	 	 	 	 	 	 	r65	r65	r65
+34	 	 	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	r66	 	 	 	 	r66	r66	r66	 	 	 	 	 	 	 	 	 	 	 	r66	r66	r66
+35	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	r70	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	84	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25	82	83
+36	s89	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s88	 	 	 	 	 	 	 	 	r74	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	85	86	87
+37	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	90	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+38	 	 	 	s91
+39	 	 	 	s92
+40	 	 	 	r79	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s93
+41	 	s37	r57	r57	r57	 	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	 	 	 	 	r57	 	r57	 	 	 	 	 	 	 	 	 	 	 	 	r82
+42	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	94	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+43	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	95	6	7	8	9	10	11	12	13	14	21	22	23	25
+44	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	96	7	8	9	10	11	12	13	14	21	22	23	25
+45	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	97	8	9	10	11	12	13	14	21	22	23	25
+46	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	98	9	10	11	12	13	14	21	22	23	25
+47	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	99	10	11	12	13	14	21	22	23	25
+48	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	100	11	12	13	14	21	22	23	25
+49	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	101	11	12	13	14	21	22	23	25
+50	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	102	11	12	13	14	21	22	23	25
+51	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	103	11	12	13	14	21	22	23	25
+52	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	104	12	13	14	21	22	23	25
+53	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	105	12	13	14	21	22	23	25
+54	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	106	12	13	14	21	22	23	25
+55	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	107	12	13	14	21	22	23	25
+56	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	108	12	13	14	21	22	23	25
+57	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	109	12	13	14	21	22	23	25
+58	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	110	13	14	21	22	23	25
+59	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	111	13	14	21	22	23	25
+60	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	112	13	14	21	22	23	25
+61	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	113	14	21	22	23	25
+62	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	114	14	21	22	23	25
+63	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	115	21	22	23	25
+64	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	116	21	22	23	25
+65	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	117	21	22	23	25
+66	 	 	 	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	r38	 	 	 	 	 	r38	 	 	 	 	 	 	 	 	 	 	 	 	r38	r38	r38
+67	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	39	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+68	 	 	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	r57	 	 	 	 	r57	r57	r57	 	 	 	 	 	 	 	 	 	 	 	r57	r57	r57
+69	 	 	 	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	r39	 	 	 	 	 	r39	 	 	 	 	 	 	 	 	 	 	 	 	r39	r39	r39
+70	 	 	 	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	r40	 	 	 	 	 	r40	 	 	 	 	 	 	 	 	 	 	 	 	r40	r40	r40
+71	 	 	 	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	r41	 	 	 	 	 	r41	 	 	 	 	 	 	 	 	 	 	 	 	r41	r41	r41
+72	 	 	 	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	r42	 	 	 	 	 	r42	 	 	 	 	 	 	 	 	 	 	 	 	r42	r42	r42
+73	 	 	 	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	r43	 	 	 	 	 	r43	 	 	 	 	 	 	 	 	 	 	 	 	r43	r43	r43
+74	s2	 	s3	r70	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	84	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25	118	83
+75	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	119	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+76	s120
+77	s2	 	s3	r70	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	84	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25	121	83
+78	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	122	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+79	s123
+80	 	 	s124	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	r50	 	 	 	 	s78	r50	s79	 	 	 	 	 	 	 	 	 	 	 	r50	r50	r50
+81	s68	 	s67	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s35	 	 	s81	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	125	25
+82	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s126
+83	 	 	 	r69	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r69	 	 	 	 	 	 	 	 	 	 	 	 	 	s127
+84	 	 	 	r72	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r72	 	 	 	 	 	 	 	 	 	 	 	 	 	r72
+85	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s128
+86	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r73	s129
+87	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r76	r76
+88	 	 	 	 	 	s130
+89	 	 	 	 	 	s131
+90	 	 	 	r1	 	r1	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r1	 	 	 	 	 	 	 	 	 	 	 	 	r1	r1	r1
+91	 	s132
+92	 	 	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	r56	 	 	 	 	r56	r56	r56	 	 	 	 	 	 	 	 	 	 	 	r56	r56	r56
+93	s133
+94	 	 	 	 	 	s134
+95	 	 	 	r5	r5	r5	r5	s44	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r5	 	 	 	 	 	 	 	 	 	 	 	 	r5	r5	r5
+96	 	 	 	r7	r7	r7	r7	r7	s45	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r7	 	 	 	 	 	 	 	 	 	 	 	 	r7	r7	r7
+97	 	 	 	r9	r9	r9	r9	r9	r9	s46	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r9	 	 	 	 	 	 	 	 	 	 	 	 	r9	r9	r9
+98	 	 	 	r11	r11	r11	r11	r11	r11	r11	s47	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r11	 	 	 	 	 	 	 	 	 	 	 	 	r11	r11	r11
+99	 	 	 	r13	r13	r13	r13	r13	r13	r13	r13	s48	s49	s50	s51	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r13	 	 	 	 	 	 	 	 	 	 	 	 	r13	r13	r13
+100	 	 	 	r15	r15	r15	r15	r15	r15	r15	r15	r15	r15	r15	r15	s52	s53	s54	s55	s56	s57	 	 	 	 	 	 	 	 	 	 	 	 	 	r15	 	 	 	 	 	 	 	 	 	 	 	 	r15	r15	r15
+101	 	 	 	r16	r16	r16	r16	r16	r16	r16	r16	r16	r16	r16	r16	s52	s53	s54	s55	s56	s57	 	 	 	 	 	 	 	 	 	 	 	 	 	r16	 	 	 	 	 	 	 	 	 	 	 	 	r16	r16	r16
+102	 	 	 	r17	r17	r17	r17	r17	r17	r17	r17	r17	r17	r17	r17	s52	s53	s54	s55	s56	s57	 	 	 	 	 	 	 	 	 	 	 	 	 	r17	 	 	 	 	 	 	 	 	 	 	 	 	r17	r17	r17
+103	 	 	 	r18	r18	r18	r18	r18	r18	r18	r18	r18	r18	r18	r18	s52	s53	s54	s55	s56	s57	 	 	 	 	 	 	 	 	 	 	 	 	 	r18	 	 	 	 	 	 	 	 	 	 	 	 	r18	r18	r18
+104	 	 	 	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	r20	s58	s59	s60	 	 	 	 	 	 	 	 	 	 	r20	 	 	 	 	 	 	 	 	 	 	 	 	r20	r20	r20
+105	 	 	 	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	r21	s58	s59	s60	 	 	 	 	 	 	 	 	 	 	r21	 	 	 	 	 	 	 	 	 	 	 	 	r21	r21	r21
+106	 	 	 	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	r22	s58	s59	s60	 	 	 	 	 	 	 	 	 	 	r22	 	 	 	 	 	 	 	 	 	 	 	 	r22	r22	r22
+107	 	 	 	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	r23	s58	s59	s60	 	 	 	 	 	 	 	 	 	 	r23	 	 	 	 	 	 	 	 	 	 	 	 	r23	r23	r23
+108	 	 	 	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	r24	s58	s59	s60	 	 	 	 	 	 	 	 	 	 	r24	 	 	 	 	 	 	 	 	 	 	 	 	r24	r24	r24
+109	 	 	 	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	r25	s58	s59	s60	 	 	 	 	 	 	 	 	 	 	r25	 	 	 	 	 	 	 	 	 	 	 	 	r25	r25	r25
+110	 	 	 	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	r27	s61	s62	 	 	 	 	 	 	 	 	r27	 	 	 	 	 	 	 	 	 	 	 	 	r27	r27	r27
+111	 	 	 	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	r28	s61	s62	 	 	 	 	 	 	 	 	r28	 	 	 	 	 	 	 	 	 	 	 	 	r28	r28	r28
+112	 	 	 	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	r29	s61	s62	 	 	 	 	 	 	 	 	r29	 	 	 	 	 	 	 	 	 	 	 	 	r29	r29	r29
+113	 	 	 	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	r31	s63	s64	s65	 	 	 	 	 	r31	 	 	 	 	 	 	 	 	 	 	 	 	r31	r31	r31
+114	 	 	 	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	r32	s63	s64	s65	 	 	 	 	 	r32	 	 	 	 	 	 	 	 	 	 	 	 	r32	r32	r32
+115	 	 	 	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	r34	 	 	 	 	 	r34	 	 	 	 	 	 	 	 	 	 	 	 	r34	r34	r34
+116	 	 	 	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	r35	 	 	 	 	 	r35	 	 	 	 	 	 	 	 	 	 	 	 	r35	r35	r35
+117	 	 	 	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	r36	 	 	 	 	 	r36	 	 	 	 	 	 	 	 	 	 	 	 	r36	r36	r36
+118	 	 	 	s135
+119	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s136
+120	 	 	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	r49	 	 	 	 	r49	r49	r49	 	 	 	 	 	 	 	 	 	 	 	r49	r49	r49
+121	 	 	 	s137
+122	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s138
+123	 	 	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	r53	 	 	 	 	r53	r53	r53	 	 	 	 	 	 	 	 	 	 	 	r53	r53	r53
+124	s2	 	s3	r70	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	84	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25	139	83
+125	 	 	s124	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s78	 	s79
+126	 	 	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	r67	 	 	 	 	r67	r67	r67	 	 	 	 	 	 	 	 	 	 	 	r67	r67	r67
+127	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	140	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+128	 	 	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	r68	 	 	 	 	r68	r68	r68	 	 	 	 	 	 	 	 	 	 	 	r68	r68	r68
+129	s89	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s88	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	141
+130	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	142	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+131	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	143	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+132	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	144	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+133	 	 	 	r81	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r81
+134	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s35	 	 	s24	s26	s27	s28	s29	s30	s31	s32	s33	s34	s36	 	 	 	 	145	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+135	 	 	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	 	 	 	 	r47	r47	r47	 	 	 	 	 	 	 	 	 	 	 	r47	r47	r47
+136	 	 	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	r48	 	 	 	 	r48	r48	r48	 	 	 	 	 	 	 	 	 	 	 	r48	r48	r48
+137	 	 	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	r46	 	 	 	 	r46	r46	r46	 	 	 	 	 	 	 	 	 	 	 	r46	r46	r46
+138	 	 	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	r52	 	 	 	 	r52	r52	r52	 	 	 	 	 	 	 	 	 	 	 	r52	r52	r52
+139	 	 	 	s146
+140	 	 	 	r71	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r71	 	 	 	 	 	 	 	 	 	 	 	 	 	r71
+141	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r75	r75
+142	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r77	r77
+143	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r78	r78
+144	 	 	 	r2	 	r2	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r2	 	 	 	 	 	 	 	 	 	 	 	 	r2	r2	r2
+145	 	 	 	r3	 	r3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r3	 	 	 	 	 	 	 	 	 	 	 	 	r3	r3	r3
+146	 	 	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	r54	 	 	 	 	r54	r54	r54	 	 	 	 	 	 	 	 	 	 	 	r54	r54	r54
