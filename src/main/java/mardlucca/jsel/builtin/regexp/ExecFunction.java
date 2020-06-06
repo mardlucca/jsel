@@ -26,9 +26,6 @@ import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELRegExp;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,34 +35,29 @@ import static mardlucca.jsel.type.JSELRegExp.GLOBAL;
 import static mardlucca.jsel.type.JSELRegExp.LAST_INDEX;
 import static java.util.Arrays.stream;
 
-public class ExecFunction extends JSELFunction
-{
+public class ExecFunction extends JSELFunction {
     public static final String EXEC = "exec";
     private static final String INDEX = "index";
     private static final String INPUT = "input";
 
-    public ExecFunction()
-    {
+    public ExecFunction() {
         super(EXEC, null);
     }
 
     @Override
     public JSELValue call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (!aInThisValue.isObjectCoercible()
                 || !aInThisValue.toObject().getObjectClass().equals(
-                JSELRegExp.CLASS))
-        {
-            throw JSELRuntimeException.typeError("RegExp.prototype.exec called on " +
+                JSELRegExp.CLASS)) {
+            throw typeError("RegExp.prototype.exec called on " +
                     "incompatible receiver " + aInThisValue);
         }
 
         String lString = getArgument(aInArguments).toString();
         MatchResult lMatchResult = exec(aInThisValue.toObject(), lString);
 
-        if (lMatchResult == null)
-        {
+        if (lMatchResult == null) {
             return JSELNull.getInstance();
         }
 
@@ -83,23 +75,19 @@ public class ExecFunction extends JSELFunction
         return lReturn;
     }
 
-    public static MatchResult exec(JSELObject aInThis, String aInString)
-    {
-        int lLastIndex = aInThis.get(JSELRegExp.LAST_INDEX).toInteger();
-        boolean lGlobal = aInThis.get(JSELRegExp.GLOBAL).toBoolean();
-        if (!lGlobal)
-        {
+    public static MatchResult exec(JSELObject aInThis, String aInString) {
+        int lLastIndex = aInThis.get(LAST_INDEX).toInteger();
+        boolean lGlobal = aInThis.get(GLOBAL).toBoolean();
+        if (!lGlobal) {
             lLastIndex = 0;
         }
 
         MatchResult lMatchResult = aInThis.match(aInString, lLastIndex);
-        if (lMatchResult == null)
-        {
-            aInThis.put(JSELRegExp.LAST_INDEX, new JSELNumber(0));
+        if (lMatchResult == null) {
+            aInThis.put(LAST_INDEX, new JSELNumber(0));
         }
-        else if (lGlobal)
-        {
-            aInThis.put(JSELRegExp.LAST_INDEX, new JSELNumber(lMatchResult.getEnd()));
+        else if (lGlobal) {
+            aInThis.put(LAST_INDEX, new JSELNumber(lMatchResult.getEnd()));
         }
 
         return lMatchResult;

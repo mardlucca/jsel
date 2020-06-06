@@ -29,40 +29,33 @@ import mardlucca.jsel.type.*;
 import java.util.Collections;
 import java.util.List;
 
-public class UnshiftFunction extends JSELFunction
-{
+public class UnshiftFunction extends JSELFunction {
     public static final String SPLICE = "unshift";
 
-    public UnshiftFunction()
-    {
+    public UnshiftFunction() {
         super(SPLICE, Collections.singletonList("items"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
         int lArgCount = aInArguments.size();
 
-        for (int i = lLength - 1; i >= 0; i--)
-        {
+        for (int i = lLength - 1; i >= 0; i--) {
             String lFrom = String.valueOf(i);
             String lTo = String.valueOf(i + lArgCount);
-            if (lThis.hasProperty(lFrom))
-            {
+            if (lThis.hasProperty(lFrom)) {
                 lThis.put(lTo, lThis.get(lFrom));
             }
-            else
-            {
+            else {
                 lThis.delete(lTo);
             }
 
         }
 
-        for (int i = 0; i < lArgCount; i++)
-        {
+        for (int i = 0; i < lArgCount; i++) {
             lThis.put(String.valueOf(i), getArgument(aInArguments, i));
         }
 

@@ -30,28 +30,24 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class GetOwnPropertyDescriptorFunction extends JSELFunction
-{
+public class GetOwnPropertyDescriptorFunction extends JSELFunction {
     public static final String GET_OWN_PROPERTY_DESCRIPTOR =
             "getOwnPropertyDescriptor";
     public static final String CONFIGURABLE = "configurable";
     public static final String ENUMERABLE = "enumerable";
     public static final String WRITABLE = "writable";
 
-    public GetOwnPropertyDescriptorFunction()
-    {
+    public GetOwnPropertyDescriptorFunction() {
         super(GET_OWN_PROPERTY_DESCRIPTOR, asList("o", "propertyKey"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         PropertyDescriptor lDescriptor =
                 getArgument(aInArguments).toObject().getOwnProperty(
                         getArgument(aInArguments, 1).toString());
-        if (lDescriptor == null)
-        {
+        if (lDescriptor == null) {
             return JSELUndefined.getInstance();
         }
 

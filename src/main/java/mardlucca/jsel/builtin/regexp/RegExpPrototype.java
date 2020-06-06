@@ -26,16 +26,13 @@ import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 import static mardlucca.jsel.builtin.regexp.ExecFunction.EXEC;
 import static mardlucca.jsel.builtin.regexp.TestFunction.TEST;
 
-public class RegExpPrototype extends JSELRegExp
-{
+public class RegExpPrototype extends JSELRegExp {
     public RegExpPrototype(
-            ObjectPrototype aInPrototype)
-    {
+            ObjectPrototype aInPrototype) {
         super(aInPrototype, null, null);
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         defineOwnProperty(CONSTRUCTOR_PROPERTY, new RegExpConstructor(),
                 false, true, true);
 

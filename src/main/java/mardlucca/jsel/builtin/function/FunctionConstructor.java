@@ -41,10 +41,8 @@ import java.util.stream.Collectors;
 
 import static mardlucca.jsel.JSELRuntimeException.syntaxError;
 
-public class FunctionConstructor extends JSELFunction
-{
-    public FunctionConstructor()
-    {
+public class FunctionConstructor extends JSELFunction {
+    public FunctionConstructor() {
         super(JSELFunction.CLASS, Collections.singletonList("body"));
 
         defineOwnProperty(
@@ -54,33 +52,27 @@ public class FunctionConstructor extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         return instantiate(aInArguments, aInExecutionContext);
     }
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-                                  ExecutionContext aInExecutionContext)
-    {
-        try
-        {
+                                  ExecutionContext aInExecutionContext) {
+        try {
             JSELExpression lFunctionExpression =
                     JSELExpression.compile(getFunctionDefinition(aInArguments));
 
             return lFunctionExpression.execute(aInExecutionContext).toObject();
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             // this should never happen
             throw new JSELRuntimeException("Runtime error");
         }
-        catch (UnrecognizedCharacterSequenceException e)
-        {
+        catch (UnrecognizedCharacterSequenceException e) {
             throw JSELRuntimeException.syntaxError("Unexpected token " + e.getSequence());
         }
-        catch (JSELCompilationException e)
-        {
+        catch (JSELCompilationException e) {
             throw JSELRuntimeException.syntaxError("Unexpected token " + e.getMessage());
         }
     }
@@ -90,8 +82,7 @@ public class FunctionConstructor extends JSELFunction
      * @return
      */
     private static String getFunctionDefinition(
-            List<JSELValue> aInArguments)
-    {
+            List<JSELValue> aInArguments) {
         int lNumParams = aInArguments.size() < 2 ? 0 : aInArguments.size() - 1;
 
         String lParams = aInArguments.stream()

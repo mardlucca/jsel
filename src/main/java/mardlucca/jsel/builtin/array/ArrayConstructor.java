@@ -31,10 +31,8 @@ import java.util.List;
 
 import static jdk.nashorn.internal.runtime.ECMAErrors.rangeError;
 
-public class ArrayConstructor extends JSELFunction
-{
-    public ArrayConstructor()
-    {
+public class ArrayConstructor extends JSELFunction {
+    public ArrayConstructor() {
         super(JSELArray.CLASS, Collections.singletonList("len"));
 
         defineOwnProperty(
@@ -44,29 +42,24 @@ public class ArrayConstructor extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         return instantiate(aInArguments, aInExecutionContext);
     }
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-                                  ExecutionContext aInExecutionContext)
-    {
-        if (aInArguments.size() != 1)
-        {
+                                  ExecutionContext aInExecutionContext) {
+        if (aInArguments.size() != 1) {
             return new JSELArray(aInArguments);
         }
 
         JSELValue lLength = getArgument(aInArguments);
-        if (lLength.getType() != Type.NUMBER)
-        {
+        if (lLength.getType() != Type.NUMBER) {
             return new JSELArray(aInArguments);
         }
 
         int lIndex = lLength.toInteger();
-        if (lIndex < 0)
-        {
+        if (lIndex < 0) {
             throw rangeError(lLength.toString());
         }
 

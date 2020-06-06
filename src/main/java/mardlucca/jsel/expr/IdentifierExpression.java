@@ -21,18 +21,15 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELValue;
 
-public class IdentifierExpression implements JSELExpression
-{
+public class IdentifierExpression implements JSELExpression {
     private String identifier;
 
-    public IdentifierExpression(String aInIdentifier)
-    {
+    public IdentifierExpression(String aInIdentifier) {
         identifier = aInIdentifier;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         return aInContext.resolve(identifier);
     }
 }

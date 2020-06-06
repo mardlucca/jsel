@@ -29,40 +29,33 @@ import mardlucca.jsel.type.*;
 
 import java.util.List;
 
-public class ShiftFunction extends JSELFunction
-{
+public class ShiftFunction extends JSELFunction {
     public static final String SHIFT = "shift";
 
 
-    public ShiftFunction()
-    {
+    public ShiftFunction() {
         super(SHIFT, null);
     }
 
     @Override
     public JSELValue call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
-        if (lLength == 0)
-        {
+        if (lLength == 0) {
             // puts the numerical number in
             lThis.put(JSELArray.LENGTH, new JSELNumber(0));
             return JSELUndefined.getInstance();
         }
 
-        for (int i = 1; i < lLength; i++)
-        {
+        for (int i = 1; i < lLength; i++) {
             String lFrom = String.valueOf(i);
             String lTo = String.valueOf(i - 1);
             boolean lFromPresent = lThis.hasProperty(lFrom);
-            if (lFromPresent)
-            {
+            if (lFromPresent) {
                 lThis.put(lTo, lThis.get(lFrom));
             }
-            else
-            {
+            else {
                 lThis.delete(lTo);
             }
         }

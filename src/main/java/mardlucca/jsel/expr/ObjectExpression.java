@@ -27,17 +27,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ObjectExpression implements JSELExpression
-{
+public class ObjectExpression implements JSELExpression {
     private Map<String, JSELExpression> propertyExpressions = new HashMap<>();
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         JSELObject lNewObject = new JSELObject();
         for (Map.Entry<String, JSELExpression> lEntry :
-                propertyExpressions.entrySet())
-        {
+                propertyExpressions.entrySet()) {
             lNewObject.put(
                     lEntry.getKey(),
                     lEntry.getValue().execute(aInContext));
@@ -45,8 +42,7 @@ public class ObjectExpression implements JSELExpression
         return lNewObject;
     }
 
-    public Object add(Pair<String, JSELExpression> aInValue)
-    {
+    public Object add(Pair<String, JSELExpression> aInValue) {
         propertyExpressions.put(aInValue.getKey(), aInValue.getValue());
         return this;
     }

@@ -17,16 +17,35 @@
  */
 package mardlucca.jsel.type;
 
-public class JSELDate extends JSELObject
-{
-    @Override
-    protected JSELValue defaultValue(GetHint aInHint)
-    {
-        // if type is Date and no hint, convert to String
-        // see http://www.ecma-international.org/ecma-262/5.1/#sec-8.12.8
+import mardlucca.jsel.type.JSELValue.GetHint;
 
+/**
+ * This represents the Date object type in JSEL.
+ */
+public class JSELDate extends JSELObject {
+    /**
+     * Constant used for the internal [[Class]] property for objects of this
+     * type.
+     */
+    public static final String CLASS = "Date";
+
+    /**
+     * Converts this Date value to a primitive.
+     * @param aInHint a hint to use in the conversion. If not specified,
+     *                GetHint.STRING is used.
+     * @return the default/primitive value.
+     * @see <a href="https://www.ecma-international.org/ecma-262/5.1/#sec-8.12.8">
+     * ECMA-262, 5.1, Section 8.12.8"</a>
+     */
+    @Override
+    protected JSELValue defaultValue(GetHint aInHint) {
         return aInHint == null ?
                 defaultValue(GetHint.STRING) :
                 super.defaultValue(aInHint);
+    }
+
+    @Override
+    public String getObjectClass() {
+        return CLASS;
     }
 }

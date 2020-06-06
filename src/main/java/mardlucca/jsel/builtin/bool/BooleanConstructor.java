@@ -33,10 +33,8 @@ import mardlucca.jsel.type.wrapper.JSELBooleanObject;
 import java.util.Collections;
 import java.util.List;
 
-public class BooleanConstructor extends JSELFunction
-{
-    public BooleanConstructor()
-    {
+public class BooleanConstructor extends JSELFunction {
+    public BooleanConstructor() {
         super(JSELBooleanObject.CLASS, Collections.singletonList("value"));
 
         defineOwnProperty(
@@ -46,8 +44,7 @@ public class BooleanConstructor extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         return getArgument(aInArguments).toBoolean()
                 ? JSELBoolean.TRUE
                 : JSELBoolean.FALSE;
@@ -55,8 +52,7 @@ public class BooleanConstructor extends JSELFunction
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-                                  ExecutionContext aInExecutionContext)
-    {
+                                  ExecutionContext aInExecutionContext) {
         return new JSELBooleanObject(getArgument(aInArguments));
     }
 }

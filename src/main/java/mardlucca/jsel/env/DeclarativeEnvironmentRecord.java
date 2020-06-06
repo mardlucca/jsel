@@ -23,29 +23,24 @@ import mardlucca.jsel.type.JSELValue;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DeclarativeEnvironmentRecord extends EnvironmentRecord
-{
+public class DeclarativeEnvironmentRecord extends EnvironmentRecord {
     private Map<String, JSELValue> bindings = new HashMap<>();
 
-    public DeclarativeEnvironmentRecord()
-    {
+    public DeclarativeEnvironmentRecord() {
     }
 
     public DeclarativeEnvironmentRecord(
-            EnvironmentRecord aInOuter)
-    {
+            EnvironmentRecord aInOuter) {
         super(aInOuter);
     }
 
     @Override
-    public void bind(String aInIdentifier, JSELValue aInValue)
-    {
+    public void bind(String aInIdentifier, JSELValue aInValue) {
         bindings.put(aInIdentifier, aInValue.getValue());
     }
 
     @Override
-    protected JSELValue resolveOwn(String aInIdentifier)
-    {
+    protected JSELValue resolveOwn(String aInIdentifier) {
         return bindings.get(aInIdentifier);
     }
 }

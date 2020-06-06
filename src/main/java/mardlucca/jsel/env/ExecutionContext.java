@@ -25,8 +25,7 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.Stack;
 
-public class ExecutionContext
-{
+public class ExecutionContext {
     private static final ThreadLocal<ExecutionContext> contextThreadLocal =
             new ThreadLocal<>();
 
@@ -37,125 +36,101 @@ public class ExecutionContext
     private Stack<JSELObject> thisBindings = new Stack<>();
     private GlobalObject globalObject = new GlobalObject();
 
-    public ExecutionContext()
-    {
+    public ExecutionContext() {
         setAsThreadContext();
-        try
-        {
+        try {
             globalObject.initialize();
         }
-        finally
-        {
+        finally {
             clearThreadContext();
         }
         push(new ObjectEnvironmentRecord(globalObject), globalObject);
     }
 
-    public GlobalObject getGlobalObject()
-    {
+    public GlobalObject getGlobalObject() {
         return globalObject;
     }
 
-    public EnvironmentRecord getEnvironmentRecord()
-    {
+    public EnvironmentRecord getEnvironmentRecord() {
         return environmentRecords.peek();
     }
 
-    public JSELObject getThisBinding()
-    {
+    public JSELObject getThisBinding() {
         return thisBindings.peek();
     }
 
-    public void push(EnvironmentRecord aInEnvironmentRecord)
-    {
+    public void push(EnvironmentRecord aInEnvironmentRecord) {
         push(aInEnvironmentRecord, getThisBinding());
     }
 
     public void push(
             EnvironmentRecord aInEnvironmentRecord,
-            JSELObject ainThisBinding)
-    {
+            JSELObject ainThisBinding) {
         environmentRecords.push(aInEnvironmentRecord);
         thisBindings.push(ainThisBinding);
     }
 
-    public void pop()
-    {
-        if (environmentRecords.size() > 1)
-        {
+    public void pop() {
+        if (environmentRecords.size() > 1) {
             environmentRecords.pop();
             thisBindings.pop();
         }
         // else, we never pop the bottom (global object and initial this bind)
     }
 
-    public void bind(String aInIdentifier, JSELValue aInValue)
-    {
+    public void bind(String aInIdentifier, JSELValue aInValue) {
         getEnvironmentRecord().bind(aInIdentifier, aInValue);
     }
 
-    public JSELValue resolve(String aInIdentifier)
-    {
+    public JSELValue resolve(String aInIdentifier) {
         return getEnvironmentRecord().resolve(aInIdentifier);
     }
 
-    public static ExecutionContext getGlobalContext()
-    {
+    public static ExecutionContext getGlobalContext() {
         return globalContext;
     }
 
-    public static ExecutionContext getThreadContext()
-    {
+    public static ExecutionContext getThreadContext() {
         return contextThreadLocal.get();
     }
 
-    public void setAsThreadContext()
-    {
+    public void setAsThreadContext() {
         contextThreadLocal.set(this);
     }
 
-    public static void clearThreadContext()
-    {
+    public static void clearThreadContext() {
         contextThreadLocal.remove();
     }
 
-    public static JSELObject getObjectPrototype()
-    {
+    public static JSELObject getObjectPrototype() {
         return getGlobalObjectFromContextOrDefault().getObjectPrototype();
     }
 
-    public static JSELObject getFunctionPrototype()
-    {
+    public static JSELObject getFunctionPrototype() {
         return getGlobalObjectFromContextOrDefault().getFunctionPrototype();
     }
 
-    public static JSELObject getBooleanPrototype()
-    {
+    public static JSELObject getBooleanPrototype() {
         return getGlobalObjectFromContextOrDefault().getBooleanPrototype();
     }
 
-    public static JSELObject getNumberPrototype()
-    {
+    public static JSELObject getNumberPrototype() {
         return getGlobalObjectFromContextOrDefault().getNumberPrototype();
     }
 
-    public static JSELObject getStringPrototype()
-    {
+    public static JSELObject getStringPrototype() {
         return getGlobalObjectFromContextOrDefault().getStringPrototype();
     }
 
-    public static JSELObject getArrayPrototype()
-    {
+    public static JSELObject getArrayPrototype() {
         return getGlobalObjectFromContextOrDefault().getArrayPrototype();
     }
 
-    public static JSELObject getRetExpPrototype()
-    {
+    public static JSELObject getRetExpPrototype() {
         return getGlobalObjectFromContextOrDefault().getRegExpPrototype();
     }
 
-    private static GlobalObject getGlobalObjectFromContextOrDefault()
-    {
+    private static GlobalObject getGlobalObjectFromContextOrDefault() {
         ExecutionContext lExecutionContext =
                 ExecutionContext.getThreadContext();
         return lExecutionContext == null

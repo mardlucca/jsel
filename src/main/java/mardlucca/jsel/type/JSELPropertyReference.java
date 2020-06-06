@@ -21,103 +21,106 @@ import mardlucca.jsel.env.ExecutionContext;
 
 import java.util.List;
 
-public class JSELPropertyReference extends JSELValue
-{
+/**
+ * This class represents a property reference. All operations done to a
+ * reference are delegated to the referenced value. Since JSEL cannot assign
+ * values to properties, references in the language do not implement
+ * [[PutValue]] internal method. Also, for the same reason, [[GetValue]] does
+ * not need to deal to references whose base point to an Environment Record.
+ */
+public class JSELPropertyReference extends JSELValue {
     private JSELValue base;
     private String propertyName;
     private JSELValue value;
 
+    /**
+     * Constructor
+     * @param aInBase the base object that contains the reference property
+     * @param aInPropertyName the referenced property name
+     */
     public JSELPropertyReference(
-            JSELValue aInBase, String aInPropertyName)
-    {
+            JSELValue aInBase, String aInPropertyName) {
         base = aInBase.getValue();  // we don't want base to be a reference
         propertyName = aInPropertyName;
-        value = base.toObject().get(propertyName);
+    }
+
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+    @Override
+    public boolean equals(Object aInValue) {
+        return getValue().equals(aInValue);
     }
 
     @Override
-    public boolean equals(Object aInValue)
-    {
-        return value.equals(aInValue);
+    public boolean equals(JSELValue aInValue) {
+        return getValue().equals(aInValue);
     }
 
     @Override
-    public boolean equals(JSELValue aInValue)
-    {
-        return value.equals(aInValue);
+    public Type getType() {
+        return getValue().getType();
     }
 
     @Override
-    public Type getType()
-    {
-        return value.getType();
+    public boolean isPrimitive() {
+        return getValue().isPrimitive();
     }
 
     @Override
-    public boolean isPrimitive()
-    {
-        return value.isPrimitive();
+    public boolean isCallable() {
+        return getValue().isCallable();
     }
 
     @Override
-    public boolean isCallable()
-    {
-        return value.isCallable();
+    public boolean strictEquals(JSELValue aInValue) {
+        return getValue().strictEquals(aInValue);
     }
 
     @Override
-    public boolean strictEquals(JSELValue aInValue)
-    {
-        return value.strictEquals(aInValue);
+    public boolean toBoolean() {
+        return getValue().toBoolean();
     }
 
     @Override
-    public boolean toBoolean()
-    {
-        return value.toBoolean();
+    public int toInt32() {
+        return getValue().toInt32();
     }
 
     @Override
-    public int toInt32()
-    {
-        return value.toInt32();
+    public double toNumber() {
+        return getValue().toNumber();
     }
 
     @Override
-    public double toNumber()
-    {
-        return value.toNumber();
+    public JSELValue toPrimitive(GetHint aInHint) {
+        return getValue().toPrimitive(aInHint);
     }
 
     @Override
-    public JSELValue toPrimitive(GetHint aInHint)
-    {
-        return value.toPrimitive(aInHint);
+    public JSELObject toObject() {
+        return getValue().toObject();
     }
 
     @Override
-    public JSELObject toObject()
-    {
-        return value.toObject();
+    public String toString() {
+        return getValue().toString();
     }
 
     @Override
-    public String toString()
-    {
-        return value.toString();
-    }
-
-    @Override
-    public long toUInt32()
-    {
-        return value.toUInt32();
+    public long toUInt32() {
+        return getValue().toUInt32();
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-            ExecutionContext aInExecutionContext)
-    {
-        return value.call(
+            ExecutionContext aInExecutionContext) {
+
+        // if they call a function using "obj1.function()", then "aInThis" will
+        // be null so this will call function "function" using "obj1" as the
+        // "this" object. If they call the same function using
+        // "obj1.function.call(obj2)" then "aInThis" will be "obj2", so this
+        // will use "obj2" as the "this" object in the invocation.
+
+        return getValue().call(
                 aInThis.getType() == Type.NULL
                         || aInThis.getType() == Type.UNDEFINED
                         ? base.toObject()
@@ -128,38 +131,35 @@ public class JSELPropertyReference extends JSELValue
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-            ExecutionContext aInExecutionContext)
-    {
-        return value.instantiate(aInArguments, aInExecutionContext);
+            ExecutionContext aInExecutionContext) {
+        return getValue().instantiate(aInArguments, aInExecutionContext);
     }
 
     @Override
-    public boolean isObjectClass(String aInString)
-    {
-        return value.isObjectClass(aInString);
+    public boolean isObjectClass(String aInString) {
+        return getValue().isObjectClass(aInString);
     }
 
     @Override
-    public MatchResult match(String aInString, int aInIndex)
-    {
-        return value.match(aInString, aInIndex);
+    public MatchResult match(String aInString, int aInIndex) {
+        return getValue().match(aInString, aInIndex);
     }
 
     @Override
-    public int toInteger()
-    {
-        return value.toInteger();
+    public int toInteger() {
+        return getValue().toInteger();
     }
 
     @Override
-    public boolean isReference()
-    {
+    public boolean isReference() {
         return true;
     }
 
     @Override
-    public JSELValue getValue()
-    {
+    public JSELValue getValue() {
+        if (value == null) {
+            value = base.toObject().get(propertyName);
+        }
         return value;
     }
 }

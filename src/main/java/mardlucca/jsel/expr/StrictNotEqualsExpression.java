@@ -22,19 +22,16 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.JSELValue;
 
-public class StrictNotEqualsExpression extends BinaryOperatorExpression
-{
+public class StrictNotEqualsExpression extends BinaryOperatorExpression {
     public StrictNotEqualsExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         super(aInFirstOperandExpression, aInSecondOperandExpression);
     }
 
     @Override
     protected JSELValue operate(JSELValue aInFirstOperand,
-                                JSELValue aInSecondOperand)
-    {
+                                JSELValue aInSecondOperand) {
         return new JSELBoolean(!aInFirstOperand.strictEquals(aInSecondOperand));
     }
 }

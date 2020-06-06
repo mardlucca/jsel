@@ -45,8 +45,7 @@ import mardlucca.jsel.type.wrapper.JSELStringObject;
 import static mardlucca.jsel.builtin.global.IsFiniteFunction.IS_FINITE;
 import static mardlucca.jsel.builtin.global.IsNaNFunction.IS_NAN;
 
-public class GlobalObject extends JSELObject
-{
+public class GlobalObject extends JSELObject {
     public static final String CLASS = "Global";
 
     public static final String NAN_PROPERTY = "NaN";
@@ -63,8 +62,7 @@ public class GlobalObject extends JSELObject
 
     private boolean initialized = false;
 
-    public GlobalObject()
-    {
+    public GlobalObject() {
         super(new ObjectPrototype());
         objectPrototype = (ObjectPrototype) getPrototype();
         functionPrototype = new FunctionPrototype(objectPrototype);
@@ -75,10 +73,8 @@ public class GlobalObject extends JSELObject
         regExpPrototype = new RegExpPrototype(objectPrototype);
     }
 
-    public void initialize()
-    {
-        if (!initialized)
-        {
+    public void initialize() {
+        if (!initialized) {
             objectPrototype.initialize();
             functionPrototype.initialize();
             booleanPrototype.initialize();
@@ -127,43 +123,35 @@ public class GlobalObject extends JSELObject
     }
 
     @Override
-    public String getObjectClass()
-    {
+    public String getObjectClass() {
         return CLASS;
     }
 
-    public JSELObject getObjectPrototype()
-    {
+    public JSELObject getObjectPrototype() {
         return objectPrototype;
     }
 
-    public JSELObject getFunctionPrototype()
-    {
+    public JSELObject getFunctionPrototype() {
         return functionPrototype;
     }
 
-    public JSELObject getBooleanPrototype()
-    {
+    public JSELObject getBooleanPrototype() {
         return booleanPrototype;
     }
 
-    public JSELObject getNumberPrototype()
-    {
+    public JSELObject getNumberPrototype() {
         return numberPrototype;
     }
 
-    public JSELObject getStringPrototype()
-    {
+    public JSELObject getStringPrototype() {
         return stringPrototype;
     }
 
-    public JSELObject getArrayPrototype()
-    {
+    public JSELObject getArrayPrototype() {
         return arrayPrototype;
     }
 
-    public JSELObject getRegExpPrototype()
-    {
+    public JSELObject getRegExpPrototype() {
         return regExpPrototype;
     }
 }

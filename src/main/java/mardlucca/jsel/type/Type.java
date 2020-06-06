@@ -17,8 +17,27 @@
  */
 package mardlucca.jsel.type;
 
-public enum Type
-{
+import mardlucca.jsel.env.ExecutionContext;
+
+import java.util.List;
+
+/**
+ * These represent the six different date types in JSEL/ECMAScript 5.1.
+ * The spec also mentions reference types, list types and completion types, but
+ * those are not used in JSEL.
+ * <p>A {@link JSELPropertyReference reference type} in JSEL is a special case.
+ * The {@link JSELPropertyReference#getType() type of a reference} reported by
+ * JSEL is essentially the same type as the underlying property. To check if
+ * JSELValue is a reference you need to invoke method {@link JSELValue
+ * #isReference()}</p>
+ * <p>List types are note really concrete types, both in the spec and in JSEL.
+ * Whenever list types are needed in JSEL, an actual {@link java.util.List java
+ * list} is used in its place, which is the case, for example, in method {@link
+ * JSELFunction#call(JSELValue, List, ExecutionContext)}</p>
+ * <p>Finally, since JSEL does not implement ECMAScript 5.1 grammar syntax,
+ * completion types are not required.</p>
+ */
+public enum Type {
     OBJECT,
     NUMBER,
     STRING,
@@ -33,24 +52,31 @@ public enum Type
      * <p>See <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-8.2">
      *     Section 8.2 in ECMA 5.1 specs</a></p>
      */
-    NULL("object"),
-    FUNCTION;
+    NULL("object");
 
-    Type()
-    {
+    /**
+     * Constructor
+     */
+    Type() {
         typeOfText = name().toLowerCase();
     }
 
-    Type(String aInTypeOfText)
-    {
+    /**
+     * Constructor
+     * This takes the name of the type as a string, as output by the "typeOf"
+     * operator.
+     * @param aInTypeOfText the text used in the typeOf operator. Note that
+     *                      while "null" has it's unique data type, the typeOf
+     *                      operator outputs "object" for it, not sure why.
+     */
+    Type(String aInTypeOfText) {
         typeOfText = aInTypeOfText;
     }
 
     private String typeOfText;
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return typeOfText;
     }
 }

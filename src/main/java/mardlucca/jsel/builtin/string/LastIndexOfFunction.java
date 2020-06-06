@@ -33,22 +33,18 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class LastIndexOfFunction extends JSELFunction
-{
+public class LastIndexOfFunction extends JSELFunction {
     public static final String LAST_INDEX_OF = "lastIndexOf";
 
-    public LastIndexOfFunction()
-    {
+    public LastIndexOfFunction() {
         super(LAST_INDEX_OF);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.lastIndexOf called on null or undefined");
         }

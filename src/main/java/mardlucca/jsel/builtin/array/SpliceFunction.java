@@ -31,19 +31,16 @@ import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 import static java.util.Arrays.asList;
 
-public class SpliceFunction extends JSELFunction
-{
+public class SpliceFunction extends JSELFunction {
     public static final String SPLICE = "splice";
 
-    public SpliceFunction()
-    {
+    public SpliceFunction() {
         super(SPLICE, asList("start", "deleteCount"));
     }
 
     @Override
     public JSELArray call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
 
@@ -58,11 +55,9 @@ public class SpliceFunction extends JSELFunction
 
         // collect elements to return
         List<JSELValue> lArrayValues = new ArrayList<>();
-        for (int i = 0; i < lDeleteCount; i++)
-        {
+        for (int i = 0; i < lDeleteCount; i++) {
             String lFrom = String.valueOf(lStart + i);
-            if (lThis.hasProperty(lFrom))
-            {
+            if (lThis.hasProperty(lFrom)) {
                 lArrayValues.add(lThis.get(lFrom));
             }
         }
@@ -71,19 +66,15 @@ public class SpliceFunction extends JSELFunction
         // position the final items in the array to their final location,
         // leaving a gap for the new items.
 
-        if (lItemCount < lDeleteCount)
-        {
+        if (lItemCount < lDeleteCount) {
             // we're deleting more than we are inserting
-            for (int i = lStart; i < lLength - lDeleteCount; i++)
-            {
+            for (int i = lStart; i < lLength - lDeleteCount; i++) {
                 String lFrom = String.valueOf(i + lDeleteCount);
                 String lTo = String.valueOf(i + lItemCount);
-                if (lThis.hasProperty(lFrom))
-                {
+                if (lThis.hasProperty(lFrom)) {
                     lThis.put(lTo, lThis.get(lFrom));
                 }
-                else
-                {
+                else {
                     lThis.delete(lTo);
                 }
             }
@@ -91,25 +82,20 @@ public class SpliceFunction extends JSELFunction
             // remove tail items, as array is now smaller than it was originally
             for (int i = lLength - 1;
                     i >= lLength - lDeleteCount + lItemCount;
-                    i++)
-            {
+                    i++) {
                 lThis.delete(String.valueOf(i));
             }
         }
-        else if (lItemCount > lDeleteCount)
-        {
+        else if (lItemCount > lDeleteCount) {
             // number of new items is larger than original. We move the tail
             // out a little to leave enough space for the new items.
-            for (int i = lLength - lDeleteCount; i > lStart; i--)
-            {
+            for (int i = lLength - lDeleteCount; i > lStart; i--) {
                 String lFrom = String.valueOf(i + lDeleteCount - 1);
                 String lTo = String.valueOf(i + lItemCount -1 );
-                if (lThis.hasProperty(lFrom))
-                {
+                if (lThis.hasProperty(lFrom)) {
                     lThis.put(lTo, lThis.get(lFrom));
                 }
-                else
-                {
+                else {
                     lThis.delete(lTo);
                 }
             }
@@ -117,8 +103,7 @@ public class SpliceFunction extends JSELFunction
         }
 
         // finally, copy new items in
-        for (int i = 0; i < lItemCount; i++)
-        {
+        for (int i = 0; i < lItemCount; i++) {
             lThis.put(String.valueOf(lStart + i),
                     getArgument(aInArguments, 2 + i));
         }

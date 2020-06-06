@@ -26,29 +26,24 @@ import mardlucca.jsel.JSELRuntimeException;
 
 import java.util.List;
 
-public class ConcatFunction extends JSELFunction
-{
+public class ConcatFunction extends JSELFunction {
     public static final String CONCAT = "concat";
 
-    public ConcatFunction()
-    {
+    public ConcatFunction() {
         super(CONCAT);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.concat called on null or undefined");
         }
 
         StringBuilder lString = new StringBuilder(aInThis.toString());
-        for (JSELValue lArgument : aInArguments)
-        {
+        for (JSELValue lArgument : aInArguments) {
             lString.append(lArgument.toString());
         }
 

@@ -27,19 +27,16 @@ import mardlucca.jsel.util.DecimalFormat;
 import mardlucca.jsel.type.*;
 import mardlucca.jsel.util.DecimalFormat;
 
-public class JSELStringObject extends JSELPrimitiveWrapper
-{
+public class JSELStringObject extends JSELPrimitiveWrapper {
     public static final String LENGTH = "length";
 
     public static final String CLASS = "String";
 
-    public JSELStringObject(JSELValue aInPrimitive)
-    {
+    public JSELStringObject(JSELValue aInPrimitive) {
         this(ExecutionContext.getStringPrototype(), aInPrimitive);
     }
 
-    protected JSELStringObject(JSELObject aInPrototype, JSELValue aInPrimitive)
-    {
+    protected JSELStringObject(JSELObject aInPrototype, JSELValue aInPrimitive) {
         super((aInPrimitive != null && aInPrimitive.getType() == Type.STRING)
                 ? aInPrimitive
                 : aInPrimitive == null
@@ -55,27 +52,22 @@ public class JSELStringObject extends JSELPrimitiveWrapper
     }
 
     @Override
-    public String getObjectClass()
-    {
+    public String getObjectClass() {
         return CLASS;
     }
 
     @Override
-    public PropertyDescriptor getOwnProperty(String aInProperty)
-    {
+    public PropertyDescriptor getOwnProperty(String aInProperty) {
         PropertyDescriptor lDescriptor = super.getOwnProperty(aInProperty);
-        if (lDescriptor != null)
-        {
+        if (lDescriptor != null) {
             return lDescriptor;
         }
 
         long lNumber = JSELNumber.toInteger(DecimalFormat.parse(aInProperty));
-        if (aInProperty.equals(DecimalFormat.format(lNumber)))
-        {
+        if (aInProperty.equals(DecimalFormat.format(lNumber))) {
             // property is an index
             String lString = getPrimitiveValue().toString();
-            if (lNumber >= 0 && lNumber < lString.length())
-            {
+            if (lNumber >= 0 && lNumber < lString.length()) {
                 return new PropertyDescriptor(
                         new JSELString(String.valueOf(
                                 lString.charAt((int) lNumber))),

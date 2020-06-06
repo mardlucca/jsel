@@ -33,39 +33,31 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 
-public class ConcatFunction extends JSELFunction
-{
+public class ConcatFunction extends JSELFunction {
     public static final String CONCAT = "concat";
 
 
-    public ConcatFunction()
-    {
+    public ConcatFunction() {
         super(CONCAT, singletonList("items"));
     }
 
     @Override
     public JSELArray call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         List<JSELValue> lItems = new ArrayList<>();
 
-        for (JSELValue lElement : aInArguments)
-        {
-            if (lElement.isObjectClass(JSELArray.CLASS))
-            {
+        for (JSELValue lElement : aInArguments) {
+            if (lElement.isObjectClass(JSELArray.CLASS)) {
                 JSELObject lArray = lElement.toObject();
                 int lLength = lArray.get(JSELArray.LENGTH).toInteger();
-                for (int i = 0; i < lLength; i++)
-                {
+                for (int i = 0; i < lLength; i++) {
                     String lStringIndex = String.valueOf(i);
-                    if (lArray.hasProperty(lStringIndex))
-                    {
+                    if (lArray.hasProperty(lStringIndex)) {
                         lItems.add(lArray.get(lStringIndex));
                     }
                 }
             }
-            else
-            {
+            else {
                 lItems.add(lElement);
             }
         }

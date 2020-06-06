@@ -34,16 +34,13 @@ import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY
 import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 import static mardlucca.jsel.builtin.object.ValueOfFunction.VALUE_OF;
 
-public class BooleanPrototype extends JSELBooleanObject
-{
+public class BooleanPrototype extends JSELBooleanObject {
     public BooleanPrototype(
-            ObjectPrototype aInPrototype)
-    {
+            ObjectPrototype aInPrototype) {
         super(aInPrototype, JSELBoolean.FALSE);
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         put(ToStringFunction.TO_STRING, new DefaultToStringFunction(JSELBooleanObject.CLASS));
         put(ValueOfFunction.VALUE_OF, new DefaultValueOfFunction(JSELBooleanObject.CLASS));
 

@@ -35,24 +35,20 @@ import java.util.List;
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static mardlucca.jsel.builtin.regexp.ExecFunction.exec;
 
-public class TestFunction extends JSELFunction
-{
+public class TestFunction extends JSELFunction {
     public static final String TEST = "test";
 
 
-    public TestFunction()
-    {
+    public TestFunction() {
         super(TEST, null);
     }
 
     @Override
     public JSELBoolean call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                            ExecutionContext aInExecutionContext)
-    {
+                            ExecutionContext aInExecutionContext) {
         if (!aInThisValue.isObjectCoercible()
                 || !aInThisValue.toObject().getObjectClass().equals(
-                JSELRegExp.CLASS))
-        {
+                JSELRegExp.CLASS)) {
             throw JSELRuntimeException.typeError("RegExp.prototype.test called on " +
                     "incompatible receiver " + aInThisValue);
         }

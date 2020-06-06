@@ -31,10 +31,8 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public class RegExpConstructor extends JSELFunction
-{
-    public RegExpConstructor()
-    {
+public class RegExpConstructor extends JSELFunction {
+    public RegExpConstructor() {
         super(JSELRegExp.CLASS, asList("pattern", "flags"));
 
         defineOwnProperty(
@@ -44,16 +42,14 @@ public class RegExpConstructor extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELValue lPattern = getArgument(aInArguments, 0);
         JSELValue lFlags = getArgument(aInArguments, 1);
 
         if (lFlags.getType() == Type.UNDEFINED
                 && lPattern.getType() == Type.OBJECT
                 && lPattern.toObject().getObjectClass().equals(
-                        JSELRegExp.CLASS))
-        {
+                        JSELRegExp.CLASS)) {
             // pattern is a RegExp, so we return it directly
             return lPattern;
         }
@@ -63,8 +59,7 @@ public class RegExpConstructor extends JSELFunction
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-                                  ExecutionContext aInExecutionContext)
-    {
+                                  ExecutionContext aInExecutionContext) {
         JSELValue lPattern = getArgument(aInArguments, 0);
         JSELValue lFlags = getArgument(aInArguments, 1);
         String lFlagsString = lFlags.getType() == Type.UNDEFINED
@@ -73,13 +68,11 @@ public class RegExpConstructor extends JSELFunction
 
         if (lPattern.getType() == Type.OBJECT
                 && lPattern.toObject().getObjectClass().equals(
-                        JSELRegExp.CLASS))
-        {
+                        JSELRegExp.CLASS)) {
             JSELRegExp lRegExp = (JSELRegExp) lPattern;
             lPattern = new JSELString(lRegExp.getBody());
 
-            if (lFlags.getType() == Type.UNDEFINED)
-            {
+            if (lFlags.getType() == Type.UNDEFINED) {
                 // no flags specified so we pick the original ones. This is the
                 // behavior in chrome, which is different from ECMA 5. Maybe
                 // this is ECMA 6 behavior, which, in my mind, is better than

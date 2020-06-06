@@ -26,22 +26,18 @@ import mardlucca.jsel.JSELRuntimeException;
 
 import java.util.List;
 
-public class ToLowerCaseFunction extends JSELFunction
-{
+public class ToLowerCaseFunction extends JSELFunction {
     public static final String TO_LOWER_CASE = "toLowerCase";
 
-    public ToLowerCaseFunction()
-    {
+    public ToLowerCaseFunction() {
         super(TO_LOWER_CASE);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.toLowerCase called on null or undefined");
         }

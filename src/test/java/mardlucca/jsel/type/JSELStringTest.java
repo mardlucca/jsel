@@ -28,8 +28,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class JSELStringTest
-{
+public class JSELStringTest {
     private JSELString string = new JSELString("string");
     private JSELString trueString = new JSELString("true");
     private JSELString falseString = new JSELString("false");
@@ -41,8 +40,7 @@ public class JSELStringTest
     private JSELString emptyString = JSELString.EMPTY_STRING;
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         assertFalse(trueString.equals(JSELBoolean.TRUE));
         assertFalse(falseString.equals(JSELBoolean.FALSE));
         assertFalse(falseString.equals(JSELBoolean.TRUE));
@@ -77,53 +75,44 @@ public class JSELStringTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         assertEquals(Type.STRING, string.getType());
     }
 
     @Test
-    public void isPrimitive()
-    {
+    public void isPrimitive() {
         assertTrue(string.isPrimitive());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(string.isCallable());
     }
 
     @Test
-    public void isObjectClass()
-    {
+    public void isObjectClass() {
         assertFalse(string.isObjectClass(JSELStringObject.CLASS));
     }
 
     @Test
-    public void isReference()
-    {
+    public void isReference() {
         assertFalse(string.isReference());
     }
 
     @Test
-    public void call()
-    {
-        try
-        {
+    public void call() {
+        try {
             string.call(string.toObject(), null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("cannot invoke object of type string",
                     e.getMessage());
         }
     }
 
     @Test
-    public void strictEquals()
-    {
+    public void strictEquals() {
         assertFalse(trueString.strictEquals(JSELBoolean.TRUE));
         assertFalse(falseString.strictEquals(JSELBoolean.FALSE));
         assertFalse(falseString.strictEquals(JSELBoolean.TRUE));
@@ -157,8 +146,7 @@ public class JSELStringTest
     }
 
     @Test
-    public void toBoolean()
-    {
+    public void toBoolean() {
         assertTrue(trueString.toBoolean());
         assertTrue(falseString.toBoolean());
         assertFalse(emptyString.toBoolean());
@@ -166,8 +154,7 @@ public class JSELStringTest
     }
 
     @Test
-    public void toInt32()
-    {
+    public void toInt32() {
         assertEquals(0, zeroString.toInt32());
         assertEquals(1, oneString.toInt32());
         assertEquals(-1, negativeOneString.toInt32());
@@ -177,8 +164,7 @@ public class JSELStringTest
     }
 
     @Test
-    public void toInteger()
-    {
+    public void toInteger() {
         assertEquals(0, zeroString.toInteger());
         assertEquals(1, oneString.toInteger());
         assertEquals(-1, negativeOneString.toInteger());
@@ -188,8 +174,7 @@ public class JSELStringTest
     }
 
     @Test
-    public void toNumber()
-    {
+    public void toNumber() {
         assertEquals(0, zeroString.toNumber(), 0.0);
         assertEquals(1, oneString.toNumber(), 0.0);
         assertEquals(-1, negativeOneString.toNumber(), 0.0);
@@ -199,14 +184,12 @@ public class JSELStringTest
     }
 
     @Test
-    public void toPrimitive()
-    {
+    public void toPrimitive() {
         assertSame(string, string.toPrimitive(null));
     }
 
     @Test
-    public void toObject()
-    {
+    public void toObject() {
         assertSame(string, string.toObject().toPrimitive(null));
         assertEquals(Type.OBJECT, string.toObject().getType());
         assertEquals(JSELStringObject.CLASS,
@@ -214,14 +197,12 @@ public class JSELStringTest
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         assertEquals("string", string.toString());
     }
 
     @Test
-    public void toUInt32()
-    {
+    public void toUInt32() {
         assertEquals(0, zeroString.toUInt32());
         assertEquals(1, oneString.toUInt32());
         assertEquals(0xffffffffl, negativeOneString.toUInt32());
@@ -231,8 +212,7 @@ public class JSELStringTest
     }
 
     @Test
-    public void match()
-    {
+    public void match() {
         MatchResult lResult = string.match("string", 0);
         assertNotNull(lResult);
         assertEquals(0, lResult.getStart());
@@ -249,14 +229,12 @@ public class JSELStringTest
     }
 
     @Test
-    public void notMatch()
-    {
+    public void notMatch() {
         assertNull(string.match("string", 1));
         assertNull(string.match("rin", 3));
     }
 
-    private static JSELString pad(JSELString aInString)
-    {
+    private static JSELString pad(JSELString aInString) {
         return new JSELString("\n\t " + aInString + "\n\t ");
     }
 }

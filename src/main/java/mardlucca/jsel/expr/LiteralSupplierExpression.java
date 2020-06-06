@@ -27,19 +27,16 @@ import java.util.function.Supplier;
  * Explain nuance why supplier is required (need to instantiate at runtime to
  * pick the right execution context)
  */
-public class LiteralSupplierExpression implements JSELExpression
-{
+public class LiteralSupplierExpression implements JSELExpression {
     private Supplier<JSELValue> valueSupplier;
 
     public LiteralSupplierExpression(
-            Supplier<JSELValue> aInValueSupplier)
-    {
+            Supplier<JSELValue> aInValueSupplier) {
         valueSupplier = aInValueSupplier;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         return valueSupplier.get();
     }
 }

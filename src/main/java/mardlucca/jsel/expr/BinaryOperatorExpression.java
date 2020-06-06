@@ -21,22 +21,19 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELValue;
 
-public abstract class BinaryOperatorExpression implements JSELExpression
-{
+public abstract class BinaryOperatorExpression implements JSELExpression {
     protected JSELExpression firstOperandExpression;
     protected JSELExpression secondOperandExpression;
 
     public BinaryOperatorExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         firstOperandExpression = aInFirstOperandExpression;
         secondOperandExpression = aInSecondOperandExpression;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         JSELValue lFirstOperand =
                 firstOperandExpression.execute(aInContext);
         JSELValue lSecondOperand =

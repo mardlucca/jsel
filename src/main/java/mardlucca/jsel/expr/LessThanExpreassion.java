@@ -22,27 +22,23 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.JSELValue;
 
-public class LessThanExpreassion extends RelationalOperatorExpression
-{
+public class LessThanExpreassion extends RelationalOperatorExpression {
     public LessThanExpreassion(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         super(aInFirstOperandExpression, aInSecondOperandExpression);
     }
 
     @Override
     protected JSELBoolean operateAsString(JSELValue aInFirstOperand,
-                                          JSELValue aInSecondOperand)
-    {
+                                          JSELValue aInSecondOperand) {
         return new JSELBoolean(aInFirstOperand.toString().compareTo(
                 aInSecondOperand.toString()) < 0);
     }
 
     @Override
     protected JSELBoolean operateAsNumber(JSELValue aInFirstOperand,
-            JSELValue aInSecondOperand)
-    {
+            JSELValue aInSecondOperand) {
         return new JSELBoolean(
                 aInFirstOperand.toNumber() < aInSecondOperand.toNumber());
     }

@@ -32,8 +32,7 @@ import static mardlucca.jsel.type.JSELObject.sameValue;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
-public class JSELObjectTest
-{
+public class JSELObjectTest {
     private JSELObject emptyObject = new JSELObject();
     private JSELObject objectWithNoValueOf = new JSELObject();
     private JSELObject objectWithNoToString = new JSELObject();
@@ -43,8 +42,7 @@ public class JSELObjectTest
     private JSELObject objectWithValueOfNeg1 = new JSELObject();
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         objectWithNoValueOf.put("valueOf", JSELNull.getInstance());
         objectWithNoValueOf.put("toString",
                 new ConstantFunction(new JSELString("Value=null")));
@@ -72,8 +70,7 @@ public class JSELObjectTest
     }
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         assertFalse(emptyObject.equals(JSELBoolean.TRUE));
         assertFalse(emptyObject.equals(JSELBoolean.FALSE));
         assertTrue(objectWithValueOf0.equals(JSELBoolean.FALSE));
@@ -111,48 +108,34 @@ public class JSELObjectTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         assertEquals(Type.OBJECT, emptyObject.getType());
     }
 
     @Test
-    public void isPrimitive()
-    {
+    public void isPrimitive() {
         assertFalse(emptyObject.isPrimitive());
     }
 
     @Test
-    public void getPrimitiveValue()
-    {
-        assertNull(emptyObject.getPrimitiveValue());
-        assertNull(objectWithNoValueOf.getPrimitiveValue());
-    }
-
-    @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(emptyObject.isCallable());
     }
 
     @Test
-    public void call()
-    {
-        try
-        {
+    public void call() {
+        try {
             emptyObject.call(emptyObject, null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("cannot invoke object of type object",
                     e.getMessage());
         }
     }
 
     @Test
-    public void strictEquals()
-    {
+    public void strictEquals() {
         assertFalse(emptyObject.strictEquals(JSELBoolean.TRUE));
         assertFalse(emptyObject.strictEquals(JSELBoolean.FALSE));
         assertFalse(objectWithValueOf0.strictEquals(JSELBoolean.FALSE));
@@ -190,14 +173,12 @@ public class JSELObjectTest
     }
 
     @Test
-    public void toBoolean()
-    {
+    public void toBoolean() {
         assertTrue(emptyObject.toBoolean());
     }
 
     @Test
-    public void toInt32()
-    {
+    public void toInt32() {
         assertEquals(0, objectWithValueOf0.toInt32());
         assertEquals(1, objectWithValueOf1.toInt32());
         assertEquals(2, objectWithValueOf2.toInt32());
@@ -205,8 +186,7 @@ public class JSELObjectTest
     }
 
     @Test
-    public void toNumber()
-    {
+    public void toNumber() {
         assertEquals(0, objectWithValueOf0.toNumber(), 0.0);
         assertEquals(1, objectWithValueOf1.toNumber(), 0.0);
         assertEquals(2, objectWithValueOf2.toNumber(), 0.0);
@@ -214,8 +194,7 @@ public class JSELObjectTest
     }
 
     @Test
-    public void toPrimitive()
-    {
+    public void toPrimitive() {
         assertEquals(objectWithValueOf2.toNumber(),
                 objectWithValueOf2.toPrimitive(null).toNumber(),
                 0.0);
@@ -239,40 +218,34 @@ public class JSELObjectTest
     }
 
     @Test
-    public void toPrimitiveFailure()
-    {
+    public void toPrimitiveFailure() {
         JSELObject lObject = new JSELObject();
         // changing toString to a number, which can't be called
         lObject.put("toString", new JSELNumber(2));
         lObject.put("valueOf", new JSELNumber(2));
 
-        try
-        {
+        try {
             lObject.toPrimitive(null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot convert object to primitive value",
                     e.getMessage());
         }
     }
 
     @Test
-    public void toObject()
-    {
+    public void toObject() {
         assertSame(emptyObject, emptyObject.toObject());
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         assertEquals("[object Object]", emptyObject.toString());
     }
 
     @Test
-    public void toUInt32()
-    {
+    public void toUInt32() {
         assertEquals(0, objectWithValueOf0.toUInt32());
         assertEquals(1, objectWithValueOf1.toUInt32());
         assertEquals(2, objectWithValueOf2.toUInt32());
@@ -281,14 +254,12 @@ public class JSELObjectTest
     }
 
     @Test
-    public void getObjectClass()
-    {
+    public void getObjectClass() {
         assertEquals(JSELObject.CLASS, emptyObject.getObjectClass());
     }
 
     @Test
-    public void propertiesTest()
-    {
+    public void propertiesTest() {
         JSELValue lKey = new JSELNumber(1);
         JSELValue lValue = new JSELString("value");
 
@@ -304,20 +275,18 @@ public class JSELObjectTest
         assertEquals(JSELUndefined.getInstance(),
                 emptyObject.getOwn("toString"));
         assertTrue(emptyObject.hasProperty("toString"));
-        assertEquals(Type.FUNCTION, emptyObject.get("toString").getType());
+        assertTrue(emptyObject.get("toString").isCallable());
     }
 
     @Test
-    public void objectEqualsTest()
-    {
+    public void objectEqualsTest() {
         assertEquals(JSELString.EMPTY_STRING, new JSELString(""));
         assertEquals(JSELString.EMPTY_STRING, JSELString.EMPTY_STRING);
         assertNotEquals(JSELString.EMPTY_STRING, "");
     }
 
     @Test
-    public void defineOwnPropertyAndDelete()
-    {
+    public void defineOwnPropertyAndDelete() {
         JSELObject lObject = new JSELObject();
         assertTrue(lObject.isExtensible());
         assertFalse(lObject.hasProperty("p1"));
@@ -346,8 +315,7 @@ public class JSELObjectTest
     }
 
     @Test
-    public void testWritable()
-    {
+    public void testWritable() {
         JSELObject lObject = new JSELObject();
         assertFalse(lObject.hasProperty("p1"));
         assertFalse(lObject.hasOwnProperty("p1"));
@@ -356,14 +324,12 @@ public class JSELObjectTest
         lObject.put("p1", JSELBoolean.FALSE, false);
         assertEquals(JSELBoolean.TRUE, lObject.get("p1"));
 
-        try
-        {
+        try {
             // putting a different value is a problem
             lObject.put("p1", JSELBoolean.FALSE);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot add or change property p1", e.getMessage());
         }
 
@@ -377,8 +343,7 @@ public class JSELObjectTest
     }
 
     @Test
-    public void testConfigurable()
-    {
+    public void testConfigurable() {
         JSELObject lObject = new JSELObject();
         assertFalse(lObject.hasProperty("p1"));
         assertFalse(lObject.hasOwnProperty("p1"));
@@ -392,48 +357,41 @@ public class JSELObjectTest
         // so all good
         lObject.defineOwnProperty("p2", JSELBoolean.TRUE, true, false, false);
 
-        try
-        {
+        try {
             // now we change the value, that's no good
             lObject.defineOwnProperty("p2",
                     JSELBoolean.FALSE, true, false, false);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot redefine property p2", e.getMessage());
         }
 
         lObject.defineOwnProperty("p3", JSELBoolean.TRUE, true, true, false);
-        try
-        {
+        try {
             // trying to change configuration on a non-configurable object.
             lObject.defineOwnProperty("p3",
                     JSELBoolean.TRUE, false, true, false);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot redefine property p3", e.getMessage());
         }
 
 
         assertFalse(lObject.delete("p3", false));
-        try
-        {
+        try {
             // trying to remove non-configurable object.
             lObject.delete("p3");
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot remove property p3", e.getMessage());
         }
     }
 
     @Test
-    public void testDefineOwnPropretyWithDefaults()
-    {
+    public void testDefineOwnPropretyWithDefaults() {
         JSELObject lObject = new ObjectPrototype();
         lObject.defineOwnProperty("p1", null, null, null, null, false);
         PropertyDescriptor lDescriptor = lObject.getOwnProperty("p1");
@@ -452,30 +410,25 @@ public class JSELObjectTest
 
 
     @Test
-    public void testDefinePropertyInSealedObjectPrototype()
-    {
+    public void testDefinePropertyInSealedObjectPrototype() {
         JSELObject lObject = new ObjectPrototype();
         lObject.setExtensible(false);
 
-        try
-        {
+        try {
             // trying to remove non-configurable object.
             lObject.put("p1", JSELBoolean.TRUE);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot add or change property p1", e.getMessage());
         }
 
-        try
-        {
+        try {
             // trying to remove non-configurable object.
             lObject.defineOwnProperty("p1", null, false, false, false, true);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot define property p1, object is not extensible",
                     e.getMessage());
         }
@@ -483,8 +436,7 @@ public class JSELObjectTest
     }
 
     @Test
-    public void testDeleteProperty()
-    {
+    public void testDeleteProperty() {
         JSELObject lPrototype = new JSELObject();
         JSELObject lObject = new JSELObject(lPrototype);
 
@@ -511,8 +463,7 @@ public class JSELObjectTest
     }
 
     @Test
-    public void testPutAndOverwriteValue()
-    {
+    public void testPutAndOverwriteValue() {
         JSELObject lObject = new JSELObject();
         lObject.put("p1", new JSELNumber(1));
         assertEquals(new JSELNumber(1), lObject.getOwn("p1"));
@@ -521,8 +472,7 @@ public class JSELObjectTest
     }
 
     @Test
-    public void testSameValue()
-    {
+    public void testSameValue() {
         assertTrue(sameValue(JSELBoolean.FALSE, JSELBoolean.FALSE));
         assertTrue(sameValue(new JSELNumber(0), new JSELNumber(0)));
         assertTrue(sameValue(new JSELString("str"), new JSELString("str")));

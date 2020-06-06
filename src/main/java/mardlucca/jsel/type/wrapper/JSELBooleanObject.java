@@ -27,17 +27,14 @@ import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 
-public class JSELBooleanObject extends JSELPrimitiveWrapper
-{
+public class JSELBooleanObject extends JSELPrimitiveWrapper {
     public static final String CLASS = "Boolean";
 
-    public JSELBooleanObject(JSELValue aInPrimitive)
-    {
+    public JSELBooleanObject(JSELValue aInPrimitive) {
         this(ExecutionContext.getBooleanPrototype(), aInPrimitive);
     }
 
-    protected JSELBooleanObject(JSELObject aInPrototype, JSELValue aInPrimitive)
-    {
+    protected JSELBooleanObject(JSELObject aInPrototype, JSELValue aInPrimitive) {
         super(aInPrimitive != null && aInPrimitive.getType() == Type.BOOLEAN
                         ? aInPrimitive
                         :  new JSELBoolean(
@@ -45,8 +42,7 @@ public class JSELBooleanObject extends JSELPrimitiveWrapper
                 aInPrototype);
     }
 
-    public String getObjectClass()
-    {
+    public String getObjectClass() {
         return CLASS;
     }
 

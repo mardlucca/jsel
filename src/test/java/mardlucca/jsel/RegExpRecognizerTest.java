@@ -34,8 +34,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RegExpRecognizerTest
-{
+public class RegExpRecognizerTest {
     private static RegExpRecognizer recognizer = new RegExpRecognizer();
     private LRParser<TokenEnum, String>.State divState =
             mock(LRParser.State.class);
@@ -43,14 +42,12 @@ public class RegExpRecognizerTest
             mock(LRParser.State.class);
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         when(divState.hasAction(TokenEnum.DIVIDE)).thenReturn(true);
     }
 
     @Test
-    public void testSuccessCases()
-    {
+    public void testSuccessCases() {
         test("/ab/ab1+", regexState, PARTIAL_MATCH, PARTIAL_MATCH,
                 PARTIAL_MATCH, MATCH, MATCH, MATCH, MATCH, NOT_A_MATCH);
         test("/ab/ab1+", regexState, PARTIAL_MATCH, PARTIAL_MATCH,
@@ -75,15 +72,13 @@ public class RegExpRecognizerTest
     }
 
     @Test
-    public void testDivMode()
-    {
+    public void testDivMode() {
         test("//a/", divState, NOT_A_MATCH, NOT_A_MATCH, NOT_A_MATCH,
                 NOT_A_MATCH);
     }
 
     @Test
-    public void testErrorMessages()
-    {
+    public void testErrorMessages() {
         testError("/");
         testError("/a");
         testError("/[");
@@ -93,8 +88,7 @@ public class RegExpRecognizerTest
     }
 
     @Test
-    public void testGetValue()
-    {
+    public void testGetValue() {
         assertNull("", recognizer.getValue("//"));
         assertArrayEquals(new String[] {"a", ""}, recognizer.getValue("/a/"));
         assertArrayEquals(new String[] {"aaa", ""},
@@ -107,35 +101,28 @@ public class RegExpRecognizerTest
     }
 
     private void test(String aInString, Object aInState,
-            MatchResult ... aInResults)
-    {
+            MatchResult ... aInResults) {
         recognizer.reset();
-        for (int i = 0; i < aInString.length(); i++)
-        {
+        for (int i = 0; i < aInString.length(); i++) {
             assertEquals(aInResults[i],
                     recognizer.test(aInString.charAt(i), aInState));
         }
     }
 
-    private void testError(String aInString)
-    {
+    private void testError(String aInString) {
         recognizer.reset();
         Reader in = new StringReader(aInString);
 
         int lChar;
-        do
-        {
-            try
-            {
+        do {
+            try {
                 lChar = in.read();
                 if (recognizer.test(lChar, regexState)
-                        == MatchResult.NOT_A_MATCH)
-                {
+                        == MatchResult.NOT_A_MATCH) {
                     break;
                 }
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }

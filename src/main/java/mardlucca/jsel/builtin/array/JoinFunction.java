@@ -31,20 +31,17 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 
-public class JoinFunction extends JSELFunction
-{
+public class JoinFunction extends JSELFunction {
     public static final String JOIN = "join";
 
 
-    public JoinFunction()
-    {
+    public JoinFunction() {
         super(JOIN, singletonList("separator"));
     }
 
     @Override
     public JSELString call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                           ExecutionContext aInExecutionContext)
-    {
+                           ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         JSELValue lSeparatorArg = getArgument(aInArguments);
         String lSeparator = (lSeparatorArg.getType() == Type.UNDEFINED)
@@ -54,20 +51,16 @@ public class JoinFunction extends JSELFunction
         int lLength = (int) lThis.get(JSELArray.LENGTH).toUInt32();
         StringBuilder lStringBuilder = new StringBuilder();
 
-        for (int i = 0; i < lLength; i++)
-        {
-            if (i > 0)
-            {
+        for (int i = 0; i < lLength; i++) {
+            if (i > 0) {
                 lStringBuilder.append(lSeparator);
             }
             JSELValue lValue = lThis.get(String.valueOf(i));
             if (lValue.getType() == Type.NULL
-                    || lValue.getType() == Type.UNDEFINED)
-            {
+                    || lValue.getType() == Type.UNDEFINED) {
                 lStringBuilder.append("");
             }
-            else
-            {
+            else {
                 lStringBuilder.append(lValue.toString());
             }
         }

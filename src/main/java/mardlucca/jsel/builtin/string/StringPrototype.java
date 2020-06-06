@@ -47,16 +47,12 @@ import static mardlucca.jsel.builtin.string.ToLowerCaseFunction.TO_LOWER_CASE;
 import static mardlucca.jsel.builtin.string.ToUpperCaseFunction.TO_UPPER_CASE;
 import static mardlucca.jsel.builtin.string.TrimFunction.TRIM;
 
-public class StringPrototype extends JSELStringObject
-{
-
-    public StringPrototype(ObjectPrototype aInPrototype)
-    {
+public class StringPrototype extends JSELStringObject {
+    public StringPrototype(ObjectPrototype aInPrototype) {
         super(aInPrototype, JSELString.EMPTY_STRING);
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         defineOwnProperty(CONSTRUCTOR_PROPERTY, new StringConstructor(),
                 false, true, true);
 

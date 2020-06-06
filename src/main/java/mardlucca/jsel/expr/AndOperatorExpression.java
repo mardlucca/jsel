@@ -23,24 +23,20 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.JSELValue;
 
-public class AndOperatorExpression implements JSELExpression
-{
+public class AndOperatorExpression implements JSELExpression {
     protected JSELExpression firstOperandExpression;
     protected JSELExpression secondOperandExpression;
 
     public AndOperatorExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         firstOperandExpression = aInFirstOperandExpression;
         secondOperandExpression = aInSecondOperandExpression;
     }
 
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         boolean lFirst = firstOperandExpression.execute(aInContext).toBoolean();
-        if (!lFirst)
-        {
+        if (!lFirst) {
             return JSELBoolean.FALSE;
         }
 

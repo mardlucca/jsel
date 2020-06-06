@@ -26,13 +26,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class JSELNullTest
-{
+public class JSELNullTest {
     private JSELNull nullObject = JSELNull.getInstance();
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         assertFalse(nullObject.equals(JSELBoolean.FALSE));
 
         assertFalse(nullObject.equals(new JSELNumber(0)));
@@ -49,55 +47,45 @@ public class JSELNullTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         assertEquals(Type.NULL, nullObject.getType());
     }
 
     @Test
-    public void isPrimitive()
-    {
+    public void isPrimitive() {
         assertTrue(nullObject.isPrimitive());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(nullObject.isCallable());
     }
 
     @Test
-    public void call()
-    {
-        try
-        {
+    public void call() {
+        try {
             nullObject.call(new JSELStringObject(null), null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("cannot invoke object of type null",
                     e.getMessage());
         }
     }
 
     @Test
-    public void instantiate()
-    {
-        try
-        {
+    public void instantiate() {
+        try {
             nullObject.instantiate(null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("null is not a constructor", e.getMessage());
         }
     }
 
     @Test
-    public void strictEquals()
-    {
+    public void strictEquals() {
         assertFalse(nullObject.strictEquals(JSELBoolean.FALSE));
 
         assertFalse(nullObject.strictEquals(new JSELNumber(0)));
@@ -114,53 +102,44 @@ public class JSELNullTest
     }
 
     @Test
-    public void toBoolean()
-    {
+    public void toBoolean() {
         assertFalse(nullObject.toBoolean());
     }
 
     @Test
-    public void toInt32()
-    {
+    public void toInt32() {
         assertEquals(0, nullObject.toInt32());
     }
 
     @Test
-    public void toNumber()
-    {
+    public void toNumber() {
         assertEquals(0.0, nullObject.toNumber(), 0.0);
     }
 
     @Test
-    public void toPrimitive()
-    {
+    public void toPrimitive() {
         assertSame(nullObject, nullObject.toPrimitive(null));
     }
 
     @Test
-    public void toObject()
-    {
-        try
-        {
+    public void toObject() {
+        try {
             nullObject.toObject();
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("null cannot be converted to object",
                     e.getMessage());
         }
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         assertEquals("null", nullObject.toString());
     }
 
     @Test
-    public void toUInt32()
-    {
+    public void toUInt32() {
         assertEquals(0, nullObject.toUInt32());
     }
 }

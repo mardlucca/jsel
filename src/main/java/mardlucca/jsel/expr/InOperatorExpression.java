@@ -27,21 +27,17 @@ import mardlucca.jsel.type.Type;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class InOperatorExpression extends BinaryOperatorExpression
-{
+public class InOperatorExpression extends BinaryOperatorExpression {
     public InOperatorExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         super(aInFirstOperandExpression, aInSecondOperandExpression);
     }
 
     @Override
     protected JSELValue operate(JSELValue aInFirstOperand,
-                                JSELValue aInSecondOperand)
-    {
-        if (aInSecondOperand.getType() != Type.OBJECT)
-        {
+                                JSELValue aInSecondOperand) {
+        if (aInSecondOperand.getType() != Type.OBJECT) {
             throw JSELRuntimeException.typeError("Cannot use 'in' operator to search for '"
                     + aInFirstOperand + "' in " + aInSecondOperand);
         }

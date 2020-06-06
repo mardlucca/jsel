@@ -22,8 +22,7 @@ import mardlucca.parselib.tokenizer.Tokenizer;
 
 import java.io.Reader;
 
-public class JSELTokenizerFactory
-{
+public class JSELTokenizerFactory {
     public static final String NAN_CHAR_SEQUENCE = "NaN";
 
     public static final String INFINITY_CHAR_SEQUENCE = "Infinity";
@@ -33,8 +32,7 @@ public class JSELTokenizerFactory
     private static final JSELTokenizerFactory instance =
             new JSELTokenizerFactory();
 
-    private JSELTokenizerFactory()
-    {
+    private JSELTokenizerFactory() {
         tokenizerBuilder = new Builder<TokenEnum>()
                 .identifiers(TokenEnum.IDENTIFIER)
 
@@ -96,8 +94,7 @@ public class JSELTokenizerFactory
                 .endOfFile(TokenEnum.EOF);
     }
 
-    public static Tokenizer<TokenEnum> newTokenizer(Reader aInReader)
-    {
+    public static Tokenizer<TokenEnum> newTokenizer(Reader aInReader) {
         return instance.tokenizerBuilder.build(aInReader);
     }
 }

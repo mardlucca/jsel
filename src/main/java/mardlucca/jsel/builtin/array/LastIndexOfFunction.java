@@ -31,23 +31,19 @@ import java.util.List;
 
 import static java.lang.Integer.max;
 
-public class LastIndexOfFunction extends JSELFunction
-{
+public class LastIndexOfFunction extends JSELFunction {
     public static final String SLICE = "indexOf";
 
-    public LastIndexOfFunction()
-    {
+    public LastIndexOfFunction() {
         super(SLICE, Collections.singletonList("searchElement"));
     }
 
     @Override
     public JSELNumber call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                           ExecutionContext aInExecutionContext)
-    {
+                           ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
-        if (lLength == 0)
-        {
+        if (lLength == 0) {
             return new JSELNumber(-1);
         }
 
@@ -58,13 +54,10 @@ public class LastIndexOfFunction extends JSELFunction
                 : lFromIndexArg;
 
         JSELValue lSearchElement = getArgument(aInArguments, 0);
-        for (int i = lFromIndex - 1; i >= 0; i--)
-        {
+        for (int i = lFromIndex - 1; i >= 0; i--) {
             String lIndex = String.valueOf(i);
-            if (lThis.hasProperty(lIndex))
-            {
-                if (lSearchElement.strictEquals(lThis.get(lIndex)))
-                {
+            if (lThis.hasProperty(lIndex)) {
+                if (lSearchElement.strictEquals(lThis.get(lIndex))) {
                     return new JSELNumber(i);
                 }
             }

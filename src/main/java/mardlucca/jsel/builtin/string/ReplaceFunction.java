@@ -35,8 +35,7 @@ import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static mardlucca.jsel.type.JSELRegExp.GLOBAL;
 import static java.util.Arrays.asList;
 
-public class ReplaceFunction extends JSELFunction
-{
+public class ReplaceFunction extends JSELFunction {
     public static final String REPLACE = "replace";
 
     /**
@@ -45,18 +44,15 @@ public class ReplaceFunction extends JSELFunction
      */
     private ExecFunction execFunction = new ExecFunction();
 
-    public ReplaceFunction()
-    {
+    public ReplaceFunction() {
         super(REPLACE, asList("searchValue", "replaceValue"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.replace called on null or undefined");
         }
@@ -67,8 +63,7 @@ public class ReplaceFunction extends JSELFunction
 
         if (lSearchValueParam.getType() == Type.OBJECT
                 && lSearchValueParam.toObject().getObjectClass().equals(
-                        JSELRegExp.CLASS))
-        {
+                        JSELRegExp.CLASS)) {
             // search value is a regex
             JSELRegExp lRegExp = (JSELRegExp) lSearchValueParam;
             Matcher lMatcher = lRegExp.getPattern().matcher(lString);

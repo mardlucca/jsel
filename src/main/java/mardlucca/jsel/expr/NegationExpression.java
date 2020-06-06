@@ -22,17 +22,14 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELValue;
 
-public class NegationExpression extends UnaryOperatorExpression
-{
+public class NegationExpression extends UnaryOperatorExpression {
     public NegationExpression(
-            JSELExpression aInOperand)
-    {
+            JSELExpression aInOperand) {
         super(aInOperand);
     }
 
     @Override
-    protected JSELValue operate(JSELValue aInOperand)
-    {
+    protected JSELValue operate(JSELValue aInOperand) {
         return new JSELNumber(-aInOperand.toNumber());
     }
 }

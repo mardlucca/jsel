@@ -26,31 +26,26 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
 
-public class JSELFunctionTest
-{
+public class JSELFunctionTest {
     private JSELFunction function0 = new JSELFunction(emptyList());
 
     @Test
-    public void getType()
-    {
-        assertEquals(Type.FUNCTION, function0.getType());
+    public void getType() {
+        assertEquals(Type.OBJECT, function0.getType());
     }
 
     @Test
-    public void getObjectClass()
-    {
+    public void getObjectClass() {
         assertEquals(JSELFunction.CLASS, function0.getObjectClass());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertTrue(function0.isCallable());
     }
 
     @Test
-    public void getArgumentWithoutIndex()
-    {
+    public void getArgumentWithoutIndex() {
         assertSame(JSELUndefined.getInstance(), getArgument(emptyList()));
         assertSame(JSELBoolean.TRUE,
                 getArgument(singletonList(JSELBoolean.TRUE)));
@@ -59,8 +54,7 @@ public class JSELFunctionTest
     }
 
     @Test
-    public void getArgumentWithIndex()
-    {
+    public void getArgumentWithIndex() {
         assertSame(JSELUndefined.getInstance(), getArgument(emptyList(), 0));
         assertSame(JSELBoolean.TRUE,
                 getArgument(singletonList(JSELBoolean.TRUE), 0));

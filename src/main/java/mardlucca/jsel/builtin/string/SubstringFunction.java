@@ -29,22 +29,18 @@ import java.util.List;
 import static java.lang.Integer.min;
 import static java.lang.Integer.max;
 
-public class SubstringFunction extends JSELFunction
-{
+public class SubstringFunction extends JSELFunction {
     public static final String SUBSTRING = "substring";
 
-    public SubstringFunction()
-    {
+    public SubstringFunction() {
         super(SUBSTRING);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.substring called on null or undefined");
         }

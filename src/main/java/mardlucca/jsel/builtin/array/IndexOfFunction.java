@@ -31,29 +31,24 @@ import java.util.List;
 
 import static java.lang.Integer.max;
 
-public class IndexOfFunction extends JSELFunction
-{
+public class IndexOfFunction extends JSELFunction {
     public static final String SLICE = "indexOf";
 
-    public IndexOfFunction()
-    {
+    public IndexOfFunction() {
         super(SLICE, Collections.singletonList("searchElement"));
     }
 
     @Override
     public JSELNumber call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                           ExecutionContext aInExecutionContext)
-    {
+                           ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
-        if (lLength == 0)
-        {
+        if (lLength == 0) {
             return new JSELNumber(-1);
         }
 
         int lFromIndexArg = getArgument(aInArguments, 1).toInteger();
-        if (lFromIndexArg >= lLength)
-        {
+        if (lFromIndexArg >= lLength) {
             return new JSELNumber(-1);
         }
 
@@ -62,13 +57,10 @@ public class IndexOfFunction extends JSELFunction
                 ? max(lLength + lFromIndexArg, 0)
                 : lFromIndexArg;
 
-        for (int i = lFromIndex; i < lLength; i++)
-        {
+        for (int i = lFromIndex; i < lLength; i++) {
             String lIndex = String.valueOf(i);
-            if (lThis.hasProperty(lIndex))
-            {
-                if (lSearchElement.strictEquals(lThis.get(lIndex)))
-                {
+            if (lThis.hasProperty(lIndex)) {
+                if (lSearchElement.strictEquals(lThis.get(lIndex))) {
                     return new JSELNumber(i);
                 }
             }

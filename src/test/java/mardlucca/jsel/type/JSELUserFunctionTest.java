@@ -33,8 +33,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
 
-public class JSELUserFunctionTest
-{
+public class JSELUserFunctionTest {
     private JSELObject thisBinding = new JSELObject();
     private ExecutionContext executionContext = new ExecutionContext();
     private JSELUserFunction noParamFn = new JSELUserFunction(
@@ -47,8 +46,7 @@ public class JSELUserFunctionTest
             executionContext.getEnvironmentRecord());
 
     @Test
-    public void callTest()
-    {
+    public void callTest() {
         assertEquals(JSELUndefined.getInstance(),
                 executionContext.resolve("local"));
         noParamFn.call(thisBinding, emptyList(), executionContext);
@@ -59,8 +57,7 @@ public class JSELUserFunctionTest
     }
 
     @Test
-    public void callTestWithParameters()
-    {
+    public void callTestWithParameters() {
         JSELValue lP1 = new JSELNumber(1);
         JSELBoolean lP2 = JSELBoolean.TRUE;
         JSELValue lReturnValue = JSELBoolean.FALSE;
@@ -81,8 +78,7 @@ public class JSELUserFunctionTest
     }
 
     @Test
-    public void callTestWithParametersMissing()
-    {
+    public void callTestWithParametersMissing() {
         JSELValue lP1 = new JSELNumber(1);
         JSELValue lReturnValue = JSELBoolean.TRUE;
         JSELObject lThisBind = new JSELObject();
@@ -101,19 +97,15 @@ public class JSELUserFunctionTest
     }
 
     @Test
-    public void toStringTest()
-    {
+    public void toStringTest() {
         assertEquals("f noParamFn() { [source code] }", noParamFn.toString());
     }
 
     @Test
-    public void testInstantiate()
-    {
-
+    public void testInstantiate() {
         ExecutionContext lContext = new ExecutionContext();
         lContext.setAsThreadContext();
-        try
-        {
+        try {
             JSELUserFunction constructor = new JSELUserFunction(
                     singletonList("arg"),
                     aInContext -> {
@@ -138,24 +130,20 @@ public class JSELUserFunctionTest
             assertFalse(lObject.hasOwnProperty("y"));
             assertTrue(lObject.hasProperty("y"));
         }
-        finally
-        {
+        finally {
             ExecutionContext.clearThreadContext();
         }
     }
 
-    public class AssertExpression implements JSELExpression
-    {
+    public class AssertExpression implements JSELExpression {
         private Map<String, JSELValue> expectedArguments = new HashMap<>();
         private JSELValue returnValue;
         private JSELValue thisBind;
 
         @Override
-        public JSELValue execute(ExecutionContext aInContext)
-        {
+        public JSELValue execute(ExecutionContext aInContext) {
             for (Map.Entry<String, JSELValue> lEntry:
-                    expectedArguments.entrySet())
-            {
+                    expectedArguments.entrySet()) {
                 assertEquals(lEntry.getValue(),
                         aInContext.resolve(lEntry.getKey()));
             }
@@ -163,20 +151,17 @@ public class JSELUserFunctionTest
             return returnValue;
         }
 
-        public AssertExpression expect(String aInKey, JSELValue aInValue)
-        {
+        public AssertExpression expect(String aInKey, JSELValue aInValue) {
             expectedArguments.put(aInKey, aInValue);
             return this;
         }
 
-        public AssertExpression returnValue(JSELValue aInValue)
-        {
+        public AssertExpression returnValue(JSELValue aInValue) {
             returnValue = aInValue;
             return this;
         }
 
-        public AssertExpression thisBind(JSELValue aInThisBind)
-        {
+        public AssertExpression thisBind(JSELValue aInThisBind) {
             thisBind = aInThisBind;
             return this;
         }

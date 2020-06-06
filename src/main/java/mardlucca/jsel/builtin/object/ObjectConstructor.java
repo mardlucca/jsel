@@ -32,11 +32,8 @@ import java.util.List;
 
 import static java.util.Collections.singletonList;
 
-public class ObjectConstructor extends JSELFunction
-{
-
-    public ObjectConstructor()
-    {
+public class ObjectConstructor extends JSELFunction {
+    public ObjectConstructor() {
         super(JSELObject.CLASS, singletonList("value"));
 
         defineOwnProperty(
@@ -46,12 +43,10 @@ public class ObjectConstructor extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELValue lArgument = getArgument(aInArguments);
         if (lArgument.getType() == Type.NULL
-                || lArgument.getType() == Type.UNDEFINED)
-        {
+                || lArgument.getType() == Type.UNDEFINED) {
             return instantiate(aInArguments, aInExecutionContext);
         }
 
@@ -60,12 +55,10 @@ public class ObjectConstructor extends JSELFunction
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-            ExecutionContext aInExecutionContext)
-    {
+            ExecutionContext aInExecutionContext) {
         JSELValue lArgument = getArgument(aInArguments);
         if (lArgument.getType() != Type.NULL
-                && lArgument.getType() != Type.UNDEFINED)
-        {
+                && lArgument.getType() != Type.UNDEFINED) {
             return lArgument.toObject();
         }
 

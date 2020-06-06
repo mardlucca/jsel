@@ -25,11 +25,9 @@ import static mardlucca.jsel.type.JSELArray.LENGTH;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
-public class JSELArrayTest
-{
+public class JSELArrayTest {
     @Test
-    public void testPutAllTypes()
-    {
+    public void testPutAllTypes() {
         JSELArray lArray = new JSELArray();
         assertEquals(new JSELNumber(0), lArray.get(LENGTH));
 
@@ -54,8 +52,7 @@ public class JSELArrayTest
     }
 
     @Test
-    public void testPutFloatingPoint()
-    {
+    public void testPutFloatingPoint() {
         JSELArray lArray = new JSELArray();
         assertEquals(new JSELNumber(0), lArray.get(LENGTH));
 
@@ -65,16 +62,14 @@ public class JSELArrayTest
     }
 
     @Test
-    public void getObjectClass()
-    {
+    public void getObjectClass() {
         JSELArray lArray = new JSELArray();
         assertEquals(JSELArray.CLASS, lArray.getObjectClass());
         assertTrue(lArray.isObjectClass(JSELArray.CLASS));
     }
 
     @Test
-    public void testChangeLength()
-    {
+    public void testChangeLength() {
         JSELArray lArray = new JSELArray(
                 asList(new JSELNumber(10),
                         new JSELNumber(11),
@@ -90,8 +85,7 @@ public class JSELArrayTest
         assertEquals(new JSELNumber(10), lArray.get(0));
         assertEquals(new JSELNumber(11), lArray.get(1));
         assertEquals(new JSELNumber(12), lArray.get(2));
-        for (int i = 3; i < 10; i++)
-        {
+        for (int i = 3; i < 10; i++) {
             assertFalse(lArray.hasProperty(String.valueOf(i)));
         }
 
@@ -100,15 +94,13 @@ public class JSELArrayTest
         assertEquals(new JSELNumber(10), lArray.get(0));
         assertEquals(JSELUndefined.getInstance(), lArray.get(1));
         assertEquals(JSELUndefined.getInstance(), lArray.get(2));
-        for (int i = 1; i < 10; i++)
-        {
+        for (int i = 1; i < 10; i++) {
             assertFalse(lArray.hasProperty(String.valueOf(i)));
         }
     }
 
     @Test
-    public void testChangeReadonlyLength()
-    {
+    public void testChangeReadonlyLength() {
         JSELArray lArray = new JSELArray(
                 asList(new JSELNumber(10),
                         new JSELNumber(11),
@@ -119,41 +111,35 @@ public class JSELArrayTest
         lArray.put(LENGTH, new JSELString("5"), false);
         assertEquals(new JSELNumber(3), lArray.get(LENGTH));
 
-        try
-        {
+        try {
             lArray.defineOwnProperty(LENGTH, new JSELString("1"),
                     null, null, null, true);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot redefine property length",
                     e.getMessage());
         }
     }
 
     @Test
-    public void testInvalidLength()
-    {
+    public void testInvalidLength() {
         JSELArray lArray = new JSELArray(
                 asList(new JSELNumber(10),
                         new JSELNumber(11),
                         new JSELNumber(12)));
 
-        try
-        {
+        try {
             lArray.put(LENGTH, new JSELNumber(1.2));
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("RangeError: Invalid array length", e.getMessage());
         }
     }
 
     @Test
-    public void testSetLengthNotConfigurable()
-    {
+    public void testSetLengthNotConfigurable() {
         JSELArray lArray = new JSELArray(
                 asList(new JSELNumber(10),
                         new JSELNumber(11),
@@ -167,23 +153,20 @@ public class JSELArrayTest
         // make it configurable but don't throw
         assertFalse(lArray.defineOwnProperty(LENGTH, new JSELString("1"),
                 null, null, true, false));
-        try
-        {
+        try {
             // make it configurable and throw
             lArray.defineOwnProperty(LENGTH, new JSELString("1"),
                     null, null, true, true);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot redefine property length",
                     e.getMessage());
         }
     }
 
     @Test
-    public void testArrayItemReadOnly()
-    {
+    public void testArrayItemReadOnly() {
         JSELArray lArray = new JSELArray(
                 asList(new JSELNumber(10),
                         new JSELNumber(11),
@@ -194,20 +177,17 @@ public class JSELArrayTest
         lArray.put("1", new JSELNumber(111), false);
         assertEquals(new JSELNumber(11), lArray.get(1));
 
-        try
-        {
+        try {
             lArray.put("1", new JSELNumber(111));
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot add or change property 1", e.getMessage());
         }
     }
 
     @Test
-    public void testChangeLengthWithItemNotConfigurable()
-    {
+    public void testChangeLengthWithItemNotConfigurable() {
         JSELArray lArray = new JSELArray(
                 asList(new JSELNumber(10),
                         new JSELNumber(11),
@@ -215,13 +195,11 @@ public class JSELArrayTest
 
         lArray.defineOwnProperty("1", null, null, null, false);
 
-        try
-        {
+        try {
             lArray.put(LENGTH, new JSELString("1"));
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot redefine property length", e.getMessage());
         }
 
@@ -230,8 +208,7 @@ public class JSELArrayTest
     }
 
     @Test
-    public void testRedefineItemNotConfigurable()
-    {
+    public void testRedefineItemNotConfigurable() {
         JSELArray lArray = new JSELArray(
                 asList(new JSELNumber(10),
                         new JSELNumber(11),
@@ -239,20 +216,17 @@ public class JSELArrayTest
 
         lArray.defineOwnProperty("1", null, null, null, false);
 
-        try
-        {
+        try {
             lArray.defineOwnProperty("1", null, false, null, false);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot redefine property 1", e.getMessage());
         }
     }
 
     @Test
-    public void testGrowArrayReadonlyLength()
-    {
+    public void testGrowArrayReadonlyLength() {
         JSELArray lArray = new JSELArray(
                 asList(new JSELNumber(10),
                         new JSELNumber(11),
@@ -264,13 +238,11 @@ public class JSELArrayTest
         assertEquals(new JSELNumber(3), lArray.get(LENGTH));
         assertEquals(JSELUndefined.getInstance(), lArray.get(5));
 
-        try
-        {
+        try {
             lArray.put(new JSELString("5"), new JSELNumber(15), true);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("Cannot redefine property length",
                     e.getMessage());
         }

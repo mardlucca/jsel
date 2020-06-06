@@ -21,11 +21,9 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELValue;
 
-public class ThisExpression implements JSELExpression
-{
+public class ThisExpression implements JSELExpression {
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         return aInContext.getThisBinding();
     }
 }

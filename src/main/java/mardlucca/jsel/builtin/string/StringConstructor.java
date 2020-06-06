@@ -35,10 +35,8 @@ import java.util.List;
 
 import static mardlucca.jsel.builtin.string.FomCharCodeFunction.FROM_CHAR_CODE;
 
-public class StringConstructor extends JSELFunction
-{
-    public StringConstructor()
-    {
+public class StringConstructor extends JSELFunction {
+    public StringConstructor() {
         super(JSELStringObject.CLASS, Collections.singletonList("value"));
 
         defineOwnProperty(
@@ -53,10 +51,8 @@ public class StringConstructor extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
-        if (aInArguments.isEmpty())
-        {
+                          ExecutionContext aInExecutionContext) {
+        if (aInArguments.isEmpty()) {
             return JSELString.EMPTY_STRING;
         }
 
@@ -65,10 +61,8 @@ public class StringConstructor extends JSELFunction
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-                                  ExecutionContext aInExecutionContext)
-    {
-        if (aInArguments.isEmpty())
-        {
+                                  ExecutionContext aInExecutionContext) {
+        if (aInArguments.isEmpty()) {
             return new JSELStringObject(JSELString.EMPTY_STRING);
         }
 

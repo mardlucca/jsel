@@ -24,11 +24,9 @@ import java.text.ParseException;
 
 import static org.junit.Assert.*;
 
-public class DecimalFormatTest
-{
+public class DecimalFormatTest {
     @Test
-    public void format()
-    {
+    public void format() {
         assertEquals("0", DecimalFormat.format(0));
         assertEquals("0", DecimalFormat.format(-0.0));
         assertEquals("0.12345678901234568",
@@ -36,8 +34,7 @@ public class DecimalFormatTest
     }
 
     @Test
-    public void parse() throws ParseException
-    {
+    public void parse() throws ParseException {
         assertEquals(0, DecimalFormat.parse("0"), 0.0);
         assertEquals(1.2e10, DecimalFormat.parse("1.2e10"), 0.0);
         assertEquals(-1.2e10, DecimalFormat.parse("-1.2e10"), 0.0);

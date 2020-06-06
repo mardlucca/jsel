@@ -26,19 +26,16 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-public class ValueOfFunction extends JSELFunction
-{
+public class ValueOfFunction extends JSELFunction {
     public static final String VALUE_OF = "valueOf";
 
-    public ValueOfFunction()
-    {
+    public ValueOfFunction() {
         super(VALUE_OF);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInContext)
-    {
+                          ExecutionContext aInContext) {
         return aInThis;
     }
 }

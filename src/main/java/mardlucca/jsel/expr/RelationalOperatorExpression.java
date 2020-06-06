@@ -26,19 +26,16 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELValue.GetHint;
 import mardlucca.jsel.type.Type;
 
-public abstract class RelationalOperatorExpression extends BinaryOperatorExpression
-{
+public abstract class RelationalOperatorExpression extends BinaryOperatorExpression {
     public RelationalOperatorExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         super(aInFirstOperandExpression, aInSecondOperandExpression);
     }
 
     @Override
     protected JSELValue operate(JSELValue aInFirstOperand,
-                                JSELValue aInSecondOperand)
-    {
+                                JSELValue aInSecondOperand) {
         aInFirstOperand = aInFirstOperand.toPrimitive(GetHint.NUMBER);
         aInSecondOperand = aInSecondOperand.toPrimitive(GetHint.NUMBER);
 

@@ -32,27 +32,22 @@ import java.util.List;
 
 import static mardlucca.jsel.type.JSELNumber.toChar;
 
-public class FomCharCodeFunction extends JSELFunction
-{
+public class FomCharCodeFunction extends JSELFunction {
     public static final String FROM_CHAR_CODE = "fromCharCode";
 
-    public FomCharCodeFunction()
-    {
+    public FomCharCodeFunction() {
         super(FROM_CHAR_CODE, Collections.singletonList("chars"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
-        if (aInArguments.isEmpty())
-        {
+                          ExecutionContext aInExecutionContext) {
+        if (aInArguments.isEmpty()) {
             return JSELString.EMPTY_STRING;
         }
 
         char[] lChars = new char[aInArguments.size()];
-        for (int i = 0; i < lChars.length; i++)
-        {
+        for (int i = 0; i < lChars.length; i++) {
             lChars[i] = JSELNumber.toChar(aInArguments.get(i).toNumber());
         }
 

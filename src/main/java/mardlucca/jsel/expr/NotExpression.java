@@ -22,17 +22,14 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.JSELValue;
 
-public class NotExpression extends UnaryOperatorExpression
-{
+public class NotExpression extends UnaryOperatorExpression {
     public NotExpression(
-            JSELExpression aInOperand)
-    {
+            JSELExpression aInOperand) {
         super(aInOperand);
     }
 
     @Override
-    protected JSELValue operate(JSELValue aInOperand)
-    {
+    protected JSELValue operate(JSELValue aInOperand) {
         return new JSELBoolean(!aInOperand.toBoolean());
     }
 }

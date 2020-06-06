@@ -21,19 +21,16 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELValue;
 
-public class LiteralExpression implements JSELExpression
-{
+public class LiteralExpression implements JSELExpression {
     private JSELValue value;
 
     public LiteralExpression(
-            JSELValue aInValue)
-    {
+            JSELValue aInValue) {
         value = aInValue;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         return value;
     }
 }

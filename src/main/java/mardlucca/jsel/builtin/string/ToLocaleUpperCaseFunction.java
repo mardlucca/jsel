@@ -29,19 +29,16 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.notImplemented;
 
-public class ToLocaleUpperCaseFunction extends JSELFunction
-{
+public class ToLocaleUpperCaseFunction extends JSELFunction {
     public static final String TO_LOCALE_UPPER_CASE = "toLocaleUpperCase";
 
-    public ToLocaleUpperCaseFunction()
-    {
+    public ToLocaleUpperCaseFunction() {
         super(TO_LOCALE_UPPER_CASE);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         throw JSELRuntimeException.notImplemented("String.prototype.toLocaleUpperCase");
     }
 }

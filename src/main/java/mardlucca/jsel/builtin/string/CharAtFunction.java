@@ -33,30 +33,25 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class CharAtFunction extends JSELFunction
-{
+public class CharAtFunction extends JSELFunction {
     public static final String CHAR_AT = "charAt";
 
-    public CharAtFunction()
-    {
+    public CharAtFunction() {
         super(CHAR_AT);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.charAt called on null or undefined");
         }
 
         String lString = aInThis.toString();
         int lPos = getArgument(aInArguments).toInteger();
-        if (lPos < 0 || lPos >= lString.length())
-        {
+        if (lPos < 0 || lPos >= lString.length()) {
             return JSELString.EMPTY_STRING;
         }
 

@@ -36,22 +36,18 @@ import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static java.util.Collections.singletonList;
 
-public class SplitFunction extends JSELFunction
-{
+public class SplitFunction extends JSELFunction {
     public static final String SPLIT = "split";
 
-    public SplitFunction()
-    {
+    public SplitFunction() {
         super(SPLIT, asList("separator", "limit"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.split called on null or undefined");
         }
@@ -59,10 +55,8 @@ public class SplitFunction extends JSELFunction
         String lString = aInThis.toString();
         JSELValue lSeparator = getArgument(aInArguments, 0);
 
-        if (lSeparator.getType() == Type.UNDEFINED || lString.isEmpty())
-        {
-            if (lSeparator.match(lString, 0) != null)
-            {
+        if (lSeparator.getType() == Type.UNDEFINED || lString.isEmpty()) {
+            if (lSeparator.match(lString, 0) != null) {
                 return new JSELArray();
             }
             return new JSELArray(singletonList(new JSELString(lString)));
@@ -70,11 +64,9 @@ public class SplitFunction extends JSELFunction
 
         int lIndex = 0;
         List<String> lStrings = new ArrayList<>();
-        while (lIndex < lString.length())
-        {
+        while (lIndex < lString.length()) {
             MatchResult lResult = lSeparator.match(lString, lIndex);
-            if (lResult == null)
-            {
+            if (lResult == null) {
                 break;
             }
 

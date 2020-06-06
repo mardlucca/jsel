@@ -24,19 +24,16 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-public class IsNaNFunction extends JSELFunction
-{
+public class IsNaNFunction extends JSELFunction {
     public static final String IS_NAN = "isNaN";
 
-    public IsNaNFunction()
-    {
+    public IsNaNFunction() {
         super(IS_NAN);
     }
 
     @Override
     public JSELBoolean call(JSELValue aInThis, List<JSELValue> aInArguments,
-                            ExecutionContext aInExecutionContext)
-    {
+                            ExecutionContext aInExecutionContext) {
         return Double.isNaN(getArgument(aInArguments).toNumber())
                 ? JSELBoolean.TRUE
                 : JSELBoolean.FALSE;

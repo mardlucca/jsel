@@ -29,15 +29,13 @@ import java.util.Collections;
 import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 import static org.junit.Assert.*;
 
-public class JSELPropertyReferenceTest
-{
+public class JSELPropertyReferenceTest {
     private JSELObject base = new JSELObject();
     private JSELValue trueObject;
     private JSELValue falseObject;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         base.put("true", JSELBoolean.TRUE);
         base.put("false", JSELBoolean.FALSE);
 
@@ -46,8 +44,7 @@ public class JSELPropertyReferenceTest
     }
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         assertTrue(trueObject.equals(trueObject));
         assertFalse(trueObject.equals(falseObject));
         assertFalse(falseObject.equals(trueObject));
@@ -74,29 +71,25 @@ public class JSELPropertyReferenceTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         assertEquals(Type.BOOLEAN, trueObject.getType());
         assertEquals(Type.BOOLEAN, falseObject.getType());
     }
 
     @Test
-    public void isPrimitive()
-    {
+    public void isPrimitive() {
         assertTrue(trueObject.isPrimitive());
         assertTrue(falseObject.isPrimitive());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(trueObject.isCallable());
         assertFalse(falseObject.isCallable());
     }
 
     @Test
-    public void call()
-    {
+    public void call() {
         JSELValue lBooleanToString =
                 new JSELPropertyReference(JSELBoolean.TRUE, TO_STRING);
         assertTrue(lBooleanToString.isCallable());
@@ -115,8 +108,7 @@ public class JSELPropertyReferenceTest
     }
 
     @Test
-    public void strictEquals()
-    {
+    public void strictEquals() {
         assertTrue(trueObject.strictEquals(trueObject));
         assertFalse(trueObject.strictEquals(falseObject));
         assertFalse(falseObject.strictEquals(trueObject));
@@ -145,29 +137,25 @@ public class JSELPropertyReferenceTest
     }
 
     @Test
-    public void toBoolean()
-    {
+    public void toBoolean() {
         assertTrue(trueObject.toBoolean());
         assertFalse(falseObject.toBoolean());
     }
 
     @Test
-    public void toInt32()
-    {
+    public void toInt32() {
         assertEquals(1, trueObject.toInt32());
         assertEquals(0, falseObject.toInt32());
     }
 
     @Test
-    public void toNumber()
-    {
+    public void toNumber() {
         assertEquals(1.0, trueObject.toNumber(), 0.0);
         assertEquals(0.0, falseObject.toNumber(), 0.0);
     }
 
     @Test
-    public void toPrimitive()
-    {
+    public void toPrimitive() {
         assertEquals(trueObject, trueObject.toPrimitive(null));
         assertEquals(trueObject,
                 trueObject.toPrimitive(GetHint.NUMBER));
@@ -182,8 +170,7 @@ public class JSELPropertyReferenceTest
     }
 
     @Test
-    public void toObject()
-    {
+    public void toObject() {
         assertEquals(trueObject,
                 trueObject.toObject().toPrimitive(null));
         assertEquals(Type.OBJECT, trueObject.toObject().getType());
@@ -196,22 +183,19 @@ public class JSELPropertyReferenceTest
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         assertEquals("true", trueObject.toString());
         assertEquals("false", falseObject.toString());
     }
 
     @Test
-    public void toUInt32()
-    {
+    public void toUInt32() {
         assertEquals(1, trueObject.toUInt32());
         assertEquals(0, falseObject.toUInt32());
     }
 
     @Test
-    public void testIsReference()
-    {
+    public void testIsReference() {
         assertTrue(trueObject.isReference());
         assertTrue(falseObject.isReference());
     }

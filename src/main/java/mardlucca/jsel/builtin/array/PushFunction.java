@@ -28,25 +28,21 @@ import mardlucca.jsel.type.*;
 
 import java.util.List;
 
-public class PushFunction extends JSELFunction
-{
+public class PushFunction extends JSELFunction {
     public static final String PUSH = "push";
 
 
-    public PushFunction()
-    {
+    public PushFunction() {
         super(PUSH, null);
     }
 
     @Override
     public JSELValue call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
 
-        for (int i = 0; i < aInArguments.size(); i++)
-        {
+        for (int i = 0; i < aInArguments.size(); i++) {
             lThis.put(String.valueOf(lLength + i), aInArguments.get(i));
         }
 

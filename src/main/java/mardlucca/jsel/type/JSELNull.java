@@ -17,62 +17,67 @@
  */
 package mardlucca.jsel.type;
 
-import mardlucca.jsel.JSELRuntimeException;
+import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class JSELNull extends JSELValue
-{
+/**
+ * This represents the null data type in JSEL.
+ */
+public class JSELNull extends JSELValue {
+    /**
+     * Singleton for the null value
+     */
     private static final JSELNull instance = new JSELNull();
 
-    private JSELNull()
-    {
+    /**
+     * Private constructor
+     */
+    private JSELNull() {
     }
 
-    public static JSELNull getInstance()
-    {
+    /**
+     * Gets the singleton instance for  "null".
+     * @return the singleton.
+     */
+    public static JSELNull getInstance() {
         return instance;
     }
 
     @Override
-    public boolean isObjectCoercible()
-    {
+    public boolean isObjectCoercible() {
         return false;
     }
 
     @Override
-    public Type getType()
-    {
+    public Type getType() {
         return Type.NULL;
     }
 
     @Override
-    public boolean toBoolean()
-    {
+    public boolean toBoolean() {
         return false;
     }
 
     @Override
-    public double toNumber()
-    {
+    public double toNumber() {
         return 0.0;
     }
 
     @Override
-    public JSELObject toObject()
-    {
-        // a Javascript nuance, as typeof null == 'object'
-        throw JSELRuntimeException.typeError("null cannot be converted to object");
+    public JSELObject toObject() {
+        // a Javascript nuance, as typeof null == 'object' but we cannot convert
+        // null to an object.
+        throw typeError("null cannot be converted to object");
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "null";
     }
 
     @Override
-    public boolean equals(JSELValue aInObject)
-    {
+    public boolean equals(JSELValue aInObject) {
         aInObject = aInObject.getValue();
+        // "null == undefined" is true
         return aInObject == this || aInObject == JSELUndefined.getInstance();
     }
 }

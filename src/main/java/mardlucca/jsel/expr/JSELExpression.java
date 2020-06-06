@@ -34,23 +34,20 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.function.Supplier;
 
-public interface JSELExpression
-{
+public interface JSELExpression {
     JSELValue execute(ExecutionContext aInContext);
 
     static JSELExpression compile(String aInString)
             throws IOException,
                    UnrecognizedCharacterSequenceException,
-            JSELCompilationException
-    {
+            JSELCompilationException {
         return JSELCompiler.getInstance().compile(new StringReader(aInString));
     }
 
     static JSELExpression compile(Reader aInReader)
             throws IOException,
                    UnrecognizedCharacterSequenceException,
-                   JSELCompilationException
-    {
+                   JSELCompilationException {
         return JSELCompiler.getInstance().compile(aInReader);
     }
 }

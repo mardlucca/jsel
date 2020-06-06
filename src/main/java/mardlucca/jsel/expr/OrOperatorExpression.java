@@ -21,24 +21,20 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.JSELValue;
 
-public class OrOperatorExpression implements JSELExpression
-{
+public class OrOperatorExpression implements JSELExpression {
     protected JSELExpression firstOperandExpression;
     protected JSELExpression secondOperandExpression;
 
     public OrOperatorExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         firstOperandExpression = aInFirstOperandExpression;
         secondOperandExpression = aInSecondOperandExpression;
     }
 
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         boolean lFirst = firstOperandExpression.execute(aInContext).toBoolean();
-        if (lFirst)
-        {
+        if (lFirst) {
             return JSELBoolean.TRUE;
         }
 

@@ -80,8 +80,7 @@ import java.util.List;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
-public class JSELCompiler
-{
+public class JSELCompiler {
     private static final JSELCompiler instance = new JSELCompiler();
 
     private LRParser<TokenEnum, String> parser;
@@ -90,33 +89,26 @@ public class JSELCompiler
 
     private ReduceListener<String> listener;
 
-    public static JSELCompiler getInstance()
-    {
+    public static JSELCompiler getInstance() {
         return instance;
     }
 
     public JSELExpression compile(Reader aInReader)
             throws IOException, UnrecognizedCharacterSequenceException,
-                   JSELCompilationException
-    {
+                   JSELCompilationException {
         ParseResult lResult = getParser().parse(aInReader, getListener());
-        if (!lResult.getErrors().isEmpty())
-        {
+        if (!lResult.getErrors().isEmpty()) {
             throw new JSELCompilationException(lResult.getErrors());
         }
         return (JSELExpression) lResult.getValue();
     }
 
-    private LRParser<TokenEnum, String> getParser()
-    {
+    private LRParser<TokenEnum, String> getParser() {
         // Because all state on a JSEL parser is stored in the ParseInvocation
         // it means the parser is thread safe so it can be cached
-        if (parser == null)
-        {
-            synchronized (this)
-            {
-                if (parser == null)
-                {
+        if (parser == null) {
+            synchronized (this) {
+                if (parser == null) {
                     parser = new JSELParserBuilder()
                             .build(JSELTokenizerFactory::newTokenizer);
 
@@ -127,19 +119,15 @@ public class JSELCompiler
         return parser;
     }
 
-    private ReduceListener<String> getListener()
-    {
-        if (listener == null)
-        {
+    private ReduceListener<String> getListener() {
+        if (listener == null) {
             initListener();
         }
         return listener;
     }
 
-    private synchronized void initListener()
-    {
-        if (listener != null)
-        {
+    private synchronized void initListener() {
+        if (listener != null) {
             return;
         }
 
@@ -349,17 +337,14 @@ public class JSELCompiler
                         new LiteralExpression(JSELNumber.NAN))
                 .onReduce("VAL -> Infinity", (aInProduction, aInValues) ->
                         new LiteralExpression(JSELNumber.INFINITY))
-                .onReduce("VAL -> regex", (aInProduction, aInValues) ->
-                {
+                .onReduce("VAL -> regex", (aInProduction, aInValues) -> {
                     String[] lValue = (String[])
                             ((Token<?>)aInValues[0]).getValue();
-                    try
-                    {
+                    try {
                         return new LiteralSupplierExpression(()->
                                 new JSELRegExp(lValue[0], lValue[1]));
                     }
-                    catch (JSELRuntimeException e)
-                    {
+                    catch (JSELRuntimeException e) {
                         throw new ParsingException(e.getMessage());
                     }
                 })
@@ -372,8 +357,7 @@ public class JSELCompiler
                         // ARGS -> ARGS2 default
                 .onReduce("ARGS -> ''", (aInProduction, aInValues) ->
                         new ArrayList<>())
-                .onReduce("ARGS2 -> ARGS2 , E", (aInProduction, aInValues) ->
-                {
+                .onReduce("ARGS2 -> ARGS2 , E", (aInProduction, aInValues) -> {
                     ((ArrayList)aInValues[0]).add(aInValues[2]);
                     return aInValues[0];
                 })
@@ -401,8 +385,7 @@ public class JSELCompiler
                 .onReduce("PARAMS -> ''", (aInProduction, aInValues) ->
                         new ArrayList<>())
                 .onReduce("PARAMS2 -> PARAMS2 , id",
-                        (aInProduction, aInValues) ->
-                {
+                        (aInProduction, aInValues) -> {
                     ((ArrayList)aInValues[0]).add(
                         ((Token<?>)aInValues[2]).getValue());
                     return aInValues[0];

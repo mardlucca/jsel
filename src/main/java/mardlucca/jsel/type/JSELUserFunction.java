@@ -26,23 +26,41 @@ import java.util.List;
 
 import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
 
-public class JSELUserFunction extends JSELFunction
-{
+/**
+ * This class represents a user defined function. This function takes a {@link
+ * JSELExpression} with the expression that needs to be evaluated as long as an
+ * EnvironmentRecord from which identifiers are read.
+ */
+public class JSELUserFunction extends JSELFunction {
     private JSELExpression expression;
     private EnvironmentRecord scope;
 
+    /**
+     * Creates a user defined function.
+     * @param aInParameters the function parameters
+     * @param aInExpression the expression
+     * @param aInScope the environment record containing the identifiers and
+     *                 arguments for to be used by the function.
+     */
     public JSELUserFunction(List<String> aInParameters,
             JSELExpression aInExpression,
-            EnvironmentRecord aInScope)
-    {
+            EnvironmentRecord aInScope) {
         this(null, aInParameters, aInExpression, aInScope);
     }
 
+    /**
+     * Creates a user defined function.
+     * @param aInName the name of the function
+     * @param aInParameters the function parameters
+     * @param aInExpression the expression
+     * @param aInScope the current environment record used for resolving
+     *                 identifiers external to the function (i.e. the so called
+     *                 "closures").
+     */
     public JSELUserFunction(String aInName,
             List<String> aInParameters,
             JSELExpression aInExpression,
-            EnvironmentRecord aInScope)
-    {
+            EnvironmentRecord aInScope) {
         super(aInName, aInParameters);
         expression = aInExpression;
         scope = aInScope;
@@ -55,34 +73,34 @@ public class JSELUserFunction extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-            ExecutionContext aInExecutionContext)
-    {
+            ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.UNDEFINED ||
-                aInThis.getType() == Type.NULL)
-        {
+                aInThis.getType() == Type.NULL) {
             aInThis = aInExecutionContext.getGlobalObject();
         }
         aInExecutionContext.push(
                 new DeclarativeEnvironmentRecord(scope), aInThis.toObject());
-        try
-        {
-            instantiateDeclarationBinding(aInArguments, aInExecutionContext);
+        try {
+            bindArgumentsToParameters(aInArguments, aInExecutionContext);
             // function calls never return references
             return expression.execute(aInExecutionContext).getValue();
         }
-        finally
-        {
+        finally {
             aInExecutionContext.pop();
         }
     }
 
-    private void instantiateDeclarationBinding(List<JSELValue> aInArguments,
-            ExecutionContext aInOutContext)
-    {
+    /**
+     * Binds argument values to the function's parameters in the execution
+     * context.
+     * @param aInArguments the argument values to bind.
+     * @param aInOutContext the execution context.
+     */
+    private void bindArgumentsToParameters(List<JSELValue> aInArguments,
+                                           ExecutionContext aInOutContext) {
         // bind arguments (arguments cannot be references, by the way, that's
         // why we do getValue
-        for (int i = 0; i < parameters.size(); i++)
-        {
+        for (int i = 0; i < parameters.size(); i++) {
             JSELValue lArgument = i < aInArguments.size()
                     ? aInArguments.get(i).getValue()
                     : JSELUndefined.getInstance();
@@ -93,31 +111,38 @@ public class JSELUserFunction extends JSELFunction
     }
 
     @Override
-    protected String getSourceCode()
-    {
+    protected String getSourceCode() {
         return "source code";
     }
 
-    public JSELExpression getExpression()
-    {
-        return expression;
-    }
-
+    /**
+     * Instantiates a new object using this function as a constructor. This
+     * implements instantiation as specified for internal method "[[Construct]]"
+     * @param aInArguments the constructor arguments
+     * @param aInExecutionContext the execution context
+     * @return the newly created object.
+     * @see <a href="https://www.ecma-international.org/ecma-262/5.1/#sec-13.2.2">
+     * ECMA-262, 5.1, Section 13.2.2"</a>
+     */
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-            ExecutionContext aInExecutionContext)
-    {
+            ExecutionContext aInExecutionContext) {
         JSELObject lThis = new JSELObject(getFunctionPrototype());
         JSELValue lReturn = call(lThis, aInArguments, aInExecutionContext);
 
         return lReturn.getType() == Type.OBJECT ? lReturn.toObject() : lThis;
     }
 
-    protected JSELObject getFunctionPrototype()
-    {
+    /**
+     * Gets the function prototype object. If the function's "prototype"
+     * property is not a JSELObject, the default Object.prototype value is
+     * used.
+     * @return the function prototype object.
+     */
+    private JSELObject getFunctionPrototype() {
         JSELValue lValue = get(PROTOTYPE);
-        if (lValue.getType() == Type.OBJECT)
-        {
+        if (lValue.getType() == Type.OBJECT) {
+            // return de-referenced object.
             return lValue.toObject();
         }
         return ExecutionContext.getObjectPrototype();

@@ -24,11 +24,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class JSELStringObjectTest
-{
+public class JSELStringObjectTest {
     @Test
-    public void testGetOwnDescriptor()
-    {
+    public void testGetOwnDescriptor() {
         JSELString lString = new JSELString("test");
         assertEquals("t", lString.toObject().get("0").toString());
         assertEquals("e", lString.toObject().get("1").toString());

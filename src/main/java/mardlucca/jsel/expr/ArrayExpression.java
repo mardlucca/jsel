@@ -24,22 +24,18 @@ import mardlucca.jsel.type.JSELValue;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayExpression implements JSELExpression
-{
+public class ArrayExpression implements JSELExpression {
     private List<JSELExpression> expressions = new ArrayList<>();
 
     public ArrayExpression(
-            List<JSELExpression> aInExpressions)
-    {
+            List<JSELExpression> aInExpressions) {
         expressions = aInExpressions;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         JSELArray lNewArray = new JSELArray();
-        for (int i = 0; i< expressions.size(); i++)
-        {
+        for (int i = 0; i< expressions.size(); i++) {
             lNewArray.put(i, expressions.get(i).execute(aInContext));
         }
         return lNewArray;

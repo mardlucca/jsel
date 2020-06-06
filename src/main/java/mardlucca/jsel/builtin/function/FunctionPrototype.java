@@ -37,16 +37,13 @@ import static mardlucca.jsel.builtin.function.CallFunction.CALL;
 import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
 import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 
-public class FunctionPrototype extends JSELFunction
-{
+public class FunctionPrototype extends JSELFunction {
     public FunctionPrototype(
-            ObjectPrototype aInPrototype)
-    {
+            ObjectPrototype aInPrototype) {
         super(aInPrototype, null, null);
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         defineOwnProperty(ObjectPrototype.CONSTRUCTOR_PROPERTY, new FunctionConstructor(),
                 false, true, true);
 
@@ -59,8 +56,7 @@ public class FunctionPrototype extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         return JSELUndefined.getInstance();
     }
 }

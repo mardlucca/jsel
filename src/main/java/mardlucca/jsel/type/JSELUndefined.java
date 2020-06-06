@@ -18,68 +18,69 @@
 package mardlucca.jsel.type;
 
 
-import mardlucca.jsel.JSELRuntimeException;
-
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class JSELUndefined extends JSELValue
-{
+/**
+ * This represents the null data type in JSEL.
+ */
+public class JSELUndefined extends JSELValue {
+    /**
+     * Singleton value for the undefined instance.
+     */
     private static final JSELUndefined instance = new JSELUndefined();
 
-    private JSELUndefined()
-    {
+    /**
+     * Private constructor.
+     */
+    private JSELUndefined() {
     }
 
-    public static JSELUndefined getInstance()
-    {
+    /**
+     * Get the singleton
+     * @return the singleton for undefined
+     */
+    public static JSELUndefined getInstance() {
         return instance;
     }
 
-    public Type getType()
-    {
+    public Type getType() {
         return Type.UNDEFINED;
     }
 
     @Override
-    public boolean isObjectCoercible()
-    {
+    public boolean isObjectCoercible() {
         return false;
     }
 
     @Override
-    public boolean isPrimitive()
-    {
+    public boolean isPrimitive() {
         return true;
     }
 
     @Override
-    public boolean toBoolean()
-    {
+    public boolean toBoolean() {
         return false;
     }
 
     @Override
-    public double toNumber()
-    {
+    public double toNumber() {
         return Double.NaN;
     }
 
     @Override
-    public JSELObject toObject()
-    {
-        throw JSELRuntimeException.typeError("undefined cannot be converted to object");
+    public JSELObject toObject() {
+        throw typeError("undefined cannot be converted to object");
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "undefined";
     }
 
     @Override
-    public boolean equals(JSELValue aInObject)
-    {
+    public boolean equals(JSELValue aInObject) {
         aInObject = aInObject.getValue();
+        // "undefined == true" is true.
         return aInObject == this || aInObject == JSELNull.getInstance();
     }
 }

@@ -17,22 +17,22 @@
  */
 package mardlucca.jsel.expr;
 
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 
-public class TypeOfExpression extends UnaryOperatorExpression
-{
+public class TypeOfExpression extends UnaryOperatorExpression {
+    private static final String FUNCTION_STRING = "function";
+
     public TypeOfExpression(
-            JSELExpression aInOperand)
-    {
+            JSELExpression aInOperand) {
         super(aInOperand);
     }
 
     @Override
-    protected JSELValue operate(JSELValue aInOperand)
-    {
-        return new JSELString(aInOperand.getType().toString());
+    protected JSELValue operate(JSELValue aInOperand) {
+        aInOperand = aInOperand.getValue();
+        return new JSELString(aInOperand.isCallable()
+                ? FUNCTION_STRING
+                : aInOperand.getType().toString());
     }
 }

@@ -19,82 +19,89 @@ package mardlucca.jsel.type;
 
 import mardlucca.jsel.type.wrapper.JSELBooleanObject;
 
-public class JSELBoolean extends JSELValue
-{
+/**
+ * This represents the boolean data type in JSEL
+ */
+public class JSELBoolean extends JSELValue {
+    /**
+     * Singleton for a "true" value
+     */
     public static final JSELBoolean TRUE = new JSELBoolean(true);
 
+    /**
+     * Singleton for a "false" value
+     */
     public static final JSELBoolean FALSE = new JSELBoolean(false);
 
+    /**
+     * The underlying boolean value
+     */
     private boolean bool;
 
-    public JSELBoolean(boolean aInBoolean)
-    {
+    /**
+     * Constructor
+     * @param aInBoolean the underlying boolean value.
+     */
+    public JSELBoolean(boolean aInBoolean) {
         bool = aInBoolean;
     }
 
     @Override
-    public Type getType()
-    {
+    public Type getType() {
         return Type.BOOLEAN;
     }
 
     @Override
-    public boolean isPrimitive()
-    {
+    public boolean isPrimitive() {
         return true;
     }
 
     @Override
-    public boolean toBoolean()
-    {
+    public boolean toBoolean() {
         return bool;
     }
 
     @Override
-    public double toNumber()
-    {
+    public double toNumber() {
         return bool ? 1.0 : 0.0;
     }
 
     @Override
-    public JSELObject toObject()
-    {
+    public JSELObject toObject() {
         return new JSELBooleanObject(this);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.valueOf(bool);
     }
 
     @Override
-    public boolean equals(JSELValue aInValue)
-    {
+    public boolean equals(JSELValue aInValue) {
         aInValue = aInValue.getValue();
-        if (aInValue == this)
-        {
+        if (aInValue == this) {
             return true;
         }
 
-        if (aInValue.getType() == Type.BOOLEAN)
-        {
+        if (aInValue.getType() == Type.BOOLEAN) {
             return bool == aInValue.toBoolean();
         }
+
+        // if aInValue is not a boolean, convert this value to a number and
+        // compare again.
+        // see https://ecma-international.org/ecma-262/5.1/#sec-11.9.3,
+        // sub-section 7.
         return new JSELNumber(this.toNumber()).equals(aInValue);
     }
 
     @Override
-    public boolean strictEquals(JSELValue aInValue)
-    {
+    public boolean strictEquals(JSELValue aInValue) {
         aInValue = aInValue.getValue();
-        if (aInValue == this)
-        {
+        if (aInValue == this) {
             return true;
         }
 
-        if (aInValue.getType() == Type.BOOLEAN)
-        {
+        if (aInValue.getType() == Type.BOOLEAN) {
             return bool == aInValue.toBoolean();
         }
 

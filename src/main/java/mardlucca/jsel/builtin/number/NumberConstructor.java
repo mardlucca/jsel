@@ -27,10 +27,8 @@ import mardlucca.jsel.type.wrapper.JSELNumberObject;
 import java.util.Collections;
 import java.util.List;
 
-public class NumberConstructor extends JSELFunction
-{
-    public NumberConstructor()
-    {
+public class NumberConstructor extends JSELFunction {
+    public NumberConstructor() {
         super(JSELNumberObject.CLASS, Collections.singletonList("value"));
 
         defineOwnProperty(
@@ -40,10 +38,8 @@ public class NumberConstructor extends JSELFunction
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
-        if (aInArguments.isEmpty())
-        {
+                          ExecutionContext aInExecutionContext) {
+        if (aInArguments.isEmpty()) {
             return new JSELNumber(0);
         }
 
@@ -52,10 +48,8 @@ public class NumberConstructor extends JSELFunction
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-                                  ExecutionContext aInExecutionContext)
-    {
-        if (aInArguments.isEmpty())
-        {
+                                  ExecutionContext aInExecutionContext) {
+        if (aInArguments.isEmpty()) {
             return new JSELNumberObject(new JSELNumber(0));
         }
 

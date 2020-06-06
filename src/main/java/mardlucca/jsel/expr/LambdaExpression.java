@@ -24,27 +24,23 @@ import mardlucca.jsel.type.JSELUserFunction;
 import java.util.Collections;
 import java.util.List;
 
-public class LambdaExpression implements JSELExpression
-{
+public class LambdaExpression implements JSELExpression {
     private List<String> parameters;
     private JSELExpression bodyExpression;
 
     public LambdaExpression(String aInParameter,
-            JSELExpression aInBodyExpression)
-    {
+            JSELExpression aInBodyExpression) {
         this(Collections.singletonList(aInParameter), aInBodyExpression);
     }
 
     public LambdaExpression(List<String> aInParameters,
-            JSELExpression aInBodyExpression)
-    {
+            JSELExpression aInBodyExpression) {
         parameters = aInParameters;
         bodyExpression = aInBodyExpression;
     }
 
     @Override
-    public JSELUserFunction execute(ExecutionContext aInContext)
-    {
+    public JSELUserFunction execute(ExecutionContext aInContext) {
         return new JSELUserFunction(
                 parameters,
                 bodyExpression,

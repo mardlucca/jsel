@@ -20,8 +20,7 @@ package mardlucca.jsel;
 
 import java.util.Objects;
 
-public enum TokenEnum
-{
+public enum TokenEnum {
     IDENTIFIER("id"),
 
     FALSE("false"),
@@ -77,13 +76,11 @@ public enum TokenEnum
     REGEX("regex"),
     EOF("$");
 
-    TokenEnum(String aInText)
-    {
+    TokenEnum(String aInText) {
         this(aInText, null);
     }
 
-    TokenEnum(String aInText, String aInAlias)
-    {
+    TokenEnum(String aInText, String aInAlias) {
         text = aInText;
         alias = aInAlias;
     }
@@ -92,13 +89,10 @@ public enum TokenEnum
 
     private String alias;
 
-    public static TokenEnum fromText(String aInTextValue)
-    {
-        for (TokenEnum lToken : TokenEnum.values())
-        {
+    public static TokenEnum fromText(String aInTextValue) {
+        for (TokenEnum lToken : TokenEnum.values()) {
             if (lToken.text.equals(aInTextValue)
-                    || (Objects.equals(lToken.alias, aInTextValue)))
-            {
+                    || (Objects.equals(lToken.alias, aInTextValue))) {
                 return lToken;
             }
         }
@@ -106,8 +100,7 @@ public enum TokenEnum
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return text;
     }
 }

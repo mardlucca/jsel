@@ -25,35 +25,32 @@ import mardlucca.jsel.JSELRuntimeException;
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELValue;
+import mardlucca.jsel.type.wrapper.JSELPrimitiveWrapper;
 
 import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static mardlucca.jsel.builtin.object.ValueOfFunction.VALUE_OF;
 
-public class DefaultValueOfFunction extends JSELFunction
-{
+public class DefaultValueOfFunction extends JSELFunction {
     private String objectClass;
 
-    public DefaultValueOfFunction(String aInObjectClass)
-    {
+    public DefaultValueOfFunction(String aInObjectClass) {
         super(VALUE_OF, null);
         objectClass = aInObjectClass;
     }
 
     @Override
     public JSELValue call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (!aInThisValue.isObjectCoercible()
                 || !aInThisValue.toObject().getObjectClass().equals(
-                objectClass))
-        {
-            throw JSELRuntimeException.typeError(objectClass + ".prototype.valueOf requires that " +
+                objectClass)) {
+            throw typeError(objectClass + ".prototype.valueOf requires that " +
                     "'this' be a " + objectClass);
         }
         return aInThisValue.isPrimitive()
                 ? aInThisValue
-                : aInThisValue.toObject().getPrimitiveValue();
+                : ((JSELPrimitiveWrapper) aInThisValue).getPrimitiveValue();
     }
 }

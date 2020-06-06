@@ -22,17 +22,14 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELUndefined;
 import mardlucca.jsel.type.JSELValue;
 
-public class VoidExpression extends UnaryOperatorExpression
-{
+public class VoidExpression extends UnaryOperatorExpression {
     public VoidExpression(
-            JSELExpression aInOperand)
-    {
+            JSELExpression aInOperand) {
         super(aInOperand);
     }
 
     @Override
-    protected JSELValue operate(JSELValue aInOperand)
-    {
+    protected JSELValue operate(JSELValue aInOperand) {
         return JSELUndefined.getInstance();
     }
 }

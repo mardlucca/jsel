@@ -33,8 +33,7 @@ import java.io.IOException;
 import static org.junit.Assert.*;
 
 @SuppressWarnings({"JavaDoc", "HardCodedStringLiteral"})
-public class JSELExpressionTest extends AbstractJSELExpressionTest
-{
+public class JSELExpressionTest extends AbstractJSELExpressionTest {
     public static final String ARRAY_TEST_CASE =
             "[1.2,'str', true, false, undefined, null, {id:2}]";
 
@@ -51,8 +50,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
 
     @Before
     public void setUp() throws UnrecognizedCharacterSequenceException,
-                               JSELCompilationException, IOException
-    {
+                               JSELCompilationException, IOException {
         runner.define("object",
                 JSELExpression.compile(OBJECT_TEST_CASE));
     }
@@ -60,8 +58,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testNumberExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("1", 1);
         testNumber("1.25e-3", 1.25e-3);
         testNumber("0x12", 0x12);
@@ -71,8 +68,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testStringExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testString("\"test1\"", "test1");
         testString("\"\"", "");
         testString("'test1'", "test1");
@@ -82,40 +78,35 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testTrueExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("\ntrue ", true);
     }
 
     @Test
     public void testFalseExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("\nfalse ", false);
     }
 
     @Test
     public void testUndefinedExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testUndefined("\nundefined ");
     }
 
     @Test
     public void testNullExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNull("\nnull ");
     }
 
     @Test
     public void testArrayExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testArray(ARRAY_TEST_CASE,
                 numberVerifier(1.2), stringVerifier("str"),
                 booleanVerifier(true), booleanVerifier(false),
@@ -140,8 +131,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testObjectExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testObject(OBJECT_TEST_CASE,
                 propertyVerifier("number", numberVerifier(1.2)),
                 propertyVerifier("str", stringVerifier("str")),
@@ -171,8 +161,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
 
     @Test
     public void testObjectAccess() throws UnrecognizedCharacterSequenceException,
-                                         JSELCompilationException, IOException
-    {
+                                         JSELCompilationException, IOException {
         testNumber("object.number", 1.2);
         testNumber("object['number']", 1.2);
         testString("object.str", "str");
@@ -197,8 +186,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     public void testConditionalOperator()
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException,
-                   IOException
-    {
+                   IOException {
         testNumber("true ? 10 : object.array[0]", 10);
         testNumber("object[\"true\"] ? 10 : object.array[0]", 10);
         testNumber("object[false] ? 10 : object.array[0]", 1);
@@ -212,8 +200,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
 
     @Test
     public void testAndOperator() throws UnrecognizedCharacterSequenceException,
-                                         JSELCompilationException, IOException
-    {
+                                         JSELCompilationException, IOException {
         testBoolean("true && true", true);
         testBoolean("1 && {}", true);
         testBoolean("true && false", false);
@@ -229,8 +216,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
 
     @Test
     public void testOrOperator() throws UnrecognizedCharacterSequenceException,
-                                         JSELCompilationException, IOException
-    {
+                                         JSELCompilationException, IOException {
         testBoolean("true || true", true);
         testBoolean("0 || {}", true);
         testBoolean("true || false", true);
@@ -251,8 +237,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testBitwiseOrOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("0xf0 | 0xaa", 0xfa);
         testNumber("-1 | 10", -1);
         testNumber("1.2 | 1.7", 1);
@@ -264,8 +249,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testBitwiseXorOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("1 ^ 1 ", 0);
         testNumber("1 ^ false", 1);
         testNumber("'0' ^ true", 1);
@@ -276,8 +260,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testBitwiseAndOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("0xf0 & 0xaa", 0xa0);
         testNumber("-1 & 10", 10);
         testNumber("1.2 & 1.7", 1);
@@ -292,8 +275,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testEqualsOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("NaN == NaN", false);
         testBoolean("Infinity == Infinity", true);
         testBoolean("1 == 1", true);
@@ -313,8 +295,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testNotEqualsOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("NaN != NaN", true);
         testBoolean("Infinity != Infinity", false);
         testBoolean("1 != 1", false);
@@ -335,8 +316,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testStrictEqualsOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("1 === 1", true);
         testBoolean("false === false", true);
         testBoolean("false === true", false);
@@ -358,8 +338,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testStrictNotEqualsOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("1 !== 1", false);
         testBoolean("false !== false", false);
         testBoolean("false !== true", true);
@@ -384,8 +363,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testLessThanOrEqualTo()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("1 <= 0", false);
         testBoolean("1 <= 1", true);
         testBoolean("1 <= 2", true);
@@ -408,8 +386,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testLessThan()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("1 < 0", false);
         testBoolean("1 < 1", false);
         testBoolean("1 < 2", true);
@@ -432,8 +409,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testGreaterThan()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("0 > 1", false);
         testBoolean("1 > 1", false);
         testBoolean("2 > 1", true);
@@ -456,8 +432,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testGreaterThanOrEqualTo()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("0 >= 1", false);
         testBoolean("1 >= 1", true);
         testBoolean("2 >= 1", true);
@@ -485,8 +460,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testIn()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("'number' in object", true);
         testBoolean("'blah' in object", false);
         testBoolean("'true' in object", true);
@@ -496,8 +470,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
             testBoolean("'toString' in object.number", false);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals(
                     "Cannot use 'in' operator to search for 'toString' in 1.2",
                     e.getMessage());
@@ -507,8 +480,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testShiftLeft()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("1 << 3", 8);
         testNumber("-1 << '3'", -8);
         testNumber("1.2 << 3.2", 8);
@@ -527,8 +499,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testShiftRight()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("8 >> 3", 1);
         testNumber("-8 >> '3'", -1);
         testNumber("8 >> 3.2", 1);
@@ -542,8 +513,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testUnsignedShiftRight()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("8 >>> 3", 1);
         testNumber("-8 >>> '2'", 0x3ffffffe);
         testNumber("8 >>> 3.2", 1);
@@ -557,8 +527,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testPlus()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("0 + 1", 1);
         testNumber("1 + 1", 2);
         testNumber("2 + 1", 3);
@@ -589,8 +558,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testMinus()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("0 - 1", -1);
         testNumber("1 - 1", 0);
         testNumber("2 - 1", 1);
@@ -620,8 +588,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testMultiplication()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("0 * 1", 0);
         testNumber("1 * 1", 1);
         testNumber("2 * 1", 2);
@@ -652,8 +619,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testDivision()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("0 / 1", 0);
         testNumber("1 / 1", 1);
         testNumber("2 / 1", 2);
@@ -694,8 +660,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testUnaryPlusOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("+1", 1);
         testNumber("+NaN", Double.NaN);
         testNumber("+true", 1);
@@ -708,8 +673,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testUnaryMinusOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("-1", -1);
         testNumber("-NaN", Double.NaN);
         testNumber("-true", -1);
@@ -724,8 +688,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
 
     @Test
     public void testNotOperator() throws UnrecognizedCharacterSequenceException,
-                                         JSELCompilationException, IOException
-    {
+                                         JSELCompilationException, IOException {
         testBoolean("!true || true", true);
         testBoolean("0 || !{}", false);
         testBoolean("!true || false", false);
@@ -743,8 +706,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testBitwiseNotOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("~0", -1);
         testNumber("~NaN", -1);
         testNumber("~Infinity", -1);
@@ -756,8 +718,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testTypeOfOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testString("typeof true", Type.BOOLEAN.toString());
         testString("typeof 1", Type.NUMBER.toString());
         testString("typeof '1'", Type.STRING.toString());
@@ -782,8 +743,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testVoidOperator()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testUndefined("void true");
         testUndefined("void 1");
         testUndefined("void '1'");
@@ -793,13 +753,11 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
         testUndefined("void undefined");
         testUndefined("void {}");
         testUndefined("void []");
-        try
-        {
+        try {
             testUndefined("void null.blah");
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("null cannot be converted to object", e.getMessage());
         }
     }
@@ -807,20 +765,17 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testFunctionCallExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testString("object.toString()", "[object Object]");
         testString("object.toString(1, 2, 3) + 2",
                 "[object Object]2");
         testNumber("object.func(2)", 3);
 
-        try
-        {
+        try {
             testUndefined("blah()");
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("undefined is not a function", e.getMessage());
         }
     }
@@ -828,8 +783,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testLambdaExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testFunction("(x)=>10", "x");
         testFunction("y=>10", "y");
         testFunction("(x, y)=>10", "x", "y");
@@ -853,8 +807,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testRegExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testRegExp("/a/", "/a/");
         testRegExp("/a/mig", "/a/mig");
         testRegExp("/a/gim", "/a/gim");
@@ -868,13 +821,11 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
         testBoolean("typeof (/a/).test == 'function'", true);
         testNumber("/a[/gim]/mig ? 1 : 2", 1);
 
-        try
-        {
+        try {
             testNumber("/a/(1)", 1);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("/a/ is not a function", e.getMessage());
         }
 
@@ -883,8 +834,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testExpressionWithComments()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testRegExp("/a/ //this is a comment", "/a/");
         testRegExp("/a/ /*this is a comment*/", "/a/");
         testNumber("/a/ / /*this is a comment*/ /b/ ", Double.NaN);
@@ -894,37 +844,30 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest
     @Test
     public void testEmptyExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
-        try
-        {
+                   JSELCompilationException, IOException {
+        try {
             testUndefined("");
             fail();
         }
-        catch (JSELCompilationException e)
-        {
+        catch (JSELCompilationException e) {
             assertEquals("Compilation failed with the following errors: "
                     + "\nSyntax error", e.getMessage());
         }
 
-        try
-        {
+        try {
             testUndefined("// comment");
             fail();
         }
-        catch (JSELCompilationException e)
-        {
+        catch (JSELCompilationException e) {
             assertEquals("Compilation failed with the following errors: "
                     + "\nSyntax error", e.getMessage());
         }
 
-        try
-        {
+        try {
             testUndefined("/* multiline \n comment*/");
             fail();
         }
-        catch (JSELCompilationException e)
-        {
+        catch (JSELCompilationException e) {
             assertEquals("Compilation failed with the following errors: "
                     + "\nSyntax error", e.getMessage());
         }

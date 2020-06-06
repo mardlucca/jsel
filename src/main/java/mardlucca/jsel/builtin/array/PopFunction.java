@@ -27,24 +27,20 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-public class PopFunction extends JSELFunction
-{
+public class PopFunction extends JSELFunction {
     public static final String POP = "pop";
 
 
-    public PopFunction()
-    {
+    public PopFunction() {
         super(POP, null);
     }
 
     @Override
     public JSELValue call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
-        if (lLength == 0)
-        {
+        if (lLength == 0) {
             // puts the numerical number in
             lThis.put(JSELArray.LENGTH, new JSELNumber(0));
             return JSELUndefined.getInstance();

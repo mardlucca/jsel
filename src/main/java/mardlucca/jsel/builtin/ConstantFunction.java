@@ -26,19 +26,16 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-public class ConstantFunction extends JSELFunction
-{
+public class ConstantFunction extends JSELFunction {
     private JSELValue constant;
 
-    public ConstantFunction(JSELValue aInConstant)
-    {
+    public ConstantFunction(JSELValue aInConstant) {
         constant = aInConstant;
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-            ExecutionContext aInContext)
-    {
+            ExecutionContext aInContext) {
         return constant;
     }
 }

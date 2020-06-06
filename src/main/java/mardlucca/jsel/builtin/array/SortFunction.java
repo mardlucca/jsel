@@ -40,20 +40,17 @@ import java.util.Map;
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static java.util.Arrays.asList;
 
-public class SortFunction extends JSELFunction
-{
+public class SortFunction extends JSELFunction {
     public static final String SHIFT = "sort";
 
 
-    public SortFunction()
-    {
+    public SortFunction() {
         super(SHIFT, Collections.singletonList("comparefn"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         JSELValue lCompareFn = getArgument(aInArguments);
 
@@ -62,15 +59,13 @@ public class SortFunction extends JSELFunction
         lValues.sort(new JSELValueComparator(lCompareFn, aInExecutionContext));
 
         // first we go ahead and delete the numeric properties
-        for (String lProperty : lValuesMap.keySet())
-        {
+        for (String lProperty : lValuesMap.keySet()) {
             lThis.delete(lProperty);
         }
 
         // at this point array is pretty much empty. now we start adding
         // elements again
-        for (int i = 0; i < lValues.size(); i++)
-        {
+        for (int i = 0; i < lValues.size(); i++) {
             lThis.put(String.valueOf(i), lValues.get(i));
         }
 
@@ -80,15 +75,12 @@ public class SortFunction extends JSELFunction
     }
 
     private static Map<String, JSELValue> collectNumberProperties(
-            JSELObject aInObject)
-    {
+            JSELObject aInObject) {
         Map<String, JSELValue> lNumberProperties = new HashMap<>();
-        for (String lPropertyName : aInObject.getOwnPropertyNames())
-        {
+        for (String lPropertyName : aInObject.getOwnPropertyNames()) {
             long lNumber = JSELNumber.toInteger(
                     DecimalFormat.parse(lPropertyName));
-            if (lPropertyName.equals(DecimalFormat.format(lNumber)))
-            {
+            if (lPropertyName.equals(DecimalFormat.format(lNumber))) {
                 //property is an index
                 lNumberProperties.put(
                         lPropertyName, aInObject.get(lPropertyName));
@@ -97,34 +89,28 @@ public class SortFunction extends JSELFunction
         return lNumberProperties;
     }
 
-    static class JSELValueComparator implements Comparator<JSELValue>
-    {
+    static class JSELValueComparator implements Comparator<JSELValue> {
         private JSELValue compareFn;
 
         private ExecutionContext executionContext;
 
         public JSELValueComparator(
                 JSELValue aInCompareFn,
-                ExecutionContext aInExecutionContext)
-        {
+                ExecutionContext aInExecutionContext) {
             compareFn = aInCompareFn;
             executionContext = aInExecutionContext;
         }
 
         @Override
-        public int compare(JSELValue aInValue1, JSELValue aInValue2)
-        {
-            if (aInValue1.getType() == Type.UNDEFINED)
-            {
+        public int compare(JSELValue aInValue1, JSELValue aInValue2) {
+            if (aInValue1.getType() == Type.UNDEFINED) {
                 return aInValue2.getType() == Type.UNDEFINED ? 0 : -1;
             }
-            if (aInValue2.getType() == Type.UNDEFINED)
-            {
+            if (aInValue2.getType() == Type.UNDEFINED) {
                 return aInValue1.getType() == Type.UNDEFINED ? 0 : 1;
             }
 
-            if (compareFn.isCallable())
-            {
+            if (compareFn.isCallable()) {
                 return compareFn.call(
                         JSELUndefined.getInstance(),
                         asList(aInValue1, aInValue2),
@@ -132,8 +118,7 @@ public class SortFunction extends JSELFunction
                         .toInt32();
             }
 
-            if (compareFn.getType() == Type.UNDEFINED)
-            {
+            if (compareFn.getType() == Type.UNDEFINED) {
                 return aInValue1.toString().compareTo(aInValue2.toString());
             }
 

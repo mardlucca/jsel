@@ -27,30 +27,26 @@ import mardlucca.jsel.type.JSELPropertyReference;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 
-public class AccessExpression implements JSELExpression
-{
+public class AccessExpression implements JSELExpression {
     private JSELExpression scopeExpression;
     private JSELExpression keyExpression;
     private String key;
 
     public AccessExpression(
             JSELExpression aInKeyExpression,
-            JSELExpression aInScopeExpression)
-    {
+            JSELExpression aInScopeExpression) {
         keyExpression = aInKeyExpression;
         scopeExpression = aInScopeExpression;
     }
 
     public AccessExpression(
-            String aInKey, JSELExpression aInScopeExpression)
-    {
+            String aInKey, JSELExpression aInScopeExpression) {
         scopeExpression = aInScopeExpression;
         key = aInKey;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         JSELValue lScope = scopeExpression.execute(aInContext);
 
         String lKey = key == null
@@ -60,7 +56,7 @@ public class AccessExpression implements JSELExpression
         JSELPropertyReference lReference =
                 new JSELPropertyReference(lScope, lKey);
 
-        return lReference.getType() == Type.FUNCTION
+        return lReference.getValue().isCallable()
                 ? lReference
                 : lReference.getValue();
     }

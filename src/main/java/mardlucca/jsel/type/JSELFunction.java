@@ -25,41 +25,95 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class JSELFunction extends JSELObject
-{
+/**
+ * This represents an function object type in JSEL.
+ */
+public class JSELFunction extends JSELObject {
+    /**
+     * Constant used for the internal [[Class]] property for objects of this
+     * type.
+     */
     public static final String CLASS = "Function";
 
+    /**
+     * Constant for the name of property "length"
+     */
     public static final String LENGTH = "length";
 
+    /**
+     * Constant for the name of property "prototype"
+     */
     public static final String PROTOTYPE = "prototype";
 
+    /**
+     * Name of the function. This is mostly used in messages.
+     */
     private String name;
 
+    /**
+     * Parameter list. This is mostly used in messages.
+     */
     protected List<String> parameters;
 
-    public JSELFunction()
-    {
+    /**
+     * Creates a new JSELFunction with default name "f".
+     * <p>
+     * This uses the {@link ExecutionContext#getFunctionPrototype() function
+     * prototype} associated to this thread's {@link ExecutionContext}.
+     * </p>
+     */
+    public JSELFunction() {
         this("f", null);
     }
 
-    public JSELFunction(String aInName)
-    {
+    /**
+     * Creates a new JSELFunction
+     * <p>
+     * This uses the {@link ExecutionContext#getFunctionPrototype() function
+     * prototype} associated to this thread's {@link ExecutionContext}.
+     * </p>
+     * @param aInName the name of the function
+     */
+    public JSELFunction(String aInName) {
         this(aInName, null);
     }
 
-    public JSELFunction(List<String> aInParameters)
-    {
+    /**
+     * Creates a new JSELFunction with default name "f" and with the given
+     * parameters.
+     * <p>
+     * This uses the {@link ExecutionContext#getFunctionPrototype() function
+     * prototype} associated to this thread's {@link ExecutionContext}.
+     * </p>
+     * @param aInParameters the function parameters.
+     */
+    public JSELFunction(List<String> aInParameters) {
         this("f", aInParameters);
     }
 
-    public JSELFunction(String aInName, List<String> aInParameters)
-    {
+    /**
+     * Creates a new JSELFunction with the given name and with the given
+     * parameters.
+     * <p>
+     * This uses the {@link ExecutionContext#getFunctionPrototype() function
+     * prototype} associated to this thread's {@link ExecutionContext}.
+     * </p>
+     * @param aInName the function name.
+     * @param aInParameters the function parameters.
+     */
+    public JSELFunction(String aInName, List<String> aInParameters) {
         this(ExecutionContext.getFunctionPrototype(), aInName, aInParameters);
     }
 
+    /**
+     * Creates a new JSELFunction with the given name and with the given
+     * parameters, using the given prototype object.
+     * @param aInPrototype the Function prototype for this function
+     * @param aInName the function name.
+     * @param aInParameters the function parameters.
+     */
     public JSELFunction(JSELObject aInPrototype,
-            String aInName, List<String> aInParameters)
-    {
+            String aInName, List<String> aInParameters) {
         super(aInPrototype);
         name = aInName == null ? "f" : aInName;
         parameters = aInParameters == null
@@ -71,55 +125,70 @@ public class JSELFunction extends JSELObject
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "f" + (getName() == null ? "" : " " + getName())
                 + "() { [" + getSourceCode() + "] }";
     }
 
     @Override
-    public Type getType()
-    {
-        return Type.FUNCTION;
-    }
-
-    @Override
-    public String getObjectClass()
-    {
+    public String getObjectClass() {
         return CLASS;
     }
 
     @Override
-    public boolean isCallable()
-    {
+    public boolean isCallable() {
         return true;
     }
 
-    protected String getName()
-    {
+    /**
+     * Gets this function's name.
+     * @return the name
+     */
+    protected String getName() {
         return name;
     }
 
-    protected String getSourceCode()
-    {
+    /**
+     * Gets the source code for this function.
+     * @return the source code for this function.
+     */
+    protected String getSourceCode() {
         return "native code";
     }
 
-    public List<String> getParameters()
-    {
+    /**
+     * Gets this function's list of parameters.
+     * @return the list of parameters
+     */
+    public List<String> getParameters() {
         return Collections.unmodifiableList(parameters);
     }
 
+    /**
+     * This is a utility method to returns and indexed argument for the
+     * function.
+     *
+     * @param aInArguments the list of arguments
+     * @param aInIndex the index we're interested in
+     * @return the argument or {@link JSELUndefined#getInstance()} if the index
+     * is out of bounds.
+     */
     public static JSELValue getArgument(List<JSELValue> aInArguments,
-            int aInIndex)
-    {
+            int aInIndex) {
         return aInIndex < aInArguments.size()
                 ? aInArguments.get(aInIndex)
                 : JSELUndefined.getInstance();
     }
 
-    public static JSELValue getArgument(List<JSELValue> aInArguments)
-    {
+    /**
+     * Utility to get the first argument in a list of arguments or "undefined"
+     * if the list is empty.
+     *
+     * @param aInArguments the list of arguments.
+     * @return the argument or {@link JSELUndefined#getInstance()} if the list
+     * is empty.
+     */
+    public static JSELValue getArgument(List<JSELValue> aInArguments) {
         return aInArguments.isEmpty()
                 ? JSELUndefined.getInstance()
                 : aInArguments.get(0);
@@ -127,8 +196,7 @@ public class JSELFunction extends JSELObject
 
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
-            ExecutionContext aInExecutionContext)
-    {
+            ExecutionContext aInExecutionContext) {
         throw JSELRuntimeException.typeError(name + " is not a constructor");
     }
 }

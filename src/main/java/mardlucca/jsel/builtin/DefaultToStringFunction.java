@@ -33,30 +33,23 @@ import java.util.List;
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 
-public class DefaultToStringFunction extends JSELFunction
-{
+public class DefaultToStringFunction extends JSELFunction {
     private String objectClass;
 
-    public DefaultToStringFunction(String aInObjectClass)
-    {
+    public DefaultToStringFunction(String aInObjectClass) {
         super(TO_STRING, null);
         objectClass = aInObjectClass;
     }
 
     @Override
     public JSELString call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                           ExecutionContext aInExecutionContext)
-    {
+                           ExecutionContext aInExecutionContext) {
         if (!aInThisValue.isObjectCoercible()
                 || !aInThisValue.toObject().getObjectClass().equals(
-                        objectClass))
-        {
-            throw JSELRuntimeException.typeError(objectClass + ".prototype.toString requires that " +
+                        objectClass)) {
+            throw typeError(objectClass + ".prototype.toString requires that " +
                     "'this' be a " + objectClass);
         }
-        return aInThisValue.isPrimitive()
-                ? new JSELString(aInThisValue.toString())
-                : new JSELString(
-                        aInThisValue.toObject().getPrimitiveValue().toString());
+        return new JSELString(aInThisValue.toString());
     }
 }

@@ -22,21 +22,22 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
 
-public class JSELPrimitiveWrapper extends JSELObject
-{
+public class JSELPrimitiveWrapper extends JSELObject {
     private JSELValue primitive;
 
     public JSELPrimitiveWrapper(
             JSELValue aInPrimitive,
-            JSELObject aInPrototype)
-    {
+            JSELObject aInPrototype) {
         super(aInPrototype);
         primitive = aInPrimitive;
     }
 
-    @Override
-    public JSELValue getPrimitiveValue()
-    {
+    public JSELValue getPrimitiveValue() {
         return primitive;
+    }
+
+    @Override
+    public String toString() {
+        return primitive.toString();
     }
 }

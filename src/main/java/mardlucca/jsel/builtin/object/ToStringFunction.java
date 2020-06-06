@@ -28,19 +28,16 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-public class ToStringFunction extends JSELFunction
-{
+public class ToStringFunction extends JSELFunction {
     public static final String TO_STRING = "toString";
 
-    public ToStringFunction()
-    {
+    public ToStringFunction() {
         super(TO_STRING);
     }
 
     @Override
     public JSELString call(JSELValue aInThis, List<JSELValue> aInArguments,
-                           ExecutionContext aInExecutionContext)
-    {
+                           ExecutionContext aInExecutionContext) {
         return new JSELString("[object "
                 + aInThis.toObject().getObjectClass() + "]");
     }

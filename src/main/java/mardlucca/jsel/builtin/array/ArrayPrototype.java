@@ -24,16 +24,13 @@ import mardlucca.jsel.type.JSELArray;
 
 import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
 
-public class ArrayPrototype extends JSELArray
-{
+public class ArrayPrototype extends JSELArray {
     public ArrayPrototype(
-            ObjectPrototype aInPrototype)
-    {
+            ObjectPrototype aInPrototype) {
         super(aInPrototype, 0);
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         defineOwnProperty(ObjectPrototype.CONSTRUCTOR_PROPERTY, new ArrayConstructor(),
                 false, true, true);
     }

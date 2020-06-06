@@ -45,8 +45,7 @@ import static java.util.Arrays.stream;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singletonList;
 
-public class MatchFunction extends JSELFunction
-{
+public class MatchFunction extends JSELFunction {
     public static final String MATCH = "match";
 
     /**
@@ -55,18 +54,15 @@ public class MatchFunction extends JSELFunction
      */
     private ExecFunction execFunction = new ExecFunction();
 
-    public MatchFunction()
-    {
+    public MatchFunction() {
         super(MATCH, Collections.singletonList("regexp"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.match called on null or undefined");
         }
@@ -76,8 +72,7 @@ public class MatchFunction extends JSELFunction
 
         if (lRegExpParameter.getType() != Type.OBJECT
                 || !lRegExpParameter.toObject().getObjectClass().equals(
-                        JSELRegExp.CLASS))
-        {
+                        JSELRegExp.CLASS)) {
             lRegExpParameter = new JSELRegExp(
                     lRegExpParameter.toString(), emptySet());
         }
@@ -86,8 +81,7 @@ public class MatchFunction extends JSELFunction
 
         boolean lGlobal = lRegExp.get(JSELRegExp.GLOBAL).toBoolean();
 
-        if (!lGlobal)
-        {
+        if (!lGlobal) {
             return execFunction.call(
                     lRegExp, singletonList(aInThis), aInExecutionContext);
         }
@@ -100,18 +94,15 @@ public class MatchFunction extends JSELFunction
 
         for (MatchResult lResult = exec(lRegExp, lString);
                 lResult != null;
-                lResult = exec(lRegExp, lString))
-        {
+                lResult = exec(lRegExp, lString)) {
             int lThisIndex = lResult.getEnd();
-            if (lThisIndex == lPreviousLastIndex)
-            {
+            if (lThisIndex == lPreviousLastIndex) {
                 // this is required for empty regexps, as matching the empty
                 // string does not advance "lastIndex"
                 lPreviousLastIndex = lThisIndex + 1;
                 lRegExp.put(JSELRegExp.LAST_INDEX, new JSELNumber(lPreviousLastIndex));
             }
-            else
-            {
+            else {
                 lPreviousLastIndex = lThisIndex;
             }
 

@@ -28,19 +28,16 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 
-public class PlusOperatorExpression extends BinaryOperatorExpression
-{
+public class PlusOperatorExpression extends BinaryOperatorExpression {
     public PlusOperatorExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         super(aInFirstOperandExpression, aInSecondOperandExpression);
     }
 
     @Override
     protected JSELValue operate(JSELValue aInFirstOperand,
-                                JSELValue aInSecondOperand)
-    {
+                                JSELValue aInSecondOperand) {
         aInFirstOperand = aInFirstOperand.toPrimitive(null);
         aInSecondOperand = aInSecondOperand.toPrimitive(null);
 
@@ -51,15 +48,13 @@ public class PlusOperatorExpression extends BinaryOperatorExpression
     }
 
     private JSELString operateAsString(JSELValue aInFirstOperand,
-                                       JSELValue aInSecondOperand)
-    {
+                                       JSELValue aInSecondOperand) {
         return new JSELString(
                 aInFirstOperand.toString() + aInSecondOperand.toString());
     }
 
     private JSELNumber operateAsNumber(JSELValue aInFirstOperand,
-                                       JSELValue aInSecondOperand)
-    {
+                                       JSELValue aInSecondOperand) {
         return new JSELNumber(
                 aInFirstOperand.toNumber() + aInSecondOperand.toNumber());
     }

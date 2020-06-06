@@ -33,8 +33,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class JSELNumberObjectTest
-{
+public class JSELNumberObjectTest {
     private JSELObject number0 = new JSELNumberObject(new JSELNumber(0));
     private JSELObject number1 = new JSELNumberObject(new JSELString("1"));
     private JSELObject numberNegative1 =
@@ -45,8 +44,7 @@ public class JSELNumberObjectTest
             new JSELNumberObject(new JSELNumber(Double.POSITIVE_INFINITY));
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         assertTrue(number1.equals(JSELBoolean.TRUE));
         assertTrue(number0.equals(JSELBoolean.FALSE));
         assertFalse(number0.equals(JSELBoolean.TRUE));
@@ -88,41 +86,34 @@ public class JSELNumberObjectTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         Assert.assertEquals(Type.OBJECT, number0.getType());
     }
 
     @Test
-    public void isPrimitive()
-    {
+    public void isPrimitive() {
         assertFalse(number0.isPrimitive());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(number0.isCallable());
     }
 
     @Test
-    public void call()
-    {
-        try
-        {
+    public void call() {
+        try {
             number0.call(number0.toObject(), null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("cannot invoke object of type object",
                     e.getMessage());
         }
     }
 
     @Test
-    public void strictEquals()
-    {
+    public void strictEquals() {
         assertFalse(number1.strictEquals(JSELBoolean.TRUE));
         assertFalse(number0.strictEquals(JSELBoolean.FALSE));
         assertFalse(number0.strictEquals(JSELBoolean.TRUE));
@@ -160,8 +151,7 @@ public class JSELNumberObjectTest
     }
 
     @Test
-    public void toBoolean()
-    {
+    public void toBoolean() {
         assertTrue(number1.toBoolean());
         // number0 is an object, which is always regarded as true
         assertTrue(number0.toBoolean());
@@ -171,8 +161,7 @@ public class JSELNumberObjectTest
     }
 
     @Test
-    public void toInt32()
-    {
+    public void toInt32() {
         assertEquals(0, number0.toInt32());
         assertEquals(1, number1.toInt32());
         assertEquals(-1, numberNegative1.toInt32());
@@ -182,8 +171,7 @@ public class JSELNumberObjectTest
     }
 
     @Test
-    public void toNumber()
-    {
+    public void toNumber() {
         assertEquals(0.0, number0.toNumber(), 0.0);
         assertEquals(1.0, number1.toNumber(), 0.0);
         assertEquals(Double.NaN, numberNaN.toNumber(), 0.0);
@@ -191,8 +179,7 @@ public class JSELNumberObjectTest
     }
 
     @Test
-    public void toPrimitive()
-    {
+    public void toPrimitive() {
         assertEquals(number0, number0.toPrimitive(null));
         assertEquals(number1, number1.toPrimitive(null));
         assertTrue(Double.isNaN(numberNaN.toNumber()));
@@ -202,8 +189,7 @@ public class JSELNumberObjectTest
     }
 
     @Test
-    public void toObject()
-    {
+    public void toObject() {
         assertSame(number0, number0.toObject());
         assertEquals(number0, number0.toObject().toPrimitive(null));
         assertEquals(Type.OBJECT, number0.toObject().getType());
@@ -212,8 +198,7 @@ public class JSELNumberObjectTest
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         assertEquals("0", number0.toString());
         assertEquals("1", number1.toString());
         assertEquals("NaN", numberNaN.toString());
@@ -221,8 +206,7 @@ public class JSELNumberObjectTest
     }
 
     @Test
-    public void toUInt32()
-    {
+    public void toUInt32() {
         assertEquals(0, number0.toUInt32());
         assertEquals(1, number1.toUInt32());
         assertEquals(0, numberNaN.toUInt32());

@@ -32,8 +32,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class JSELObjectStringTest
-{
+public class JSELObjectStringTest {
     private JSELObject string = new JSELStringObject(new JSELString("string"));
     private JSELObject trueString =
             new JSELStringObject(JSELBoolean.TRUE);
@@ -50,8 +49,7 @@ public class JSELObjectStringTest
             new JSELStringObject(JSELString.EMPTY_STRING);
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         assertFalse(trueString.equals(JSELBoolean.TRUE));
         assertFalse(falseString.equals(JSELBoolean.FALSE));
         assertFalse(falseString.equals(JSELBoolean.TRUE));
@@ -87,41 +85,34 @@ public class JSELObjectStringTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         assertEquals(Type.OBJECT, string.getType());
     }
 
     @Test
-    public void isPrimitive()
-    {
+    public void isPrimitive() {
         assertFalse(string.isPrimitive());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(string.isCallable());
     }
 
     @Test
-    public void call()
-    {
-        try
-        {
+    public void call() {
+        try {
             string.call(string.toObject(), null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("cannot invoke object of type object",
                     e.getMessage());
         }
     }
 
     @Test
-    public void strictEquals()
-    {
+    public void strictEquals() {
         assertFalse(trueString.strictEquals(JSELBoolean.TRUE));
         assertFalse(falseString.strictEquals(JSELBoolean.FALSE));
         assertFalse(falseString.strictEquals(JSELBoolean.TRUE));
@@ -154,8 +145,7 @@ public class JSELObjectStringTest
     }
 
     @Test
-    public void toBoolean()
-    {
+    public void toBoolean() {
         assertTrue(trueString.toBoolean());
         assertTrue(falseString.toBoolean());
         assertTrue(emptyString.toBoolean());
@@ -163,8 +153,7 @@ public class JSELObjectStringTest
     }
 
     @Test
-    public void toInt32()
-    {
+    public void toInt32() {
         assertEquals(0, zeroString.toInt32());
         assertEquals(1, oneString.toInt32());
         assertEquals(-1, negativeOneString.toInt32());
@@ -174,8 +163,7 @@ public class JSELObjectStringTest
     }
 
     @Test
-    public void toNumber()
-    {
+    public void toNumber() {
         assertEquals(0, zeroString.toNumber(), 0.0);
         assertEquals(1, oneString.toNumber(), 0.0);
         assertEquals(-1, negativeOneString.toNumber(), 0.0);
@@ -185,16 +173,14 @@ public class JSELObjectStringTest
     }
 
     @Test
-    public void toPrimitive()
-    {
+    public void toPrimitive() {
         assertEquals(string.toPrimitive(GetHint.STRING),
                 string.toPrimitive(null));
         assertEquals(new JSELString("string"), string.toPrimitive(null));
     }
 
     @Test
-    public void toObject()
-    {
+    public void toObject() {
         assertSame(string, string.toObject());
         assertEquals(Type.OBJECT, string.toObject().getType());
         assertEquals(JSELStringObject.CLASS,
@@ -202,14 +188,12 @@ public class JSELObjectStringTest
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         assertEquals("string", string.toString());
     }
 
     @Test
-    public void toUInt32()
-    {
+    public void toUInt32() {
         assertEquals(0, zeroString.toUInt32());
         assertEquals(1, oneString.toUInt32());
         assertEquals(0xffffffffl, negativeOneString.toUInt32());
@@ -218,8 +202,7 @@ public class JSELObjectStringTest
         assertEquals(0, string.toUInt32());
     }
 
-    private static JSELStringObject pad(JSELStringObject aInString)
-    {
+    private static JSELStringObject pad(JSELStringObject aInString) {
         return new JSELStringObject(new JSELString(
                 "\n\t " + aInString.getPrimitiveValue() + "\n\t "));
     }

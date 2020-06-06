@@ -20,19 +20,16 @@ package mardlucca.jsel.expr;
 import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELValue;
 
-public class BitwiseXorOperatorExpression extends BinaryOperatorExpression
-{
+public class BitwiseXorOperatorExpression extends BinaryOperatorExpression {
     public BitwiseXorOperatorExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         super(aInFirstOperandExpression, aInSecondOperandExpression);
     }
 
     @Override
     protected JSELValue operate(JSELValue aInFirstOperand,
-                                JSELValue aInSecondOperand)
-    {
+                                JSELValue aInSecondOperand) {
         return new JSELNumber(aInFirstOperand.toInt32()
                 ^ aInSecondOperand.toInt32());
     }

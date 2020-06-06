@@ -26,13 +26,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class FunctionTestSuite extends AbstractJSELExpressionTest
-{
+public class FunctionTestSuite extends AbstractJSELExpressionTest {
     @Test
     public void testConstructorCalledAsAFunction()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testString("String()", "");
         testString("String(1)", "1");
         testString("String(true)", "true");
@@ -46,8 +44,7 @@ public class FunctionTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testInstantiate()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("new String() == ''", true);
         testString("typeof new String()", "object");
         testBoolean("new String(1) == '1'", true);
@@ -61,8 +58,7 @@ public class FunctionTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testPropertiesAndPrototype()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("String.prototype.constructor == String", true);
         testFunction("String.prototype.constructor", "value");
         testNumber("String.prototype.constructor.length", 1);

@@ -27,17 +27,14 @@ import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 
-public class JSELNumberObject extends JSELPrimitiveWrapper
-{
+public class JSELNumberObject extends JSELPrimitiveWrapper {
     public static final String CLASS = "Number";
 
-    public JSELNumberObject(JSELValue aInPrimitive)
-    {
+    public JSELNumberObject(JSELValue aInPrimitive) {
         this(ExecutionContext.getNumberPrototype(), aInPrimitive);
     }
 
-    protected JSELNumberObject(JSELObject aInPrototype, JSELValue aInPrimitive)
-    {
+    protected JSELNumberObject(JSELObject aInPrototype, JSELValue aInPrimitive) {
         super((aInPrimitive != null && aInPrimitive.getType() == Type.NUMBER)
                         ? aInPrimitive
                         :  new JSELNumber(aInPrimitive == null
@@ -47,8 +44,7 @@ public class JSELNumberObject extends JSELPrimitiveWrapper
     }
 
     @Override
-    public String getObjectClass()
-    {
+    public String getObjectClass() {
         return CLASS;
     }
 }

@@ -33,14 +33,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ExecutionContextTest
-{
+public class ExecutionContextTest {
     private GlobalObject globalObject;
     private ExecutionContext executionContext;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         executionContext = new ExecutionContext();
         globalObject = executionContext.getGlobalObject();
         globalObject.put("string", new JSELString("global"));
@@ -48,8 +46,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testThreadContext()
-    {
+    public void testThreadContext() {
         assertNull(ExecutionContext.getThreadContext());
         executionContext.setAsThreadContext();
         assertSame(executionContext, ExecutionContext.getThreadContext());
@@ -58,8 +55,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testResolve()
-    {
+    public void testResolve() {
         assertEquals("global", executionContext.resolve("string").toString());
         assertSame(globalObject, executionContext.getGlobalObject());
         executionContext.push(new DeclarativeEnvironmentRecord(
@@ -105,8 +101,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testGetThisBind()
-    {
+    public void testGetThisBind() {
         assertSame(globalObject, executionContext.getThisBinding());
         JSELObject lNewThis = new JSELObject();
         executionContext.push(new DeclarativeEnvironmentRecord(
@@ -127,8 +122,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testEmptyContext()
-    {
+    public void testEmptyContext() {
         ExecutionContext lExecutionContext = new ExecutionContext();
         assertNotNull(lExecutionContext.getGlobalObject());
         assertSame(lExecutionContext.getGlobalObject(),
@@ -136,8 +130,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testBindNewValueToGlobal()
-    {
+    public void testBindNewValueToGlobal() {
         executionContext.bind("string", new JSELString("str"));
         executionContext.bind("string2", new JSELString("str2"));
         assertEquals("str", executionContext.resolve("string").toString());
@@ -147,8 +140,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testNumberPrototypes()
-    {
+    public void testNumberPrototypes() {
         JSELValue lNumber = new JSELNumber(1);
         assertSame(getDefaultGlobalObject().getNumberPrototype(),
                 lNumber.toObject().getPrototype());
@@ -169,8 +161,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testStringPrototypes()
-    {
+    public void testStringPrototypes() {
         JSELValue lString = new JSELString("1");
         assertSame(getDefaultGlobalObject().getStringPrototype(),
                 lString.toObject().getPrototype());
@@ -191,8 +182,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testBooleanPrototypes()
-    {
+    public void testBooleanPrototypes() {
         JSELValue lBoolean = JSELBoolean.TRUE;
         assertSame(getDefaultGlobalObject().getBooleanPrototype(),
                 lBoolean.toObject().getPrototype());
@@ -213,8 +203,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testObjectPrototypes()
-    {
+    public void testObjectPrototypes() {
         JSELValue lObject = new JSELObject();
         assertSame(getDefaultGlobalObject().getObjectPrototype(),
                 lObject.toObject().getPrototype());
@@ -239,8 +228,7 @@ public class ExecutionContextTest
 
 
     @Test
-    public void testArrayPrototypes()
-    {
+    public void testArrayPrototypes() {
         JSELValue lArray = new JSELArray();
         assertSame(getDefaultGlobalObject().getArrayPrototype(),
                 lArray.toObject().getPrototype());
@@ -264,8 +252,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testFunctionPrototypes()
-    {
+    public void testFunctionPrototypes() {
         JSELValue lFunction = new DefaultToStringFunction(JSELObject.CLASS);
         assertSame(getDefaultGlobalObject().getFunctionPrototype(),
                 lFunction.toObject().getPrototype());
@@ -289,8 +276,7 @@ public class ExecutionContextTest
     }
 
     @Test
-    public void testRegExpPrototypes()
-    {
+    public void testRegExpPrototypes() {
         JSELValue lRegExp = new JSELRegExp("a");
         assertSame(getDefaultGlobalObject().getRegExpPrototype(),
                 lRegExp.toObject().getPrototype());
@@ -313,8 +299,7 @@ public class ExecutionContextTest
                 lRegExp.toObject().getPrototype());
     }
 
-    private GlobalObject getDefaultGlobalObject()
-    {
+    private GlobalObject getDefaultGlobalObject() {
         return ExecutionContext.getGlobalContext().getGlobalObject();
     }
 }

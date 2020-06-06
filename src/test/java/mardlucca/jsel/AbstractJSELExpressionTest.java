@@ -36,14 +36,12 @@ import java.io.IOException;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
-public class AbstractJSELExpressionTest
-{
+public class AbstractJSELExpressionTest {
     protected JSELRunner runner = new JSELRunner();
 
     protected void testNumber(String aInNumberString, double aInExpected)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(
                 "\n" + aInNumberString + " ");
         assertNotNull(lExpression);
@@ -53,8 +51,7 @@ public class AbstractJSELExpressionTest
 
     protected void testString(String aInString, String aInExpected)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
@@ -64,8 +61,7 @@ public class AbstractJSELExpressionTest
 
     protected void testBoolean(String aInString, boolean aInExpected)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
@@ -75,8 +71,7 @@ public class AbstractJSELExpressionTest
 
     protected void testUndefined(String aInString)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
@@ -86,8 +81,7 @@ public class AbstractJSELExpressionTest
 
     protected void testNull(String aInString)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(aInString);
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -96,8 +90,7 @@ public class AbstractJSELExpressionTest
 
     protected void testFunction(String aInString, String ... aInParameters)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(aInString);
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -106,8 +99,7 @@ public class AbstractJSELExpressionTest
 
     protected void testArray(String aInString, Verifier... aInVerifiers)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
@@ -117,8 +109,7 @@ public class AbstractJSELExpressionTest
 
     protected void testObject(String aInString, Verifier... aInVerifiers)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
@@ -129,8 +120,7 @@ public class AbstractJSELExpressionTest
     protected void testRegExp(String aInRegExpString,
             String aInExpectedToString)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(
                 "\n" + aInRegExpString + " ");
         assertNotNull(lExpression);
@@ -142,26 +132,22 @@ public class AbstractJSELExpressionTest
             String aInRegExpString,
             String aInExpectedMesage)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELExpression lExpression = JSELExpression.compile(
                 "\n" + aInRegExpString + " ");
         assertNotNull(lExpression);
 
-        try
-        {
+        try {
             runner.execute(lExpression);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals(aInExpectedMesage, e.getMessage());
         }
 
     }
 
-    protected void verifyNumber(JSELValue aInValue, double aInExpected)
-    {
+    protected void verifyNumber(JSELValue aInValue, double aInExpected) {
         aInValue = aInValue.getValue();
         assertEquals(Type.NUMBER, aInValue.getType());
         assertTrue(aInValue instanceof JSELNumber);
@@ -169,8 +155,7 @@ public class AbstractJSELExpressionTest
         assertEquals(aInExpected, lNumber.toNumber(), 0.0);
     }
 
-    protected void verifyString(JSELValue aInValue, String aInExpected)
-    {
+    protected void verifyString(JSELValue aInValue, String aInExpected) {
         aInValue = aInValue.getValue();
         assertEquals(Type.STRING, aInValue.getType());
         assertTrue(aInValue instanceof JSELString);
@@ -178,26 +163,21 @@ public class AbstractJSELExpressionTest
         assertEquals(aInExpected, lString.toString());
     }
 
-    protected void verifyBoolean(JSELValue aInValue, boolean aInExpected)
-    {
+    protected void verifyBoolean(JSELValue aInValue, boolean aInExpected) {
         aInValue = aInValue.getValue();
         assertEquals(Type.BOOLEAN, aInValue.getType());
         assertTrue(aInValue instanceof JSELBoolean);
         JSELBoolean lBoolean = (JSELBoolean) aInValue;
-        if (aInExpected)
-        {
+        if (aInExpected) {
             assertTrue(lBoolean.toBoolean());
         }
-        else
-        {
+        else {
             assertFalse(lBoolean.toBoolean());
         }
     }
 
-    protected void verifyUndefined(JSELValue aInValue)
-    {
-        if (aInValue instanceof JSELPropertyReference)
-        {
+    protected void verifyUndefined(JSELValue aInValue) {
+        if (aInValue instanceof JSELPropertyReference) {
             aInValue = aInValue.getValue();
         }
 
@@ -206,10 +186,8 @@ public class AbstractJSELExpressionTest
         assertSame(JSELUndefined.getInstance(), aInValue);
     }
 
-    protected void verifyNull(JSELValue aInValue)
-    {
-        if (aInValue instanceof JSELPropertyReference)
-        {
+    protected void verifyNull(JSELValue aInValue) {
+        if (aInValue instanceof JSELPropertyReference) {
             aInValue = aInValue.getValue();
         }
 
@@ -219,11 +197,10 @@ public class AbstractJSELExpressionTest
     }
 
     protected void verifyFunction(
-            JSELValue aInValue, String ... aInParameters)
-    {
+            JSELValue aInValue, String ... aInParameters) {
         aInValue = aInValue.getValue();
 
-        assertEquals(Type.FUNCTION, aInValue.getType());
+        assertEquals(Type.OBJECT, aInValue.getType());
         assertTrue(aInValue instanceof JSELFunction);
         assertTrue(aInValue.isCallable());
 
@@ -234,10 +211,8 @@ public class AbstractJSELExpressionTest
         assertEquals(JSELFunction.CLASS, lFunction.getObjectClass());
     }
 
-    protected void verifyArray(JSELValue aInValue, Verifier... aInVerifiers)
-    {
-        if (aInValue instanceof JSELPropertyReference)
-        {
+    protected void verifyArray(JSELValue aInValue, Verifier... aInVerifiers) {
+        if (aInValue instanceof JSELPropertyReference) {
             aInValue = aInValue.getValue();
         }
 
@@ -251,26 +226,22 @@ public class AbstractJSELExpressionTest
         JSELNumber lLength = (JSELNumber) lLengthObject;
         assertEquals(aInVerifiers.length, lLength.toNumber(), 0.0);
 
-        for (int i = 0; i < aInVerifiers.length; i++)
-        {
+        for (int i = 0; i < aInVerifiers.length; i++) {
             aInVerifiers[i].verify(lArray.get(i));
         }
     }
 
     protected void verifyObject(
-            JSELValue aInValue, Verifier... aInVerifiers)
-    {
+            JSELValue aInValue, Verifier... aInVerifiers) {
         assertEquals(Type.OBJECT, aInValue.getType());
 
-        for (int i = 0; i < aInVerifiers.length; i++)
-        {
+        for (int i = 0; i < aInVerifiers.length; i++) {
             aInVerifiers[i].verify(aInValue);
         }
     }
 
     protected void verifyRegExp(JSELValue aInValue,
-            String aInExpectedToString)
-    {
+            String aInExpectedToString) {
         aInValue = aInValue.getValue();
         assertEquals(Type.OBJECT, aInValue.getType());
         assertTrue(aInValue instanceof JSELRegExp);
@@ -279,45 +250,37 @@ public class AbstractJSELExpressionTest
         assertEquals(aInExpectedToString, lRegExp.toString());
     }
 
-    public interface Verifier
-    {
+    public interface Verifier {
         void verify(JSELValue aInValue);
     }
 
-    protected Verifier numberVerifier(double aInNumber)
-    {
+    protected Verifier numberVerifier(double aInNumber) {
         return aInValue -> verifyNumber(aInValue, aInNumber);
     }
 
-    protected Verifier stringVerifier(String aInString)
-    {
+    protected Verifier stringVerifier(String aInString) {
         return aInValue -> verifyString(aInValue, aInString);
     }
 
-    protected Verifier booleanVerifier(boolean aInBoolean)
-    {
+    protected Verifier booleanVerifier(boolean aInBoolean) {
         return aInValue -> verifyBoolean(aInValue, aInBoolean);
     }
 
-    protected Verifier arrayVerifier(Verifier... aInVerifiers)
-    {
+    protected Verifier arrayVerifier(Verifier... aInVerifiers) {
         return aInValue -> verifyArray(aInValue, aInVerifiers);
     }
 
     protected Verifier propertyVerifier(
-            String aInProperty, Verifier aInVerifier)
-    {
+            String aInProperty, Verifier aInVerifier) {
         return aInValue -> aInVerifier.verify(
                 aInValue.toObject().get(aInProperty));
     }
 
-    protected Verifier objectVerifier(Verifier... aInVerifiers)
-    {
+    protected Verifier objectVerifier(Verifier... aInVerifiers) {
         return aInValue -> verifyObject(aInValue, aInVerifiers);
     }
 
-    protected Verifier regexVerifier(String aInExpectedToString)
-    {
+    protected Verifier regexVerifier(String aInExpectedToString) {
         return aInValue -> verifyRegExp(aInValue, aInExpectedToString);
     }
 

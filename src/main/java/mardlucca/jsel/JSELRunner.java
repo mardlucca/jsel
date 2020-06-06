@@ -26,53 +26,43 @@ import mardlucca.parselib.tokenizer.UnrecognizedCharacterSequenceException;
 
 import java.io.IOException;
 
-public class JSELRunner
-{
+public class JSELRunner {
     private static final String VALUE = "value";
 
     private ExecutionContext executionContext = new ExecutionContext();
 
-    public void bind(JSELExpression aInExpression)
-    {
+    public void bind(JSELExpression aInExpression) {
         JSELValue lValue = execute(aInExpression);
-        if (lValue.getType() == Type.OBJECT)
-        {
+        if (lValue.getType() == Type.OBJECT) {
             JSELObject lObject = lValue.toObject();
-            for (String lProperty : lObject.getOwnPropertyNames())
-            {
+            for (String lProperty : lObject.getOwnPropertyNames()) {
                 executionContext.bind(lProperty, lObject.getOwn(lProperty));
             }
         }
-        else
-        {
+        else {
             executionContext.bind(VALUE, lValue);
         }
     }
 
     public void define(String aInProperty, String aInExpression)
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         JSELValue lValue = execute(JSELExpression.compile(aInExpression));
         executionContext.bind(aInProperty, lValue);
     }
 
 
-    public void define(String aInProperty, JSELExpression aInExpression)
-    {
+    public void define(String aInProperty, JSELExpression aInExpression) {
         JSELValue lValue = execute(aInExpression);
         executionContext.bind(aInProperty, lValue);
     }
 
-    public JSELValue execute(JSELExpression aInExpression)
-    {
+    public JSELValue execute(JSELExpression aInExpression) {
         executionContext.setAsThreadContext();
-        try
-        {
+        try {
             return aInExpression.execute(executionContext);
         }
-        finally
-        {
+        finally {
             ExecutionContext.clearThreadContext();
         }
     }

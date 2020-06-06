@@ -27,22 +27,18 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class CallFunction extends JSELFunction
-{
+public class CallFunction extends JSELFunction {
     public static final String CALL = "call";
 
 
-    public CallFunction()
-    {
+    public CallFunction() {
         super(CALL, Collections.singletonList("thisArg"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
-        if (!aInThis.isCallable())
-        {
+                          ExecutionContext aInExecutionContext) {
+        if (!aInThis.isCallable()) {
             throw JSELRuntimeException.typeError(aInThis + " is not a function");
         }
 

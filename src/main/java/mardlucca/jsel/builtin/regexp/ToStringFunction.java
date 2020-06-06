@@ -28,21 +28,17 @@ import java.util.List;
 
 import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 
-public class ToStringFunction extends JSELFunction
-{
-    public ToStringFunction()
-    {
+public class ToStringFunction extends JSELFunction {
+    public ToStringFunction() {
         super(TO_STRING, null);
     }
 
     @Override
     public JSELString call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                           ExecutionContext aInExecutionContext)
-    {
+                           ExecutionContext aInExecutionContext) {
         if (!aInThisValue.isObjectCoercible()
                 || !aInThisValue.toObject().getObjectClass().equals(
-                        JSELRegExp.CLASS))
-        {
+                        JSELRegExp.CLASS)) {
             throw JSELRuntimeException.typeError("RegExp.prototype.toString called on " +
                     "incompatible receiver " + aInThisValue);
         }

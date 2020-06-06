@@ -33,19 +33,16 @@ import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 import static java.util.Arrays.asList;
 
-public class SliceFunction extends JSELFunction
-{
+public class SliceFunction extends JSELFunction {
     public static final String SLICE = "slice";
 
-    public SliceFunction()
-    {
+    public SliceFunction() {
         super(SLICE, asList("start", "end"));
     }
 
     @Override
     public JSELArray call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
         int lStartArgument = getArgument(aInArguments, 0).toInteger();
@@ -62,8 +59,7 @@ public class SliceFunction extends JSELFunction
                 : min(lEnd, lLength);
 
         List<JSELValue> lValues = new ArrayList<>();
-        for (int i = lFrom; i < lTo; i++)
-        {
+        for (int i = lFrom; i < lTo; i++) {
             lValues.add(lThis.get(String.valueOf(i)));
         }
 

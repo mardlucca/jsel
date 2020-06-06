@@ -24,21 +24,18 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-public class IsFiniteFunction extends JSELFunction
-{
+public class IsFiniteFunction extends JSELFunction {
     public static final String IS_FINITE = "isFinite";
 
 
 
-    public IsFiniteFunction()
-    {
+    public IsFiniteFunction() {
         super(IS_FINITE);
     }
 
     @Override
     public JSELBoolean call(JSELValue aInThis, List<JSELValue> aInArguments,
-                            ExecutionContext aInExecutionContext)
-    {
+                            ExecutionContext aInExecutionContext) {
         return Double.isFinite(getArgument(aInArguments).toNumber())
                 ? JSELBoolean.TRUE
                 : JSELBoolean.FALSE;

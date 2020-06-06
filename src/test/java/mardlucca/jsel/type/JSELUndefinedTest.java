@@ -25,13 +25,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class JSELUndefinedTest
-{
+public class JSELUndefinedTest {
     private JSELUndefined undefined = JSELUndefined.getInstance();
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         assertFalse(undefined.equals(JSELBoolean.FALSE));
 
         assertFalse(undefined.equals(new JSELNumber(0)));
@@ -48,55 +46,45 @@ public class JSELUndefinedTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         assertEquals(Type.UNDEFINED, undefined.getType());
     }
 
     @Test
-    public void isPrimitive()
-    {
+    public void isPrimitive() {
         assertTrue(undefined.isPrimitive());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(undefined.isCallable());
     }
 
     @Test
-    public void call()
-    {
-        try
-        {
+    public void call() {
+        try {
             undefined.call(new JSELStringObject(null), null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("cannot invoke object of type undefined",
                     e.getMessage());
         }
     }
 
     @Test
-    public void instantiate()
-    {
-        try
-        {
+    public void instantiate() {
+        try {
             undefined.instantiate(null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("undefined is not a constructor", e.getMessage());
         }
     }
 
     @Test
-    public void strictEquals()
-    {
+    public void strictEquals() {
         assertFalse(undefined.strictEquals(JSELBoolean.FALSE));
 
         assertFalse(undefined.strictEquals(new JSELNumber(0)));
@@ -113,59 +101,49 @@ public class JSELUndefinedTest
     }
 
     @Test
-    public void toBoolean()
-    {
+    public void toBoolean() {
         assertFalse(undefined.toBoolean());
     }
 
     @Test
-    public void toInt32()
-    {
+    public void toInt32() {
         assertEquals(0, undefined.toInt32());
     }
 
     @Test
-    public void toNumber()
-    {
+    public void toNumber() {
         assertEquals(Double.NaN, undefined.toNumber(), 0.0);
     }
 
     @Test
-    public void toPrimitive()
-    {
+    public void toPrimitive() {
         assertSame(undefined, undefined.toPrimitive(null));
     }
 
     @Test
-    public void toObject()
-    {
-        try
-        {
+    public void toObject() {
+        try {
             undefined.toObject();
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("undefined cannot be converted to object",
                     e.getMessage());
         }
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         assertEquals("undefined", undefined.toString());
     }
 
     @Test
-    public void toUInt32()
-    {
+    public void toUInt32() {
         assertEquals(0, undefined.toUInt32());
     }
 
     @Test
-    public void match()
-    {
+    public void match() {
         MatchResult lResult = undefined.match("undefined", 0);
         assertNotNull(lResult);
         assertEquals(0, lResult.getStart());

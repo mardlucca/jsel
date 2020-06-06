@@ -30,26 +30,22 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-public class ReverseFunction extends JSELFunction
-{
+public class ReverseFunction extends JSELFunction {
     public static final String REVERSE = "reverse";
 
 
-    public ReverseFunction()
-    {
+    public ReverseFunction() {
         super(REVERSE, null);
     }
 
     @Override
     public JSELValue call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
         int lLength = lThis.get(JSELArray.LENGTH).toInteger();
         int lMiddle = lLength << 1;
 
-        for (int i = 0; i < lMiddle; i++)
-        {
+        for (int i = 0; i < lMiddle; i++) {
             String lLowerIndex = String.valueOf(i);
             String lUpperIndex = String.valueOf(lLength - i - 1);
 
@@ -59,18 +55,15 @@ public class ReverseFunction extends JSELFunction
             JSELValue lLower = lThis.get(lLowerIndex);
             JSELValue lUpper = lThis.get(lUpperIndex);
 
-            if (lLowerExists && lUpperExists)
-            {
+            if (lLowerExists && lUpperExists) {
                 lThis.put(lLowerIndex, lUpper);
                 lThis.put(lUpperIndex, lLower);
             }
-            else if (lLowerExists && !lUpperExists)
-            {
+            else if (lLowerExists && !lUpperExists) {
                 lThis.put(lUpperIndex, lLower);
                 lThis.delete(lLowerIndex);
             }
-            else if (!lLowerExists && lUpperExists)
-            {
+            else if (!lLowerExists && lUpperExists) {
                 lThis.put(lLowerIndex, lUpper);
                 lThis.delete(lUpperIndex);
             }

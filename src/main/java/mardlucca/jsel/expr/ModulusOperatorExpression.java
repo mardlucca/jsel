@@ -22,19 +22,16 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELValue;
 
-public class ModulusOperatorExpression extends BinaryOperatorExpression
-{
+public class ModulusOperatorExpression extends BinaryOperatorExpression {
     public ModulusOperatorExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         super(aInFirstOperandExpression, aInSecondOperandExpression);
     }
 
     @Override
     protected JSELValue operate(JSELValue aInFirstOperand,
-                                JSELValue aInSecondOperand)
-    {
+                                JSELValue aInSecondOperand) {
         return new JSELNumber(aInFirstOperand.toNumber()
                 % aInSecondOperand.toNumber());
     }

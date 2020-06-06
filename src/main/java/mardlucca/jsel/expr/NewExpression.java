@@ -27,33 +27,28 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class NewExpression implements JSELExpression
-{
+public class NewExpression implements JSELExpression {
     private JSELExpression constructorExpression;
     private List<JSELExpression> argumentExpressions;
 
     public NewExpression(
             JSELExpression aInConstructorExpression,
-            List<JSELExpression> aInArgumentExpressions)
-    {
+            List<JSELExpression> aInArgumentExpressions) {
         constructorExpression = aInConstructorExpression;
         argumentExpressions = aInArgumentExpressions;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         JSELValue lConstructorObject =
                 constructorExpression.execute(aInContext);
-        if (!lConstructorObject.isCallable())
-        {
+        if (!lConstructorObject.isCallable()) {
             throw JSELRuntimeException.typeError(lConstructorObject + " is not a function");
         }
 
         List<JSELValue> lArguments =
                 new ArrayList<>(argumentExpressions.size());
-        for (JSELExpression lArgumentExpression : argumentExpressions)
-        {
+        for (JSELExpression lArgumentExpression : argumentExpressions) {
             // function arguments are never property references
             lArguments.add(lArgumentExpression.execute(aInContext));
         }

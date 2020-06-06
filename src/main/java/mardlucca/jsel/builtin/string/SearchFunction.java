@@ -31,22 +31,18 @@ import java.util.List;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singletonList;
 
-public class SearchFunction extends JSELFunction
-{
+public class SearchFunction extends JSELFunction {
     public static final String SEARCH = "search";
 
-    public SearchFunction()
-    {
+    public SearchFunction() {
         super(SEARCH, singletonList("regexp"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.match called on null or undefined");
         }
@@ -55,8 +51,7 @@ public class SearchFunction extends JSELFunction
 
         if (lRegExpParameter.getType() != Type.OBJECT
                 || !lRegExpParameter.toObject().getObjectClass().equals(
-                JSELRegExp.CLASS))
-        {
+                JSELRegExp.CLASS)) {
             lRegExpParameter = new JSELRegExp(
                     lRegExpParameter.toString(), emptySet());
         }

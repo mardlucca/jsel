@@ -20,8 +20,7 @@ package mardlucca.jsel.expr;
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELValue;
 
-public class ConditionalOperatorExpression implements JSELExpression
-{
+public class ConditionalOperatorExpression implements JSELExpression {
     private JSELExpression booleanExpression;
     private JSELExpression trueExpression;
     private JSELExpression falseExpression;
@@ -30,20 +29,17 @@ public class ConditionalOperatorExpression implements JSELExpression
     public ConditionalOperatorExpression(
             JSELExpression aInBooleanExpression,
             JSELExpression aInTrueExpression,
-            JSELExpression aInFalseExpression)
-    {
+            JSELExpression aInFalseExpression) {
         booleanExpression = aInBooleanExpression;
         trueExpression = aInTrueExpression;
         falseExpression = aInFalseExpression;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         JSELValue lResult = booleanExpression.execute(aInContext);
 
-        if (lResult.toBoolean())
-        {
+        if (lResult.toBoolean()) {
             return trueExpression.execute(aInContext);
         }
 

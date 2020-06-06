@@ -24,17 +24,18 @@ import static mardlucca.jsel.builtin.object.GetOwnPropertyDescriptorFunction.GET
 import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 import static mardlucca.jsel.builtin.object.ValueOfFunction.VALUE_OF;
 
-public class ObjectPrototype extends JSELObject
-{
+public class ObjectPrototype extends JSELObject {
     public static final String CONSTRUCTOR_PROPERTY = "constructor";
 
-    public ObjectPrototype()
-    {
+    /**
+     * This is the only object in JSEL and ECMAScript 5.1 to not have an
+     * internal [[Prototype]] property;
+     */
+    public ObjectPrototype() {
         super(null);
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         defineOwnProperty(CONSTRUCTOR_PROPERTY, new ObjectConstructor(),
                 false, true, true);
 

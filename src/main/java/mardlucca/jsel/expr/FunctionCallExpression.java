@@ -25,33 +25,28 @@ import mardlucca.jsel.JSELRuntimeException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionCallExpression implements JSELExpression
-{
+public class FunctionCallExpression implements JSELExpression {
     private JSELExpression functionExpression;
     private List<JSELExpression> argumentExpressions;
 
     public FunctionCallExpression(
             JSELExpression aInFunctionExpression,
-            List<JSELExpression> aInArgumentExpressions)
-    {
+            List<JSELExpression> aInArgumentExpressions) {
         functionExpression = aInFunctionExpression;
         argumentExpressions = aInArgumentExpressions;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         JSELValue lFunctionObject =
                 functionExpression.execute(aInContext);
-        if (!lFunctionObject.isCallable())
-        {
+        if (!lFunctionObject.isCallable()) {
             throw JSELRuntimeException.typeError(lFunctionObject + " is not a function");
         }
 
         List<JSELValue> lArguments =
                 new ArrayList<>(argumentExpressions.size());
-        for (JSELExpression lArgumentExpression : argumentExpressions)
-        {
+        for (JSELExpression lArgumentExpression : argumentExpressions) {
             // function arguments are never property references
             lArguments.add(lArgumentExpression.execute(aInContext));
         }

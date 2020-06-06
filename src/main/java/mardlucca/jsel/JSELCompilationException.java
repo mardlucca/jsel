@@ -19,24 +19,20 @@ package mardlucca.jsel;
 
 import java.util.List;
 
-public class JSELCompilationException extends Exception
-{
+public class JSELCompilationException extends Exception {
     private List<String> errors;
 
-    public JSELCompilationException(List<String> aInErrors)
-    {
+    public JSELCompilationException(List<String> aInErrors) {
         errors = aInErrors;
     }
 
     @Override
-    public String getMessage()
-    {
+    public String getMessage() {
         return "Compilation failed with the following errors: \n" +
                 String.join("\n", errors);
     }
 
-    public List<String> getErrors()
-    {
+    public List<String> getErrors() {
         return errors;
     }
 }

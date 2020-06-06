@@ -35,22 +35,18 @@ import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 
-public class SliceFunction extends JSELFunction
-{
+public class SliceFunction extends JSELFunction {
     public static final String SLICE = "slice";
 
-    public SliceFunction()
-    {
+    public SliceFunction() {
         super(SLICE);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.slice called on null or undefined");
         }

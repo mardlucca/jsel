@@ -19,44 +19,55 @@ package mardlucca.jsel.type;
 
 import mardlucca.jsel.type.wrapper.JSELNumberObject;
 import mardlucca.jsel.util.DecimalFormat;
-import mardlucca.jsel.util.DecimalFormat;
 
-public class JSELNumber extends JSELValue
-{
+/**
+ * This represents the number data type in JSEL. Numbers in ECMAScript 5.1 are
+ * double precision values as specified by IEEE 754. This implementation uses a
+ * Java double precision value, which is based on the same standard.
+ */
+public class JSELNumber extends JSELValue {
+    /**
+     * Constant for NaN JSELNumber
+     */
     public static final JSELNumber NAN = new JSELNumber(Double.NaN);
+
+    /**
+     * Constant for positive infinity in JSEL.
+     */
     public static final JSELNumber INFINITY =
             new JSELNumber(Double.POSITIVE_INFINITY);
 
+    /**
+     * The underlying double number.
+     */
     private double number;
 
-    public JSELNumber(double aInNumber)
-    {
+    /**
+     * Constructor
+     * @param aInNumber the underlying double value.
+     */
+    public JSELNumber(double aInNumber) {
         number = aInNumber;
     }
 
     @Override
-    public Type getType()
-    {
+    public Type getType() {
         return Type.NUMBER;
     }
 
     @Override
-    public boolean isPrimitive()
-    {
+    public boolean isPrimitive() {
         return true;
     }
 
     @Override
-    public boolean toBoolean()
-    {
+    public boolean toBoolean() {
         return !(number == 0 || Double.isNaN(number));
     }
 
     @Override
-    public int toInt32()
-    {
-        if (Double.isNaN(number) || Double.isInfinite(number))
-        {
+    public int toInt32() {
+        if (Double.isNaN(number) || Double.isInfinite(number)) {
             return 0;
         }
 
@@ -64,62 +75,51 @@ public class JSELNumber extends JSELValue
     }
 
     @Override
-    public int toInteger()
-    {
+    public int toInteger() {
         return toInteger(number);
     }
 
     @Override
-    public double toNumber()
-    {
+    public double toNumber() {
         return number;
     }
 
     @Override
-    public JSELObject toObject()
-    {
+    public JSELObject toObject() {
         return new JSELNumberObject(this);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return DecimalFormat.format(number);
     }
 
     @Override
-    public long toUInt32()
-    {
+    public long toUInt32() {
         return toUInt32(number);
     }
 
     @Override
-    public boolean equals(JSELValue aInValue)
-    {
+    public boolean equals(JSELValue aInValue) {
         aInValue = aInValue.getValue();
-        if (aInValue == this && !Double.isNaN(number))
-        {
+        if (aInValue == this && !Double.isNaN(number)) {
             return true;
         }
 
         if (aInValue.getType() == Type.BOOLEAN
-                || aInValue.getType() == Type.STRING)
-        {
+                || aInValue.getType() == Type.STRING) {
             return equals(new JSELNumber(aInValue.toNumber()));
         }
 
-        if (aInValue.getType() == Type.NUMBER)
-        {
+        if (aInValue.getType() == Type.NUMBER) {
             double lThatNumber = aInValue.toNumber();
-            if (Double.isNaN(number) || Double.isNaN(lThatNumber))
-            {
+            if (Double.isNaN(number) || Double.isNaN(lThatNumber)) {
                 return false;
             }
             return number == lThatNumber;
         }
 
-        if (aInValue.getType() == Type.OBJECT)
-        {
+        if (aInValue.getType() == Type.OBJECT) {
             return equals(aInValue.toPrimitive(GetHint.NUMBER));
         }
 
@@ -127,41 +127,55 @@ public class JSELNumber extends JSELValue
     }
 
     @Override
-    public boolean strictEquals(JSELValue aInValue)
-    {
+    public boolean strictEquals(JSELValue aInValue) {
         aInValue = aInValue.getValue();
-        if (aInValue == this && !Double.isNaN(number))
-        {
+        if (aInValue == this && !Double.isNaN(number)) {
             return true;
         }
 
-        if (aInValue.getType() == Type.NUMBER)
-        {
+        if (aInValue.getType() == Type.NUMBER) {
             return number == aInValue.toNumber();
         }
 
         return false;
     }
 
-    public static char toChar(double aInNumber)
-    {
-        if (Double.isNaN(aInNumber) || Double.isInfinite(aInNumber))
-        {
+    /**
+     * Converts this number to Java char value. This is equivalent to method
+     * "ToUInt16" described in the specs.
+     * @param aInNumber the number to convert
+     * @return the converted character (which can be viewed as a 16-bit
+     * character code)
+     */
+    public static char toChar(double aInNumber) {
+        if (Double.isNaN(aInNumber) || Double.isInfinite(aInNumber)) {
             return 0;
         }
 
         return (char) ((int)aInNumber & 0xffff);
     }
 
-    public static int toInteger(double aInNumber)
-    {
+    /**
+     * Converts a double value to an integer. This is equivalent to method
+     * "ToInteger" in the spec. Since "ToInteger" in the spec is typically used
+     * to index arrays and since Java uses 32 bit ints to do the same thing, a
+     * decision was made to use Java type "int" to represent the same thing even
+     * though the spec implies that bigger numbers should be supported.
+     *
+     * @param aInNumber the number to convert
+     * @return the converted 32 bit integer.
+     */
+    public static int toInteger(double aInNumber) {
         return (int) aInNumber;
     }
 
-    public static long toUInt32(double aInNumber)
-    {
-        if (Double.isNaN(aInNumber) || Double.isInfinite(aInNumber))
-        {
+    /**
+     * Converts a double value to an unsigned integer.
+     * @param aInNumber the number to convert
+     * @return the converted value.
+     */
+    public static long toUInt32(double aInNumber) {
+        if (Double.isNaN(aInNumber) || Double.isInfinite(aInNumber)) {
             return 0;
         }
 

@@ -21,19 +21,16 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELValue;
 
-public abstract class UnaryOperatorExpression implements JSELExpression
-{
+public abstract class UnaryOperatorExpression implements JSELExpression {
     private JSELExpression operand;
 
     public UnaryOperatorExpression(
-            JSELExpression aInOperand)
-    {
+            JSELExpression aInOperand) {
         operand = aInOperand;
     }
 
     @Override
-    public JSELValue execute(ExecutionContext aInContext)
-    {
+    public JSELValue execute(ExecutionContext aInContext) {
         JSELValue lOperand = operand.execute(aInContext);
         return operate(lOperand);
     }

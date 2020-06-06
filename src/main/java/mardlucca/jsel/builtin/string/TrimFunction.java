@@ -33,22 +33,18 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class TrimFunction extends JSELFunction
-{
+public class TrimFunction extends JSELFunction {
     public static final String TRIM = "trim";
 
-    public TrimFunction()
-    {
+    public TrimFunction() {
         super(TRIM);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         if (aInThis.getType() == Type.NULL
-                || aInThis.getType() == Type.UNDEFINED)
-        {
+                || aInThis.getType() == Type.UNDEFINED) {
             throw JSELRuntimeException.typeError(
                     "String.prototype.trim called on null or undefined");
         }

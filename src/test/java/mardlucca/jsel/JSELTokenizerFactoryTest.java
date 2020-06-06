@@ -29,8 +29,7 @@ import java.util.List;
 import static mardlucca.jsel.JSELTokenizerFactory.newTokenizer;
 import static org.junit.Assert.assertEquals;
 
-public class JSELTokenizerFactoryTest
-{
+public class JSELTokenizerFactoryTest {
     private static String TEST_CASE=
             "id\t=>\t(\t)\t?\t:\t||\t&&\t|\t^\t&\t==\t===\t!=\t!==\t<=\t<\t" +
                     ">\t>=\tin\tinstanceof\t<<\t>>\t>>>\t+\t-\t*\t/\t%\t!\t" +
@@ -39,14 +38,12 @@ public class JSELTokenizerFactoryTest
 
 
     @Test
-    public void tokenizeTest()
-    {
+    public void tokenizeTest() {
         Tokenizer<TokenEnum> lTokenizer = newTokenizer(
                 new StringReader(TEST_CASE));
         List<Token<TokenEnum>> lTokens = new ArrayList<>();
 
-        for (Token<TokenEnum> lToken : lTokenizer)
-        {
+        for (Token<TokenEnum> lToken : lTokenizer) {
             lTokens.add(lToken);
         }
 
@@ -108,24 +105,21 @@ public class JSELTokenizerFactoryTest
         assertEquals(TokenEnum.EOF, lTokens.get(49).getId());
     }
 
-    private void assertSymbol(TokenEnum aInSymbol, Token<TokenEnum> aInToken)
-    {
+    private void assertSymbol(TokenEnum aInSymbol, Token<TokenEnum> aInToken) {
         assertEquals(aInSymbol, aInToken.getId());
         assertEquals(aInSymbol.toString(), aInToken.getCharSequence());
         assertEquals(aInSymbol.toString(), aInToken.getValue());
     }
 
     private void assertString(Token<TokenEnum> aInToken, String aInCharSequence,
-            String aInValue)
-    {
+            String aInValue) {
         assertEquals(TokenEnum.STRING, aInToken.getId());
         assertEquals(aInCharSequence, aInToken.getCharSequence());
         assertEquals(aInValue, aInToken.getValue());
     }
 
     private void assertNumber(Token<TokenEnum> aInToken, String aInCharSequence,
-            double aInNumber)
-    {
+            double aInNumber) {
         assertEquals(TokenEnum.NUMBER, aInToken.getId());
         assertEquals(aInCharSequence, aInToken.getCharSequence());
         assertEquals(aInNumber, aInToken.getValue());

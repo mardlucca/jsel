@@ -24,32 +24,27 @@ import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELObject.PropertyDescriptor;
 import mardlucca.jsel.type.JSELValue;
 
-public class ObjectEnvironmentRecord extends EnvironmentRecord
-{
+public class ObjectEnvironmentRecord extends EnvironmentRecord {
     private JSELObject bindingObject;
 
     public ObjectEnvironmentRecord(
-            JSELObject aInBindingObject)
-    {
+            JSELObject aInBindingObject) {
         this(null, aInBindingObject);
     }
 
     public ObjectEnvironmentRecord(
-            EnvironmentRecord aInOuter, JSELObject aInBindingObject)
-    {
+            EnvironmentRecord aInOuter, JSELObject aInBindingObject) {
         super(aInOuter);
         bindingObject = aInBindingObject;
     }
 
     @Override
-    public void bind(String aInIdentifier, JSELValue aInValue)
-    {
+    public void bind(String aInIdentifier, JSELValue aInValue) {
         bindingObject.put(aInIdentifier, aInValue.getValue());
     }
 
     @Override
-    protected JSELValue resolveOwn(String aInIdentifier)
-    {
+    protected JSELValue resolveOwn(String aInIdentifier) {
         PropertyDescriptor lDescriptor =
                 bindingObject.getProperty(aInIdentifier);
         return lDescriptor == null ? null : lDescriptor.getValue();

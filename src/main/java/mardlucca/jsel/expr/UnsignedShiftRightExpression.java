@@ -20,19 +20,16 @@ package mardlucca.jsel.expr;
 import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELValue;
 
-public class UnsignedShiftRightExpression extends BinaryOperatorExpression
-{
+public class UnsignedShiftRightExpression extends BinaryOperatorExpression {
     public UnsignedShiftRightExpression(
             JSELExpression aInFirstOperandExpression,
-            JSELExpression aInSecondOperandExpression)
-    {
+            JSELExpression aInSecondOperandExpression) {
         super(aInFirstOperandExpression, aInSecondOperandExpression);
     }
 
     @Override
     protected JSELValue operate(JSELValue aInFirstOperand,
-                                JSELValue aInSecondOperand)
-    {
+                                JSELValue aInSecondOperand) {
         return new JSELNumber(aInFirstOperand.toUInt32()
                 >>> (aInSecondOperand.toUInt32() & 0x1fl));
     }

@@ -31,14 +31,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class JSELBooleanObjectTest
-{
+public class JSELBooleanObjectTest {
     private JSELObject trueObject = new JSELBooleanObject(JSELBoolean.TRUE);
     private JSELObject falseObject = new JSELBooleanObject(new JSELNumber(0));
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         assertFalse(trueObject.equals(new JSELBooleanObject(JSELBoolean.TRUE)));
         assertTrue(trueObject.equals(trueObject));
         assertFalse(trueObject.equals(falseObject));
@@ -66,44 +64,37 @@ public class JSELBooleanObjectTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         assertEquals(Type.OBJECT, trueObject.getType());
         assertEquals(Type.OBJECT, falseObject.getType());
     }
 
     @Test
-    public void isPrimitive()
-    {
+    public void isPrimitive() {
         assertFalse(trueObject.isPrimitive());
         assertFalse(falseObject.isPrimitive());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(trueObject.isCallable());
         assertFalse(falseObject.isCallable());
     }
 
     @Test
-    public void call()
-    {
-        try
-        {
+    public void call() {
+        try {
             trueObject.call(trueObject.toObject(), null, null);
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("cannot invoke object of type object",
                     e.getMessage());
         }
     }
 
     @Test
-    public void strictEquals()
-    {
+    public void strictEquals() {
         assertTrue(trueObject.strictEquals(trueObject));
         assertFalse(trueObject.strictEquals(falseObject));
         assertFalse(falseObject.strictEquals(trueObject));
@@ -132,29 +123,25 @@ public class JSELBooleanObjectTest
     }
 
     @Test
-    public void toBoolean()
-    {
+    public void toBoolean() {
         assertTrue(trueObject.toBoolean());
         assertTrue(falseObject.toBoolean());
     }
 
     @Test
-    public void toInt32()
-    {
+    public void toInt32() {
         assertEquals(1, trueObject.toInt32());
         assertEquals(0, falseObject.toInt32());
     }
 
     @Test
-    public void toNumber()
-    {
+    public void toNumber() {
         assertEquals(1.0, trueObject.toNumber(), 0.0);
         assertEquals(0.0, falseObject.toNumber(), 0.0);
     }
 
     @Test
-    public void toPrimitive()
-    {
+    public void toPrimitive() {
         assertEquals(JSELBoolean.TRUE, trueObject.toPrimitive(null));
         assertEquals(JSELBoolean.TRUE,
                 trueObject.toPrimitive(GetHint.NUMBER));
@@ -176,8 +163,7 @@ public class JSELBooleanObjectTest
     }
 
     @Test
-    public void toObject()
-    {
+    public void toObject() {
         assertSame(trueObject, trueObject.toObject());
         assertEquals(Type.OBJECT, trueObject.toObject().getType());
         assertEquals(JSELBooleanObject.CLASS,
@@ -188,15 +174,13 @@ public class JSELBooleanObjectTest
     }
 
     @Test
-    public void testToString()
-    {
+    public void testToString() {
         assertEquals("true", trueObject.toString());
         assertEquals("false", falseObject.toString());
     }
 
     @Test
-    public void toUInt32()
-    {
+    public void toUInt32() {
         assertEquals(1, trueObject.toUInt32());
         assertEquals(0, falseObject.toUInt32());
     }

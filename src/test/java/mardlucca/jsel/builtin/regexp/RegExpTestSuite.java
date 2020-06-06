@@ -28,8 +28,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class RegExpTestSuite extends AbstractJSELExpressionTest
-{
+public class RegExpTestSuite extends AbstractJSELExpressionTest {
     public static final String TEST_CASE = "{" +
             String.join(",",
                     "globalAs : /a+/g",
@@ -41,16 +40,14 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
 
     @Before
     public void setUp() throws UnrecognizedCharacterSequenceException,
-                               JSELCompilationException, IOException
-    {
+                               JSELCompilationException, IOException {
         runner.bind(JSELExpression.compile(TEST_CASE));
     }
 
     @Test
     public void testConstructorCalledAsAFunction()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testRegExp("RegExp()", "/(?:)/");
         testRegExp("RegExp('ab')", "/ab/");
         testRegExp("RegExp('ab', 'mig')", "/ab/mig");
@@ -80,8 +77,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testInstantiate()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testRegExp("new RegExp()", "/(?:)/");
         testRegExp("new RegExp('ab')", "/ab/");
         testRegExp("new RegExp('ab', 'mig')", "/ab/mig");
@@ -108,8 +104,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testPropertiesAndPrototype()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("RegExp.prototype.constructor == RegExp", true);
         testFunction("RegExp.prototype.constructor", "pattern", "flags");
         testNumber("RegExp.prototype.constructor.length", 2);
@@ -151,8 +146,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testExecGlobalExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("globalAs.lastIndex", 0);
         runner.define("test1", "globalAs.exec('babaa')");
         testArray("test1",
@@ -175,8 +169,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testExecIgnoreCase()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("capturingAsIgnoreCase.lastIndex", 0);
         runner.define("test1", "capturingAsIgnoreCase.exec('bAbaa')");
         testArray("test1",
@@ -202,8 +195,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testExecWithCapturingGroups()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         runner.define("result", "wordsFollowedNumbers.exec('12blah123gg')");
         testArray("result",
                 stringVerifier("blah123"),
@@ -217,8 +209,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testExecSingleAndMultilineMatching()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         // had to comment out test "single2" as that does not work in Java, I'm
         // thinking java appears to have a bug.
 
@@ -250,8 +241,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testCallExecOnWrongType()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testIfThrows("RegExp.prototype.exec.call(1)",
                 "RegExp.prototype.exec called on incompatible receiver 1");
         testIfThrows("RegExp.prototype.exec.call(undefined)",
@@ -262,8 +252,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testExecProperties()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testUndefined("RegExp.prototype.exec.prototype");
         testIfThrows("new RegExp.prototype.exec()",
                 "exec is not a constructor");
@@ -276,8 +265,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testTestGlobalExpression()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("globalAs.lastIndex", 0);
         testBoolean("globalAs.test('babaa')", true);
         testNumber("globalAs.lastIndex", 2);
@@ -292,8 +280,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testTestIgnoreCase()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testNumber("capturingAsIgnoreCase.lastIndex", 0);
         testBoolean("capturingAsIgnoreCase.test('bAbaa')", true);
         testNumber("capturingAsIgnoreCase.lastIndex", 0);
@@ -309,8 +296,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testTestWithCapturingGroups()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testBoolean("wordsFollowedNumbers.test('12blah123gg')", true);
         testNumber("wordsFollowedNumbers.lastIndex", 0);
     }
@@ -318,8 +304,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testTestSingleAndMultilineMatching()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         // had to comment out test "single2" as that does not work in Java, I'm
         // thinking java appears to have a bug.
 
@@ -334,8 +319,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testCallTestOnWrongType()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testIfThrows("RegExp.prototype.test.call(1)",
                 "RegExp.prototype.test called on incompatible receiver 1");
         testIfThrows("RegExp.prototype.test.call(undefined)",
@@ -346,8 +330,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testTestProperties()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testUndefined("RegExp.prototype.test.prototype");
         testIfThrows("new RegExp.prototype.test()",
                 "test is not a constructor");
@@ -360,8 +343,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest
     @Test
     public void testCallToStringOnWrongType()
             throws UnrecognizedCharacterSequenceException,
-                   JSELCompilationException, IOException
-    {
+                   JSELCompilationException, IOException {
         testIfThrows("RegExp.prototype.toString.call(1)",
                 "RegExp.prototype.toString called on incompatible receiver 1");
         testIfThrows("RegExp.prototype.toString.call(undefined)",

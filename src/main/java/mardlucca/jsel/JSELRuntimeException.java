@@ -17,43 +17,35 @@
  */
 package mardlucca.jsel;
 
-public class JSELRuntimeException extends RuntimeException
-{
-    public JSELRuntimeException(String message)
-    {
+public class JSELRuntimeException extends RuntimeException {
+    public JSELRuntimeException(String message) {
         super(message);
     }
 
     public static JSELRuntimeException cannotReadProperty(String aInProperty,
-            String aInTarget)
-    {
+            String aInTarget) {
         return new JSELRuntimeException("Cannot read property '" + aInProperty
                 + "' of " + aInTarget);
     }
 
-    public static JSELRuntimeException typeError(String aInMessage)
-    {
+    public static JSELRuntimeException typeError(String aInMessage) {
         return new JSELRuntimeException(aInMessage);
     }
 
-    public static JSELRuntimeException referenceError(String aInReference)
-    {
+    public static JSELRuntimeException referenceError(String aInReference) {
         return new JSELRuntimeException(aInReference + " is not defined");
     }
 
-    public static JSELRuntimeException notImplemented(String aInMessage)
-    {
+    public static JSELRuntimeException notImplemented(String aInMessage) {
         return new JSELRuntimeException(
                 "'" + aInMessage + "' is not implemented yet");
     }
 
-    public static JSELRuntimeException syntaxError(String aInMessage)
-    {
+    public static JSELRuntimeException syntaxError(String aInMessage) {
         return new JSELRuntimeException("SyntaxError: " + aInMessage);
     }
 
-    public static JSELRuntimeException rangeError(String aInMessage)
-    {
+    public static JSELRuntimeException rangeError(String aInMessage) {
         return new JSELRuntimeException(
                 "RangeError: " + aInMessage);
     }

@@ -29,16 +29,45 @@ import java.util.regex.Pattern;
 
 import static mardlucca.jsel.JSELRuntimeException.syntaxError;
 
-public class JSELRegExp extends JSELObject
-{
+/**
+ * This represents a regexp object type in JSEL. This uses Java's
+ * {@link Pattern} class to implement regular expression matching.
+ */
+public class JSELRegExp extends JSELObject {
+    /**
+     * Constant for an empty regexp string
+     */
     private static final String EMPTY_REGEX_STRING = "(?:)";
-    
+
+    /**
+     * Constant used for the internal [[Class]] property for objects of this
+     * type.
+     */
     public static final String CLASS = "RegExp";
-    
+
+    /**
+     * Constant for the name of property "source"
+     */
     public static final String SOURCE = "source";
+
+    /**
+     * Constant for the name of property "global"
+     */
     public static final String GLOBAL = "global";
+
+    /**
+     * Constant for the name of property "ignoreCase"
+     */
     public static final String IGNORE_CASE = "ignoreCase";
+
+    /**
+     * Constant for the name of property "multiline"
+     */
     public static final String MULTILINE = "multiline";
+
+    /**
+     * Constant for the name of property "lastIndex"
+     */
     public static final String LAST_INDEX = "lastIndex";
 
     private Pattern pattern;
@@ -46,24 +75,41 @@ public class JSELRegExp extends JSELObject
     private String body;
     private String flagsString;
 
-    public JSELRegExp(String aInBody)
-    {
+    /**
+     * Creates a new reg exp object with default flags
+     * @param aInBody he regular expression. If null, the empty regexp is used.
+     */
+    public JSELRegExp(String aInBody) {
         this(aInBody, (String) null);
     }
 
-    public JSELRegExp(String aInSource, Set<Flag> aInFlags)
-    {
-        this(aInSource, Flag.getFlagsString(aInFlags));
+    /**
+     * Creates a new reg exp  object
+     * @param aInBody he regular expression. If null, the empty regexp is
+     *                  used.
+     * @param aInFlags a set of regex flags
+     */
+    public JSELRegExp(String aInBody, Set<Flag> aInFlags) {
+        this(aInBody, Flag.getFlagsString(aInFlags));
     }
 
-    public JSELRegExp(String aInBody, String aInFlagsString)
-    {
+    /**
+     * Creates a new reg exp  object
+     * @param aInBody he regular expression. If null, the empty regexp is used.
+     * @param aInFlagsString a string containing regular expression flags.
+     */
+    public JSELRegExp(String aInBody, String aInFlagsString) {
         this(ExecutionContext.getRetExpPrototype(), aInBody, aInFlagsString);
     }
 
+    /**
+     * Creates a new reg exp  object
+     * @param aInPrototype the RegExp prototype object
+     * @param aInBody the regular expression. If null, the empty regexp is used.
+     * @param aInFlagString the flags
+     */
     protected JSELRegExp(
-            JSELObject aInPrototype, String aInBody, String aInFlagString)
-    {
+            JSELObject aInPrototype, String aInBody, String aInFlagString) {
         super(aInPrototype);
         body = aInBody == null
                 ? EMPTY_REGEX_STRING
@@ -98,62 +144,59 @@ public class JSELRegExp extends JSELObject
     }
 
     @Override
-    public String getObjectClass()
-    {
+    public String getObjectClass() {
         return CLASS;
     }
 
-    public Set<Flag> getFlags()
-    {
+    public Set<Flag> getFlags() {
         return flags;
     }
 
-    public Pattern getPattern()
-    {
+    public Pattern getPattern() {
         return pattern;
     }
 
-    public String getBody()
-    {
+    public String getBody() {
         return body;
     }
 
-    public String getFlagsString()
-    {
+    public String getFlagsString() {
         return flagsString;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "/" + body + "/" + flagsString;
     }
 
     @Override
-    public MatchResult match(String aInString, int aInIndex)
-    {
+    public MatchResult match(String aInString, int aInIndex) {
         Matcher lMatcher = pattern.matcher(aInString);
-        if (!lMatcher.find(aInIndex))
-        {
+        if (!lMatcher.find(aInIndex)) {
             return null;
         }
 
         String[] lCaptures = new String[lMatcher.groupCount() + 1];
-        for (int i = 0; i < lCaptures.length; i++)
-        {
+        for (int i = 0; i < lCaptures.length; i++) {
             lCaptures[i] = lMatcher.group(i);
         }
         return new MatchResult(lMatcher.start(), lMatcher.end(), lCaptures);
     }
 
-    public enum Flag
-    {
+    /**
+     * Enum with regular expression flags
+     */
+    public enum Flag {
         GLOBAL(0),     // no equivalent value in Java
         IGNORE_CASE(Pattern.CASE_INSENSITIVE),
         MULTILINE(Pattern.MULTILINE);
 
-        Flag(int aInFlagValue)
-        {
+        /**
+         * Constructor
+         * @param aInFlagValue a numeric value (power of two) to represent a
+         *                     flag value.
+         */
+        Flag(int aInFlagValue) {
             symbol = String.valueOf(Character.toLowerCase(name().charAt(0)));
             flagValue = aInFlagValue;
         }
@@ -163,43 +206,48 @@ public class JSELRegExp extends JSELObject
 
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return symbol;
         }
-        
-        public static int getFlagsAsInt(Set<Flag> aInFlags)
-        {
-            if (aInFlags == null)
-            {
+
+        /**
+         * Converts a set of flags into an int that can be used in a
+         * {@link Pattern}
+         * @param aInFlags the flags
+         * @return the flags as an int
+         */
+        public static int getFlagsAsInt(Set<Flag> aInFlags) {
+            if (aInFlags == null) {
                 return 0;
             }
             
             int lIntFlag = 0;
-            for (Flag lFlag : aInFlags)
-            {
+            for (Flag lFlag : aInFlags) {
                 lIntFlag |= lFlag.flagValue;
             }
 
             return lIntFlag;
         }
 
-        public static Set<Flag> getFlags(String aInFlagString)
-        {
-            if (StringUtils.isEmpty(aInFlagString))
-            {
+        /**
+         * Converts a string with flags into a set of flags.
+         * @param aInFlagString a string with flags.
+         * @return the set of flags
+         * @throws JSELRuntimeException a "SyntaxError" if the string contains
+         * any unsupported flags.
+         */
+        public static Set<Flag> getFlags(String aInFlagString) {
+            if (StringUtils.isEmpty(aInFlagString)) {
                 return Collections.emptySet();
             }
 
             Set<Flag> lSet = new HashSet<>();
 
-            for (int i = 0; i < aInFlagString.length(); i++)
-            {
+            for (int i = 0; i < aInFlagString.length(); i++) {
                 Flag lFlag = fromSymbol(Character.toLowerCase(
                         aInFlagString.charAt(i)));
-                if (lFlag == null || lSet.contains(lFlag))
-                {
-                    throw JSELRuntimeException.syntaxError(
+                if (lFlag == null || lSet.contains(lFlag)) {
+                    throw syntaxError(
                             "Invalid flags supplied to RegExp constructor '"
                                     + aInFlagString + "'");
                 }
@@ -208,12 +256,14 @@ public class JSELRegExp extends JSELObject
             return lSet;
         }
 
-        public static Flag fromSymbol(char aInSymbol)
-        {
-            for (Flag lFlag : values())
-            {
-                if (lFlag.symbol.charAt(0) == aInSymbol)
-                {
+        /**
+         * Returns a Flag from a character symbol.
+         * @param aInSymbol the symbol
+         * @return the flag
+         */
+        public static Flag fromSymbol(char aInSymbol) {
+            for (Flag lFlag : values()) {
+                if (lFlag.symbol.charAt(0) == aInSymbol) {
                     return lFlag;
                 }
             }
@@ -221,12 +271,15 @@ public class JSELRegExp extends JSELObject
             return null;
         }
 
-        public static String getFlagsString(Set<Flag> aInFlags)
-        {
+        /**
+         * Converts a set of flags into a flags string.
+         * @param aInFlags the set of flags
+         * @return the flags string
+         */
+        public static String getFlagsString(Set<Flag> aInFlags) {
             StringBuilder lStringBuilder = new StringBuilder();
 
-            for (Flag lFlag : aInFlags)
-            {
+            for (Flag lFlag : aInFlags) {
                 lStringBuilder.append(lFlag.toString());
             }
 

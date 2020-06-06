@@ -22,8 +22,7 @@ import mardlucca.parselib.tokenizer.BaseTokenRecognizer;
 import mardlucca.parselib.tokenizer.IdentifierRecognizer;
 import mardlucca.parselib.tokenizer.MatchResult;
 
-public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
-{
+public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum> {
     private State state = State.INITIAL;
 
     private int numberOpenBrackets = 0;
@@ -31,27 +30,23 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
     private IdentifierRecognizer<?>  identifierRecognizer =
             new IdentifierRecognizer<>(null);
 
-    public RegExpRecognizer()
-    {
+    public RegExpRecognizer() {
         super(TokenEnum.REGEX);
     }
 
     @Override
-    public MatchResult test(int aInChar, Object aInSyntacticContext)
-    {
+    public MatchResult test(int aInChar, Object aInSyntacticContext) {
         LRParser<TokenEnum, String>.State lCurrentState =
                 (LRParser<TokenEnum, String>.State) aInSyntacticContext;
 
-        if (lCurrentState == null || lCurrentState.hasAction(TokenEnum.DIVIDE))
-        {
+        if (lCurrentState == null || lCurrentState.hasAction(TokenEnum.DIVIDE)) {
             // if the current state allows for the / (division) operator, we
             // will use that instead, otherwise we assume they're trying to
             // create a regex literal.
             return MatchResult.NOT_A_MATCH;
         }
 
-        switch (state)
-        {
+        switch (state) {
             case INITIAL:
                 return handleInitialState(aInChar);
             case READING_ESCAPE_CHAR:
@@ -68,10 +63,8 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
         return failure(null);
     }
 
-    private MatchResult handleInitialState(int aInChar)
-    {
-        if (aInChar == '/')
-        {
+    private MatchResult handleInitialState(int aInChar) {
+        if (aInChar == '/') {
             state = State.READING_FIRST_CHAR;
             return MatchResult.PARTIAL_MATCH;
         }
@@ -80,10 +73,8 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
         return MatchResult.NOT_A_MATCH;
     }
 
-    private MatchResult handleReadingEscapeCharState(int aInChar)
-    {
-        if (aInChar == '\n' || aInChar == -1)
-        {
+    private MatchResult handleReadingEscapeCharState(int aInChar) {
+        if (aInChar == '\n' || aInChar == -1) {
             return failure("Invalid regular expression: missing /");
         }
 
@@ -91,30 +82,25 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
         return MatchResult.PARTIAL_MATCH;
     }
 
-    private MatchResult handleReadingFirstCharState(int aInChar)
-    {
-        if (aInChar == '\\')
-        {
+    private MatchResult handleReadingFirstCharState(int aInChar) {
+        if (aInChar == '\\') {
             state = State.READING_ESCAPE_CHAR;
             return MatchResult.PARTIAL_MATCH;
         }
 
-        if (aInChar == '[')
-        {
+        if (aInChar == '[') {
             numberOpenBrackets++;
             state = State.READING_CHARS;
             return MatchResult.PARTIAL_MATCH;
         }
 
-        if (aInChar == '\n' || aInChar == -1)
-        {
+        if (aInChar == '\n' || aInChar == -1) {
             // this failure will typically not be reported back as javascript
             // also includes / as the division operator
             return failure("Invalid regular expression: missing /");
         }
 
-        if (aInChar == '*' || aInChar == '/')
-        {
+        if (aInChar == '*' || aInChar == '/') {
             // token is either single line or multi line comment
             state = State.FAILURE;
             return MatchResult.NOT_A_MATCH;
@@ -124,41 +110,33 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
         return MatchResult.PARTIAL_MATCH;
     }
 
-    private MatchResult handleReadingFlagsState(int aInChar)
-    {
+    private MatchResult handleReadingFlagsState(int aInChar) {
         return identifierRecognizer.test(aInChar);
     }
 
-    private MatchResult handleReadingCharsState(int aInChar)
-    {
-        if (aInChar == ']')
-        {
-            if (numberOpenBrackets > 0)
-            {
+    private MatchResult handleReadingCharsState(int aInChar) {
+        if (aInChar == ']') {
+            if (numberOpenBrackets > 0) {
                 numberOpenBrackets--;
             }
             return MatchResult.PARTIAL_MATCH;
         }
 
-        if (aInChar == '\\')
-        {
+        if (aInChar == '\\') {
             state = State.READING_ESCAPE_CHAR;
             return MatchResult.PARTIAL_MATCH;
         }
 
-        if (aInChar == '[')
-        {
+        if (aInChar == '[') {
             numberOpenBrackets++;
             return MatchResult.PARTIAL_MATCH;
         }
 
-        if (aInChar == '\n' || aInChar == -1)
-        {
+        if (aInChar == '\n' || aInChar == -1) {
             return failure("Invalid regular expression: missing /");
         }
 
-        if (aInChar == '/' && numberOpenBrackets == 0)
-        {
+        if (aInChar == '/' && numberOpenBrackets == 0) {
             state = State.READING_FLAGS;
             return MatchResult.MATCH;
         }
@@ -169,8 +147,7 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
     }
 
     @Override
-    public void reset()
-    {
+    public void reset() {
         super.reset();
         state = State.INITIAL;
         numberOpenBrackets = 0;
@@ -178,10 +155,8 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
     }
 
     @Override
-    public String[] getValue(String aInCharSequence)
-    {
-        if (aInCharSequence.length() < 3)
-        {
+    public String[] getValue(String aInCharSequence) {
+        if (aInCharSequence.length() < 3) {
             return null;
         }
 
@@ -194,15 +169,13 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum>
         };
     }
 
-    private MatchResult failure(String aInReason)
-    {
+    private MatchResult failure(String aInReason) {
         setFailureReason(aInReason);
         state = State.FAILURE;
         return MatchResult.NOT_A_MATCH;
     }
 
-    private enum State
-    {
+    private enum State {
         INITIAL,
         READING_FIRST_CHAR,
         READING_ESCAPE_CHAR,

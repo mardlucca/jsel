@@ -17,8 +17,7 @@
  */
 package mardlucca.jsel.util;
 
-public class DecimalFormat
-{
+public class DecimalFormat {
     private static ThreadLocal<java.text.DecimalFormat> formatter =
             ThreadLocal.withInitial(() -> {
         java.text.DecimalFormat lFormat = new java.text.DecimalFormat();
@@ -27,37 +26,39 @@ public class DecimalFormat
         return lFormat;
     });
 
-    private DecimalFormat()
-    {
+    private DecimalFormat() {
     }
 
-    public static String format(double aInDouble)
-    {
-        if (Double.isNaN(aInDouble) || Double.isInfinite(aInDouble))
-        {
+    public static String format(double aInDouble) {
+        if (Double.isNaN(aInDouble) || Double.isInfinite(aInDouble)) {
             return String.valueOf(aInDouble);
         }
-        if (aInDouble == 0.0)
-        {
+        if (aInDouble == 0.0) {
             return "0";
         }
         return formatter.get().format(aInDouble);
     }
 
-    public static double parse(String aInDouble)
-    {
+    /**
+     * Parses a string into a double. This behaves essentially the same way as
+     * {@link Double#parseDouble(String)}, with the following differences:
+     * <ul>
+     *     <li>An empty string will be converted to 0.0</li>
+     *     <li>NumberFormat failures result in {@link Double#NaN}</li>
+     * </ul>
+     * @param aInDouble the double string to convert
+     * @return the resulting double value or {@link Double#NaN}
+     */
+    public static double parse(String aInDouble) {
         aInDouble = aInDouble.trim();
-        if (aInDouble.isEmpty())
-        {
+        if (aInDouble.isEmpty()) {
             return 0;
         }
 
-        try
-        {
+        try {
             return Double.parseDouble(aInDouble);
         }
-        catch (NumberFormatException ignore)
-        {
+        catch (NumberFormatException ignore) {
             return Double.NaN;
         }
     }

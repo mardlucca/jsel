@@ -29,19 +29,16 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.notImplemented;
 
-public class LocaleCompareFunction extends JSELFunction
-{
+public class LocaleCompareFunction extends JSELFunction {
     public static final String LOCALE_COMPARE = "localeCompare";
 
-    public LocaleCompareFunction()
-    {
+    public LocaleCompareFunction() {
         super(LOCALE_COMPARE);
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext)
-    {
+                          ExecutionContext aInExecutionContext) {
         throw JSELRuntimeException.notImplemented("String.prototype.localeCompare");
     }
 }

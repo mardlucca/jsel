@@ -25,16 +25,13 @@ import mardlucca.jsel.type.wrapper.JSELNumberObject;
 import mardlucca.jsel.builtin.object.ToStringFunction;
 import mardlucca.jsel.builtin.object.ValueOfFunction;
 
-public class NumberPrototype extends JSELNumberObject
-{
+public class NumberPrototype extends JSELNumberObject {
     public NumberPrototype(
-            ObjectPrototype aInPrototype)
-    {
+            ObjectPrototype aInPrototype) {
         super(aInPrototype, new JSELNumber(0));
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         put(ToStringFunction.TO_STRING, new DefaultToStringFunction(JSELNumberObject.CLASS));
         put(ValueOfFunction.VALUE_OF, new DefaultValueOfFunction(JSELNumberObject.CLASS));
 

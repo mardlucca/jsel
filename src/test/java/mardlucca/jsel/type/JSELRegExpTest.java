@@ -29,8 +29,7 @@ import java.util.Set;
 import static java.util.Collections.singleton;
 import static org.junit.Assert.*;
 
-public class JSELRegExpTest
-{
+public class JSELRegExpTest {
     private JSELRegExp regexAs = new JSELRegExp("a+", singleton(Flag.GLOBAL));
     private JSELRegExp wordsFollowedNumbers =
             new JSELRegExp("([a-z]+)(\\d+)");
@@ -41,8 +40,7 @@ public class JSELRegExpTest
             EnumSet.of(Flag.MULTILINE));
 
     @Test
-    public void testAttributesAndProperties()
-    {
+    public void testAttributesAndProperties() {
         assertEquals("a+", regexAs.getBody());
         assertEquals(1, regexAs.getFlags().size());
         assertTrue(regexAs.getFlags().contains(Flag.GLOBAL));
@@ -62,26 +60,22 @@ public class JSELRegExpTest
     }
 
     @Test
-    public void getType()
-    {
+    public void getType() {
         assertEquals(Type.OBJECT, regexAs.getType());
     }
 
     @Test
-    public void getObjectClass()
-    {
+    public void getObjectClass() {
         assertEquals(JSELRegExp.CLASS, regexAs.getObjectClass());
     }
 
     @Test
-    public void isCallable()
-    {
+    public void isCallable() {
         assertFalse(regexAs.isCallable());
     }
 
     @Test
-    public void testBasicMatch()
-    {
+    public void testBasicMatch() {
         MatchResult lResult = regexAs.match("babaa", 0);
         assertNotNull(lResult);
         assertEquals(1, lResult.getStart());
@@ -109,15 +103,13 @@ public class JSELRegExpTest
     }
 
     @Test
-    public void testBasicNotMatch()
-    {
+    public void testBasicNotMatch() {
         assertNull(regexAs.match("bAbAA", 0));
         assertNull(wordsFollowedNumbers.match("$#%word123!@#", 10));
     }
 
     @Test
-    public void testBasicMatchIgnoreCase()
-    {
+    public void testBasicMatchIgnoreCase() {
         MatchResult lResult = capturingAsIgnoreCase.match("bAbaA", 0);
         assertNotNull(lResult);
         assertEquals(1, lResult.getStart());
@@ -136,8 +128,7 @@ public class JSELRegExpTest
     }
 
     @Test
-    public void testMatchNotMultiline()
-    {
+    public void testMatchNotMultiline() {
         // the test below doesn't work in Java, I'm thinking Java's Matcher.find
         // and Matcher.lookingAt have an error. In single-line mode (the
         // default) ^ and $ should only match the beginning and end of the input
@@ -150,8 +141,7 @@ public class JSELRegExpTest
     }
 
     @Test
-    public void testMatchMultiline()
-    {
+    public void testMatchMultiline() {
         MatchResult lResult = beginEndMultiline.match("123", 0);
         assertNotNull(lResult);
         assertEquals("123", lResult.getCaptures()[0]);
@@ -171,29 +161,25 @@ public class JSELRegExpTest
     }
 
     @Test
-    public void testGetFlags()
-    {
+    public void testGetFlags() {
         assertEquals(0, Flag.getFlags("").size());
         assertEquals(0, Flag.getFlags(null).size());
         Set<Flag> lFags = Flag.getFlags("mig");
         assertTrue(lFags.containsAll(
                 EnumSet.of(Flag.GLOBAL, Flag.IGNORE_CASE, Flag.MULTILINE)));
 
-        try
-        {
+        try {
             Flag.getFlags("miga");
             fail();
         }
-        catch (JSELRuntimeException e)
-        {
+        catch (JSELRuntimeException e) {
             assertEquals("SyntaxError: Invalid flags supplied to RegExp " +
                     "constructor 'miga'", e.getMessage());
         }
     }
 
     @Test
-    public void testEmptyRegExp()
-    {
+    public void testEmptyRegExp() {
         JSELRegExp empty = new JSELRegExp(null);
         assertEquals("/(?:)/", empty.toString());
     }

@@ -22,16 +22,13 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.JSELUndefined;
 import mardlucca.jsel.type.JSELValue;
 
-public abstract class EnvironmentRecord
-{
-    public EnvironmentRecord()
-    {
+public abstract class EnvironmentRecord {
+    public EnvironmentRecord() {
         this(null);
     }
 
     public EnvironmentRecord(
-            EnvironmentRecord aInOuter)
-    {
+            EnvironmentRecord aInOuter) {
         outer = aInOuter;
     }
 
@@ -41,14 +38,11 @@ public abstract class EnvironmentRecord
 
     protected abstract JSELValue resolveOwn(String aInIdentifier);
 
-    public JSELValue resolve(String aInIdentifier)
-    {
+    public JSELValue resolve(String aInIdentifier) {
         EnvironmentRecord lContext = this;
-        do
-        {
+        do {
             JSELValue lValue = lContext.resolveOwn(aInIdentifier);
-            if (lValue != null)
-            {
+            if (lValue != null) {
                 return lValue;
             }
 
@@ -59,8 +53,7 @@ public abstract class EnvironmentRecord
         return JSELUndefined.getInstance();
     }
 
-    public void setOuter(EnvironmentRecord aInOuter)
-    {
+    public void setOuter(EnvironmentRecord aInOuter) {
         outer = aInOuter;
     }
 }
