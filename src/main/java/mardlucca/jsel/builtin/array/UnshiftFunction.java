@@ -23,17 +23,15 @@ import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.Collections;
 import java.util.List;
 
 public class UnshiftFunction extends JSELFunction {
-    public static final String SPLICE = "unshift";
+    public static final String NAME = "unshift";
 
     public UnshiftFunction() {
-        super(SPLICE, Collections.singletonList("items"));
+        super(NAME, Collections.singletonList("items"));
     }
 
     @Override

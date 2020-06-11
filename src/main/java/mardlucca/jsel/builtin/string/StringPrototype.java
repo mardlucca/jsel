@@ -20,16 +20,12 @@ package mardlucca.jsel.builtin.string;
 import mardlucca.jsel.builtin.DefaultToStringFunction;
 import mardlucca.jsel.builtin.DefaultValueOfFunction;
 import mardlucca.jsel.builtin.object.ObjectPrototype;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.wrapper.JSELStringObject;
-import mardlucca.jsel.builtin.DefaultToStringFunction;
-import mardlucca.jsel.builtin.DefaultValueOfFunction;
+import mardlucca.jsel.builtin.object.ToStringFunction;
+import mardlucca.jsel.builtin.object.ValueOfFunction;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.wrapper.JSELStringObject;
 
 import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
-import static mardlucca.jsel.builtin.object.ValueOfFunction.VALUE_OF;
 import static mardlucca.jsel.builtin.string.CharAtFunction.CHAR_AT;
 import static mardlucca.jsel.builtin.string.CharCodeAtFunction.CHAR_CODE_AT;
 import static mardlucca.jsel.builtin.string.IndexOfFunction.INDEX_OF;
@@ -40,12 +36,6 @@ import static mardlucca.jsel.builtin.string.ReplaceFunction.REPLACE;
 import static mardlucca.jsel.builtin.string.SearchFunction.SEARCH;
 import static mardlucca.jsel.builtin.string.SliceFunction.SLICE;
 import static mardlucca.jsel.builtin.string.SplitFunction.SPLIT;
-import static mardlucca.jsel.builtin.string.SubstringFunction.SUBSTRING;
-import static mardlucca.jsel.builtin.string.ToLocaleLowerCaseFunction.TO_LOCALE_LOWER_CASE;
-import static mardlucca.jsel.builtin.string.ToLocaleUpperCaseFunction.TO_LOCALE_UPPER_CASE;
-import static mardlucca.jsel.builtin.string.ToLowerCaseFunction.TO_LOWER_CASE;
-import static mardlucca.jsel.builtin.string.ToUpperCaseFunction.TO_UPPER_CASE;
-import static mardlucca.jsel.builtin.string.TrimFunction.TRIM;
 
 public class StringPrototype extends JSELStringObject {
     public StringPrototype(ObjectPrototype aInPrototype) {
@@ -57,10 +47,10 @@ public class StringPrototype extends JSELStringObject {
                 false, true, true);
 
         defineOwnProperty(
-                TO_STRING, new DefaultToStringFunction(JSELStringObject.CLASS),
+                ToStringFunction.NAME, new DefaultToStringFunction(JSELStringObject.CLASS),
                 false, true, true);
         defineOwnProperty(
-                VALUE_OF, new DefaultValueOfFunction(JSELStringObject.CLASS),
+                ValueOfFunction.NAME, new DefaultValueOfFunction(JSELStringObject.CLASS),
                 false, true, true);
 
         defineOwnProperty(CHAR_AT,

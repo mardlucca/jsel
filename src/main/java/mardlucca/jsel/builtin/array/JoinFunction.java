@@ -24,19 +24,17 @@ import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.List;
 
 import static java.util.Collections.singletonList;
 
 public class JoinFunction extends JSELFunction {
-    public static final String JOIN = "join";
+    public static final String NAME = "join";
 
 
     public JoinFunction() {
-        super(JOIN, singletonList("separator"));
+        super(NAME, singletonList("separator"));
     }
 
     @Override

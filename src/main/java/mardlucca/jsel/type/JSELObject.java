@@ -17,8 +17,9 @@
  */
 package mardlucca.jsel.type;
 
+import mardlucca.jsel.builtin.object.ToStringFunction;
+import mardlucca.jsel.builtin.object.ValueOfFunction;
 import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELValue.GetHint;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,8 +27,6 @@ import java.util.Map;
 import java.util.Set;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
-import static mardlucca.jsel.builtin.object.ValueOfFunction.VALUE_OF;
 import static java.lang.Double.isNaN;
 
 /**
@@ -197,7 +196,7 @@ public class JSELObject extends JSELValue {
      * exist.
      */
     private JSELValue defaultStringValue() {
-        JSELValue lToStringFnObject = get(TO_STRING);
+        JSELValue lToStringFnObject = get(ToStringFunction.NAME);
         if (!lToStringFnObject.isCallable()) {
             return null;
         }
@@ -213,7 +212,7 @@ public class JSELObject extends JSELValue {
      * exit
      */
     private JSELValue defaultNumberValue() {
-        JSELValue lValueOfFnObject = get(VALUE_OF);
+        JSELValue lValueOfFnObject = get(ValueOfFunction.NAME);
         if (!lValueOfFnObject.isCallable()) {
             return null;
         }

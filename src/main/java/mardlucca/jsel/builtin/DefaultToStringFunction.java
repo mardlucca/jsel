@@ -17,12 +17,7 @@
  */
 package mardlucca.jsel.builtin;
 
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELObject;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.JSELRuntimeException;
+import mardlucca.jsel.builtin.object.ToStringFunction;
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELString;
@@ -31,13 +26,12 @@ import mardlucca.jsel.type.JSELValue;
 import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 
 public class DefaultToStringFunction extends JSELFunction {
     private String objectClass;
 
     public DefaultToStringFunction(String aInObjectClass) {
-        super(TO_STRING, null);
+        super(ToStringFunction.NAME, null);
         objectClass = aInObjectClass;
     }
 

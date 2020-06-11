@@ -19,12 +19,8 @@ package mardlucca.jsel.builtin.regexp;
 
 import mardlucca.jsel.builtin.object.ObjectPrototype;
 import mardlucca.jsel.type.JSELRegExp;
-import mardlucca.jsel.type.JSELRegExp;
 
 import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
-import static mardlucca.jsel.builtin.regexp.ExecFunction.EXEC;
-import static mardlucca.jsel.builtin.regexp.TestFunction.TEST;
 
 public class RegExpPrototype extends JSELRegExp {
     public RegExpPrototype(
@@ -36,12 +32,12 @@ public class RegExpPrototype extends JSELRegExp {
         defineOwnProperty(CONSTRUCTOR_PROPERTY, new RegExpConstructor(),
                 false, true, true);
 
-        defineOwnProperty(TO_STRING, new ToStringFunction(),
+        defineOwnProperty(mardlucca.jsel.builtin.object.ToStringFunction.NAME,
+                new ToStringFunction(),
                 false, true, true);
-        defineOwnProperty(EXEC, new ExecFunction(),
+        defineOwnProperty(ExecFunction.NAME, new ExecFunction(),
                 false, true, true);
-        defineOwnProperty(TestFunction.TEST, new TestFunction(),
+        defineOwnProperty(TestFunction.NAME, new TestFunction(),
                 false, true, true);
-
     }
 }

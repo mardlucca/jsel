@@ -18,11 +18,8 @@
 package mardlucca.jsel.builtin.object;
 
 import mardlucca.jsel.type.JSELObject;
-import mardlucca.jsel.type.JSELObject;
 
 import static mardlucca.jsel.builtin.object.GetOwnPropertyDescriptorFunction.GET_OWN_PROPERTY_DESCRIPTOR;
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
-import static mardlucca.jsel.builtin.object.ValueOfFunction.VALUE_OF;
 
 public class ObjectPrototype extends JSELObject {
     public static final String CONSTRUCTOR_PROPERTY = "constructor";
@@ -41,9 +38,9 @@ public class ObjectPrototype extends JSELObject {
 
         defineOwnProperty(GET_OWN_PROPERTY_DESCRIPTOR,
                 new GetOwnPropertyDescriptorFunction(), false, true, true);
-        defineOwnProperty(ToStringFunction.TO_STRING, new ToStringFunction(),
+        defineOwnProperty(ToStringFunction.NAME, new ToStringFunction(),
                 false, true, true);
-        defineOwnProperty(ValueOfFunction.VALUE_OF, new ValueOfFunction(),
+        defineOwnProperty(ValueOfFunction.NAME, new ValueOfFunction(),
                 false, true, true);
 
 

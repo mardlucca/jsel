@@ -25,10 +25,10 @@ import mardlucca.jsel.type.JSELValue;
 import java.util.List;
 
 public class IsNaNFunction extends JSELFunction {
-    public static final String IS_NAN = "isNaN";
+    public static final String NAME = "isNaN";
 
     public IsNaNFunction() {
-        super(IS_NAN);
+        super(NAME);
     }
 
     @Override

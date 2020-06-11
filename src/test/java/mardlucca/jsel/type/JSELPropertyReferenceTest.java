@@ -18,7 +18,7 @@
 
 package mardlucca.jsel.type;
 
-import mardlucca.jsel.JSELRuntimeException;
+import mardlucca.jsel.builtin.object.ToStringFunction;
 import mardlucca.jsel.type.JSELValue.GetHint;
 import mardlucca.jsel.type.wrapper.JSELBooleanObject;
 import org.junit.Before;
@@ -26,7 +26,6 @@ import org.junit.Test;
 
 import java.util.Collections;
 
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 import static org.junit.Assert.*;
 
 public class JSELPropertyReferenceTest {
@@ -91,7 +90,8 @@ public class JSELPropertyReferenceTest {
     @Test
     public void call() {
         JSELValue lBooleanToString =
-                new JSELPropertyReference(JSELBoolean.TRUE, TO_STRING);
+                new JSELPropertyReference(
+                        JSELBoolean.TRUE, ToStringFunction.NAME);
         assertTrue(lBooleanToString.isCallable());
         assertEquals(
                 new JSELString("true"),

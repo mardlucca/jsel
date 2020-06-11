@@ -1,5 +1,5 @@
 /*
- * File: ValueOfFunction.java
+ * File: JSONObject.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,24 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mardlucca.jsel.builtin.object;
 
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELValue;
+package mardlucca.jsel.builtin.json;
 
-import java.util.List;
+import mardlucca.jsel.type.JSELObject;
 
-public class ValueOfFunction extends JSELFunction {
-    public static final String NAME = "valueOf";
-
-    public ValueOfFunction() {
-        super(NAME);
-    }
+public class JSONObject extends JSELObject {
+    public static final String CLASS = "JSON";
 
     @Override
-    public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInContext) {
-        return aInThis;
+    public String getObjectClass() {
+        return CLASS;
     }
 }

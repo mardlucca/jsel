@@ -22,20 +22,15 @@ import mardlucca.jsel.type.JSELArray;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELArray;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELObject;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
 public class ReverseFunction extends JSELFunction {
-    public static final String REVERSE = "reverse";
+    public static final String NAME = "reverse";
 
 
     public ReverseFunction() {
-        super(REVERSE, null);
+        super(NAME, null);
     }
 
     @Override

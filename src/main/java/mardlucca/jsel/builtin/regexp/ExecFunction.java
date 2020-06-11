@@ -36,12 +36,12 @@ import static mardlucca.jsel.type.JSELRegExp.LAST_INDEX;
 import static java.util.Arrays.stream;
 
 public class ExecFunction extends JSELFunction {
-    public static final String EXEC = "exec";
+    public static final String NAME = "exec";
     private static final String INDEX = "index";
     private static final String INPUT = "input";
 
     public ExecFunction() {
-        super(EXEC, null);
+        super(NAME, null);
     }
 
     @Override

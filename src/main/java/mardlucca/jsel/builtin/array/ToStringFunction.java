@@ -28,13 +28,12 @@ import static java.util.Collections.emptyList;
 
 public class ToStringFunction
         extends mardlucca.jsel.builtin.object.ToStringFunction {
-    public static final String TO_STRING = "toString";
 
     @Override
     public JSELString call(JSELValue aInThisValue, List<JSELValue> aInArguments,
                            ExecutionContext aInExecutionContext) {
         JSELObject lThis = aInThisValue.toObject();
-        JSELValue lJoin = lThis.get(JoinFunction.JOIN);
+        JSELValue lJoin = lThis.get(JoinFunction.NAME);
         if (!lJoin.isCallable()) {
             return super.call(lThis, aInArguments, aInExecutionContext);
         }

@@ -21,18 +21,14 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
 public class ToStringFunction extends JSELFunction {
-    public static final String TO_STRING = "toString";
+    public static final String NAME = "toString";
 
     public ToStringFunction() {
-        super(TO_STRING);
+        super(NAME);
     }
 
     @Override

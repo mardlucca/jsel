@@ -32,8 +32,8 @@ public class NumberPrototype extends JSELNumberObject {
     }
 
     public void initialize() {
-        put(ToStringFunction.TO_STRING, new DefaultToStringFunction(JSELNumberObject.CLASS));
-        put(ValueOfFunction.VALUE_OF, new DefaultValueOfFunction(JSELNumberObject.CLASS));
+        put(ToStringFunction.NAME, new DefaultToStringFunction(JSELNumberObject.CLASS));
+        put(ValueOfFunction.NAME, new DefaultValueOfFunction(JSELNumberObject.CLASS));
 
         defineOwnProperty(ObjectPrototype.CONSTRUCTOR_PROPERTY, new NumberConstructor(),
                 false, true, true);

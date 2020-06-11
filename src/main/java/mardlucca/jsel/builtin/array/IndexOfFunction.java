@@ -23,8 +23,6 @@ import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,10 +30,10 @@ import java.util.List;
 import static java.lang.Integer.max;
 
 public class IndexOfFunction extends JSELFunction {
-    public static final String SLICE = "indexOf";
+    public static final String NAME = "indexOf";
 
     public IndexOfFunction() {
-        super(SLICE, Collections.singletonList("searchElement"));
+        super(NAME, Collections.singletonList("searchElement"));
     }
 
     @Override

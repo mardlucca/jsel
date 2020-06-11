@@ -22,11 +22,6 @@ import mardlucca.jsel.type.JSELArray;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELArray;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELObject;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +29,11 @@ import java.util.List;
 import static java.util.Collections.singletonList;
 
 public class ConcatFunction extends JSELFunction {
-    public static final String CONCAT = "concat";
+    public static final String NAME = "concat";
 
 
     public ConcatFunction() {
-        super(CONCAT, singletonList("items"));
+        super(NAME, singletonList("items"));
     }
 
     @Override

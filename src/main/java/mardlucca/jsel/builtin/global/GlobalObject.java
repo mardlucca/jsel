@@ -20,6 +20,8 @@ package mardlucca.jsel.builtin.global;
 import mardlucca.jsel.builtin.array.ArrayPrototype;
 import mardlucca.jsel.builtin.bool.BooleanPrototype;
 import mardlucca.jsel.builtin.function.FunctionPrototype;
+import mardlucca.jsel.builtin.json.JSONObject;
+import mardlucca.jsel.builtin.math.MathObject;
 import mardlucca.jsel.builtin.number.NumberPrototype;
 import mardlucca.jsel.builtin.object.ObjectPrototype;
 import mardlucca.jsel.builtin.regexp.RegExpPrototype;
@@ -33,17 +35,6 @@ import mardlucca.jsel.type.JSELUndefined;
 import mardlucca.jsel.type.wrapper.JSELBooleanObject;
 import mardlucca.jsel.type.wrapper.JSELNumberObject;
 import mardlucca.jsel.type.wrapper.JSELStringObject;
-import mardlucca.jsel.builtin.number.NumberPrototype;
-import mardlucca.jsel.builtin.object.ObjectPrototype;
-import mardlucca.jsel.builtin.regexp.RegExpPrototype;
-import mardlucca.jsel.builtin.string.StringPrototype;
-import mardlucca.jsel.type.*;
-import mardlucca.jsel.type.wrapper.JSELBooleanObject;
-import mardlucca.jsel.type.wrapper.JSELNumberObject;
-import mardlucca.jsel.type.wrapper.JSELStringObject;
-
-import static mardlucca.jsel.builtin.global.IsFiniteFunction.IS_FINITE;
-import static mardlucca.jsel.builtin.global.IsNaNFunction.IS_NAN;
 
 public class GlobalObject extends JSELObject {
     public static final String CLASS = "Global";
@@ -90,9 +81,26 @@ public class GlobalObject extends JSELObject {
             defineOwnProperty(UNDEFINED_PROPERTY, JSELUndefined.getInstance(),
                     false, false, false);
 
-            defineOwnProperty(IsFiniteFunction.IS_FINITE, new IsFiniteFunction(),
+            // Adding functions
+            defineOwnProperty(DecodeURIComponentFunction.NAME,
+                    new DecodeURIComponentFunction(),
                     false, true, true);
-            defineOwnProperty(IsNaNFunction.IS_NAN, new IsNaNFunction(),
+            defineOwnProperty(DecodeURIFunction.NAME,
+                    new DecodeURIFunction(),
+                    false, true, true);
+            defineOwnProperty(EncodeURIComponentFunction.NAME,
+                    new EncodeURIComponentFunction(),
+                    false, true, true);
+            defineOwnProperty(EncodeURIFunction.NAME,
+                    new EncodeURIFunction(),
+                    false, true, true);
+            defineOwnProperty(IsFiniteFunction.NAME, new IsFiniteFunction(),
+                    false, true, true);
+            defineOwnProperty(IsNaNFunction.NAME, new IsNaNFunction(),
+                    false, true, true);
+            defineOwnProperty(ParseFloatFunction.NAME, new ParseFloatFunction(),
+                    false, true, true);
+            defineOwnProperty(ParseIntFunction.NAME, new ParseIntFunction(),
                     false, true, true);
 
             // Adding built in constructors to global object
@@ -116,6 +124,12 @@ public class GlobalObject extends JSELObject {
                     false, true, true);
             defineOwnProperty(JSELRegExp.CLASS, regExpPrototype.get(
                     ObjectPrototype.CONSTRUCTOR_PROPERTY),
+                    false, true, true);
+
+            // Adding additional global objects
+            defineOwnProperty(MathObject.CLASS, new MathObject(),
+                    false, true, true);
+            defineOwnProperty(JSONObject.CLASS, new JSELObject(),
                     false, true, true);
 
             initialized = true;

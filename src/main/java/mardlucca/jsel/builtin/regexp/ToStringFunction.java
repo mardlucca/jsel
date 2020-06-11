@@ -22,15 +22,14 @@ import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELRegExp;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.JSELRuntimeException;
 
 import java.util.List;
 
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
+import static mardlucca.jsel.JSELRuntimeException.typeError;
 
 public class ToStringFunction extends JSELFunction {
     public ToStringFunction() {
-        super(TO_STRING, null);
+        super(mardlucca.jsel.builtin.object.ToStringFunction.NAME, null);
     }
 
     @Override
@@ -39,7 +38,7 @@ public class ToStringFunction extends JSELFunction {
         if (!aInThisValue.isObjectCoercible()
                 || !aInThisValue.toObject().getObjectClass().equals(
                         JSELRegExp.CLASS)) {
-            throw JSELRuntimeException.typeError("RegExp.prototype.toString called on " +
+            throw typeError("RegExp.prototype.toString called on " +
                     "incompatible receiver " + aInThisValue);
         }
 

@@ -28,11 +28,11 @@ import mardlucca.jsel.type.JSELValue;
 import java.util.List;
 
 public class PopFunction extends JSELFunction {
-    public static final String POP = "pop";
+    public static final String NAME = "pop";
 
 
     public PopFunction() {
-        super(POP, null);
+        super(NAME, null);
     }
 
     @Override

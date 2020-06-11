@@ -20,27 +20,20 @@ package mardlucca.jsel.builtin.regexp;
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELRegExp;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELBoolean;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELRegExp;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static mardlucca.jsel.builtin.regexp.ExecFunction.exec;
 
 public class TestFunction extends JSELFunction {
-    public static final String TEST = "test";
+    public static final String NAME = "test";
 
 
     public TestFunction() {
-        super(TEST, null);
+        super(NAME, null);
     }
 
     @Override

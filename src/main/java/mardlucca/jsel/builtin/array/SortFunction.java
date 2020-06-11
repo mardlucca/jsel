@@ -26,9 +26,6 @@ import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.util.DecimalFormat;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
-import mardlucca.jsel.util.DecimalFormat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,15 +34,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static java.util.Arrays.asList;
 
 public class SortFunction extends JSELFunction {
-    public static final String SHIFT = "sort";
+    public static final String NAME = "sort";
 
 
     public SortFunction() {
-        super(SHIFT, Collections.singletonList("comparefn"));
+        super(NAME, Collections.singletonList("comparefn"));
     }
 
     @Override

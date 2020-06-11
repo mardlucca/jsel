@@ -23,19 +23,9 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELUndefined;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.builtin.DefaultToStringFunction;
-import mardlucca.jsel.builtin.object.ObjectPrototype;
 import mardlucca.jsel.builtin.object.ToStringFunction;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELUndefined;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
-
-import static mardlucca.jsel.builtin.function.CallFunction.CALL;
-import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
 
 public class FunctionPrototype extends JSELFunction {
     public FunctionPrototype(
@@ -48,10 +38,10 @@ public class FunctionPrototype extends JSELFunction {
                 false, true, true);
 
         defineOwnProperty(
-                ToStringFunction.TO_STRING, new DefaultToStringFunction(JSELFunction.CLASS),
+                ToStringFunction.NAME, new DefaultToStringFunction(JSELFunction.CLASS),
                 false, true, true);
         defineOwnProperty(
-                CALL, new CallFunction(), false, true, true);
+                CallFunction.NAME, new CallFunction(), false, true, true);
     }
 
     @Override

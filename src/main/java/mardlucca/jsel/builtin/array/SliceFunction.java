@@ -23,8 +23,6 @@ import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +32,10 @@ import static java.lang.Integer.min;
 import static java.util.Arrays.asList;
 
 public class SliceFunction extends JSELFunction {
-    public static final String SLICE = "slice";
+    public static final String NAME = "slice";
 
     public SliceFunction() {
-        super(SLICE, asList("start", "end"));
+        super(NAME, asList("start", "end"));
     }
 
     @Override

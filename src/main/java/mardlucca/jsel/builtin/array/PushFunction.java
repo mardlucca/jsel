@@ -23,17 +23,15 @@ import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.List;
 
 public class PushFunction extends JSELFunction {
-    public static final String PUSH = "push";
+    public static final String NAME = "push";
 
 
     public PushFunction() {
-        super(PUSH, null);
+        super(NAME, null);
     }
 
     @Override

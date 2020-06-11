@@ -32,10 +32,10 @@ import static java.lang.Integer.min;
 import static java.util.Arrays.asList;
 
 public class SpliceFunction extends JSELFunction {
-    public static final String SPLICE = "splice";
+    public static final String NAME = "splice";
 
     public SpliceFunction() {
-        super(SPLICE, asList("start", "deleteCount"));
+        super(NAME, asList("start", "deleteCount"));
     }
 
     @Override

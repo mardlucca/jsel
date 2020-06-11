@@ -24,17 +24,15 @@ import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELUndefined;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.List;
 
 public class ShiftFunction extends JSELFunction {
-    public static final String SHIFT = "shift";
+    public static final String NAME = "shift";
 
 
     public ShiftFunction() {
-        super(SHIFT, null);
+        super(NAME, null);
     }
 
     @Override

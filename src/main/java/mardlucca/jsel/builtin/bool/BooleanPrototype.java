@@ -22,17 +22,8 @@ import mardlucca.jsel.builtin.DefaultValueOfFunction;
 import mardlucca.jsel.builtin.object.ObjectPrototype;
 import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.wrapper.JSELBooleanObject;
-import mardlucca.jsel.builtin.DefaultToStringFunction;
-import mardlucca.jsel.builtin.DefaultValueOfFunction;
-import mardlucca.jsel.builtin.object.ObjectPrototype;
 import mardlucca.jsel.builtin.object.ToStringFunction;
 import mardlucca.jsel.builtin.object.ValueOfFunction;
-import mardlucca.jsel.type.JSELBoolean;
-import mardlucca.jsel.type.wrapper.JSELBooleanObject;
-
-import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
-import static mardlucca.jsel.builtin.object.ToStringFunction.TO_STRING;
-import static mardlucca.jsel.builtin.object.ValueOfFunction.VALUE_OF;
 
 public class BooleanPrototype extends JSELBooleanObject {
     public BooleanPrototype(
@@ -41,8 +32,8 @@ public class BooleanPrototype extends JSELBooleanObject {
     }
 
     public void initialize() {
-        put(ToStringFunction.TO_STRING, new DefaultToStringFunction(JSELBooleanObject.CLASS));
-        put(ValueOfFunction.VALUE_OF, new DefaultValueOfFunction(JSELBooleanObject.CLASS));
+        put(ToStringFunction.NAME, new DefaultToStringFunction(JSELBooleanObject.CLASS));
+        put(ValueOfFunction.NAME, new DefaultValueOfFunction(JSELBooleanObject.CLASS));
 
         defineOwnProperty(ObjectPrototype.CONSTRUCTOR_PROPERTY, new BooleanConstructor(),
                 false, true, true);

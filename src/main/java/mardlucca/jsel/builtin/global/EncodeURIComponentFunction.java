@@ -1,5 +1,5 @@
 /*
- * File: IsFiniteFunction.java
+ * File: EncodeURIComponentFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package mardlucca.jsel.builtin.global;
 
 import mardlucca.jsel.env.ExecutionContext;
@@ -24,18 +25,18 @@ import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-public class IsFiniteFunction extends JSELFunction {
-    public static final String NAME = "isFinite";
+import static mardlucca.jsel.JSELRuntimeException.notImplemented;
 
-    public IsFiniteFunction() {
+public class EncodeURIComponentFunction extends JSELFunction {
+    public static final String NAME = "encodeURIComponent";
+
+    public EncodeURIComponentFunction() {
         super(NAME);
     }
 
     @Override
     public JSELBoolean call(JSELValue aInThis, List<JSELValue> aInArguments,
                             ExecutionContext aInExecutionContext) {
-        return Double.isFinite(getArgument(aInArguments).toNumber())
-                ? JSELBoolean.TRUE
-                : JSELBoolean.FALSE;
+        throw notImplemented(NAME);
     }
 }

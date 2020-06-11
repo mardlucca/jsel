@@ -28,11 +28,11 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class CallFunction extends JSELFunction {
-    public static final String CALL = "call";
+    public static final String NAME = "call";
 
 
     public CallFunction() {
-        super(CALL, Collections.singletonList("thisArg"));
+        super(NAME, Collections.singletonList("thisArg"));
     }
 
     @Override
