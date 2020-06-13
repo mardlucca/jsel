@@ -62,12 +62,7 @@ import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELRegExp;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELUndefined;
-import mardlucca.parselib.parser.Grammar;
-import mardlucca.parselib.parser.LRParser;
-import mardlucca.parselib.parser.ParsingException;
-import mardlucca.parselib.parser.ReduceListener;
-import mardlucca.parselib.parser.LRParser.ParseResult;
-import mardlucca.parselib.parser.ParseListenerBuilder;
+import mardlucca.parselib.parser.*;
 import mardlucca.parselib.tokenizer.Token;
 import mardlucca.parselib.tokenizer.UnrecognizedCharacterSequenceException;
 import org.apache.commons.lang3.tuple.Pair;
@@ -83,12 +78,8 @@ import static java.util.Collections.singletonList;
 public class JSELCompiler {
     private static final JSELCompiler instance = new JSELCompiler();
 
-    private LRParser<TokenEnum, String> parser;
-
-    private Grammar<String> grammar;
-
-    private ReduceListener<String> listener;
-
+    private Parser parser;
+    
     public static JSELCompiler getInstance() {
         return instance;
     }
@@ -96,48 +87,41 @@ public class JSELCompiler {
     public JSELExpression compile(Reader aInReader)
             throws IOException, UnrecognizedCharacterSequenceException,
                    JSELCompilationException {
-        ParseResult lResult = getParser().parse(aInReader, getListener());
+        ParseResult lResult = getParser().parse(aInReader);
         if (!lResult.getErrors().isEmpty()) {
             throw new JSELCompilationException(lResult.getErrors());
         }
         return (JSELExpression) lResult.getValue();
     }
 
-    private LRParser<TokenEnum, String> getParser() {
+    private Parser getParser() {
         // Because all state on a JSEL parser is stored in the ParseInvocation
         // it means the parser is thread safe so it can be cached
         if (parser == null) {
             synchronized (this) {
                 if (parser == null) {
-                    parser = new JSELParserBuilder()
-                            .build(JSELTokenizerFactory::newTokenizer);
-
-                    grammar = parser.getGrammar();
+                    LRParsingTable<TokenEnum> lParsingTable =
+                            new JSELParserBuilder().build();
+                    initListeners(lParsingTable);
+                    parser = lParsingTable.buildParser(
+                            JSELTokenizerFactory::newTokenizer);
                 }
             }
         }
         return parser;
     }
 
-    private ReduceListener<String> getListener() {
-        if (listener == null) {
-            initListener();
-        }
-        return listener;
-    }
 
-    private synchronized void initListener() {
-        if (listener != null) {
-            return;
-        }
+    private synchronized void initListeners(
+            LRParsingTable<TokenEnum> aInParsingTable) {
 
-        listener = new ParseListenerBuilder<>(grammar)
-                .byDefault((aInProduction, aInValues) -> aInValues[0])
+        aInParsingTable
+                .onDefaultReduce((aInProduction, aInValues) -> aInValues[0])
 
                         // E' -> E
                 .onReduce("E -> id => E", (aInProduction, aInValues) ->
                         new LambdaExpression(
-                                (String) ((Token<?>)aInValues[0]).getValue(),
+                                (String) ((Token<?,?>)aInValues[0]).getValue(),
                                 (JSELExpression) aInValues[2]))
                 .onReduce("E -> ( PARAMS ) => E", (aInProduction, aInValues) ->
                         new LambdaExpression(
@@ -292,7 +276,7 @@ public class JSELCompiler {
                                 (JSELExpression) aInValues[0]))
                 .onReduce("CALL -> CALL . id", (aInProduction, aInValues) ->
                         new AccessExpression(
-                                (String) ((Token<?>)aInValues[2]).getValue(),
+                                (String) ((Token<?,?>)aInValues[2]).getValue(),
                                 (JSELExpression) aInValues[0]))
 
                 .onReduce("NEW -> new AC", (aInProduction, aInValues) ->
@@ -305,7 +289,7 @@ public class JSELCompiler {
                                 (JSELExpression) aInValues[0]))
                 .onReduce("AC -> AC . id", (aInProduction, aInValues) ->
                         new AccessExpression(
-                                (String) ((Token<?>)aInValues[2]).getValue(),
+                                (String) ((Token<?,?>)aInValues[2]).getValue(),
                                 (JSELExpression) aInValues[0]))
                 .onReduce("AC -> new AC ( ARGS )", (aInProduction, aInValues) ->
                         new NewExpression(
@@ -317,14 +301,14 @@ public class JSELCompiler {
                         aInValues[1])
                 .onReduce("VAL -> id", (aInProduction, aInValues) ->
                         new IdentifierExpression(
-                                (String) ((Token<?>)aInValues[0]).getValue()))
+                                (String) ((Token<?,?>)aInValues[0]).getValue()))
                 .onReduce("VAL -> num", (aInProduction, aInValues) ->
                         new LiteralExpression(new JSELNumber(
-                                ((Number) ((Token<?>)aInValues[0]).getValue())
+                                ((Number) ((Token<?,?>)aInValues[0]).getValue())
                                         .doubleValue())))
                 .onReduce("VAL -> str", (aInProduction, aInValues) ->
                         new LiteralExpression(new JSELString(
-                                (String) ((Token<?>)aInValues[0]).getValue())))
+                                (String) ((Token<?,?>)aInValues[0]).getValue())))
                 .onReduce("VAL -> true", (aInProduction, aInValues) ->
                         new LiteralExpression(new JSELBoolean(true)))
                 .onReduce("VAL -> false", (aInProduction, aInValues) ->
@@ -339,7 +323,7 @@ public class JSELCompiler {
                         new LiteralExpression(JSELNumber.INFINITY))
                 .onReduce("VAL -> regex", (aInProduction, aInValues) -> {
                     String[] lValue = (String[])
-                            ((Token<?>)aInValues[0]).getValue();
+                            ((Token<?,?>)aInValues[0]).getValue();
                     try {
                         return new LiteralSupplierExpression(()->
                                 new JSELRegExp(lValue[0], lValue[1]));
@@ -375,10 +359,10 @@ public class JSELCompiler {
                         new ObjectExpression().add(
                                 (Pair<String, JSELExpression>) aInValues[0]))
                 .onReduce("PROP -> str : E", (aInProduction, aInValues) ->
-                        Pair.of((String)((Token<?>)aInValues[0]).getValue(),
+                        Pair.of((String)((Token<?,?>)aInValues[0]).getValue(),
                                 (JSELExpression) aInValues[2]))
                 .onReduce("PROP -> id : E", (aInProduction, aInValues) ->
-                        Pair.of((String)((Token<?>)aInValues[0]).getValue(),
+                        Pair.of((String)((Token<?,?>)aInValues[0]).getValue(),
                                 (JSELExpression) aInValues[2]))
 
                         // PARAMS -> PARAMS2
@@ -387,13 +371,13 @@ public class JSELCompiler {
                 .onReduce("PARAMS2 -> PARAMS2 , id",
                         (aInProduction, aInValues) -> {
                     ((ArrayList)aInValues[0]).add(
-                        ((Token<?>)aInValues[2]).getValue());
+                        ((Token<?,?>)aInValues[2]).getValue());
                     return aInValues[0];
                 })
                 .onReduce("PARAMS2 -> id", (aInProduction, aInValues) ->
                         new ArrayList<>(singletonList(
-                                (String)((Token<?>)aInValues[0]).getValue())))
+                                (String)((Token<?,?>)aInValues[0]).getValue())))
 
-                .build();
+        ;
     }
 }

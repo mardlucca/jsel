@@ -53,12 +53,10 @@ public class ReverseFunction extends JSELFunction {
             if (lLowerExists && lUpperExists) {
                 lThis.put(lLowerIndex, lUpper);
                 lThis.put(lUpperIndex, lLower);
-            }
-            else if (lLowerExists && !lUpperExists) {
+            } else if (lLowerExists && !lUpperExists) {
                 lThis.put(lUpperIndex, lLower);
                 lThis.delete(lLowerIndex);
-            }
-            else if (!lLowerExists && lUpperExists) {
+            } else if (!lLowerExists && lUpperExists) {
                 lThis.put(lLowerIndex, lUpper);
                 lThis.delete(lUpperIndex);
             }

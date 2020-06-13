@@ -41,9 +41,9 @@ public class JSELTokenizerFactoryTest {
     public void tokenizeTest() {
         Tokenizer<TokenEnum> lTokenizer = newTokenizer(
                 new StringReader(TEST_CASE));
-        List<Token<TokenEnum>> lTokens = new ArrayList<>();
+        List<Token<TokenEnum,?>> lTokens = new ArrayList<>();
 
-        for (Token<TokenEnum> lToken : lTokenizer) {
+        for (Token<TokenEnum, ?> lToken : lTokenizer) {
             lTokens.add(lToken);
         }
 
@@ -105,21 +105,22 @@ public class JSELTokenizerFactoryTest {
         assertEquals(TokenEnum.EOF, lTokens.get(49).getId());
     }
 
-    private void assertSymbol(TokenEnum aInSymbol, Token<TokenEnum> aInToken) {
+    private void assertSymbol(TokenEnum aInSymbol, Token<TokenEnum, ?> aInToken) {
         assertEquals(aInSymbol, aInToken.getId());
         assertEquals(aInSymbol.toString(), aInToken.getCharSequence());
         assertEquals(aInSymbol.toString(), aInToken.getValue());
     }
 
-    private void assertString(Token<TokenEnum> aInToken, String aInCharSequence,
+    private void assertString(Token<TokenEnum, ?> aInToken, String aInCharSequence,
             String aInValue) {
         assertEquals(TokenEnum.STRING, aInToken.getId());
         assertEquals(aInCharSequence, aInToken.getCharSequence());
         assertEquals(aInValue, aInToken.getValue());
     }
 
-    private void assertNumber(Token<TokenEnum> aInToken, String aInCharSequence,
-            double aInNumber) {
+    private void assertNumber(Token<TokenEnum, ?> aInToken,
+                              String aInCharSequence,
+                              double aInNumber) {
         assertEquals(TokenEnum.NUMBER, aInToken.getId());
         assertEquals(aInCharSequence, aInToken.getCharSequence());
         assertEquals(aInNumber, aInToken.getValue());

@@ -17,13 +17,13 @@
  */
 package mardlucca.jsel;
 
-import mardlucca.parselib.parser.LRParser;
-import mardlucca.parselib.parser.LRParserBuilder;
+import mardlucca.parselib.parser.LRParsingTable;
+import mardlucca.parselib.parser.LRParsingTableBuilder;
 
 import static java.lang.Character.isUpperCase;
 
-public class JSELParserBuilder extends LRParserBuilder<TokenEnum, String> {
-    public JSELParserBuilder() {
+public class JSELParserBuilder extends LRParsingTableBuilder<TokenEnum> {
+    JSELParserBuilder() {
         super("jsel",
                 TokenEnum::fromText,
                 aInString -> isUpperCase(aInString.charAt(0)) ?
@@ -31,12 +31,12 @@ public class JSELParserBuilder extends LRParserBuilder<TokenEnum, String> {
     }
 
     @Override
-    protected void onNewState(LRParser<TokenEnum, String>.State aInState) {
-        if (aInState.getNumber() == 41) {
-            aInState.reduceIf(
-                    TokenEnum.CLOSE_PARENTHESIS,
-                    TokenEnum.ARROW,
-                    82);
-        }
+    public LRParsingTable<TokenEnum> build() {
+        LRParsingTable<TokenEnum> lParsingTable = super.build();
+        lParsingTable.getState(41).reduceIf(
+                TokenEnum.CLOSE_PARENTHESIS,
+                TokenEnum.ARROW,
+                82);
+        return lParsingTable;
     }
 }

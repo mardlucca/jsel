@@ -101,8 +101,7 @@ public class MatchFunction extends JSELFunction {
                 // string does not advance "lastIndex"
                 lPreviousLastIndex = lThisIndex + 1;
                 lRegExp.put(JSELRegExp.LAST_INDEX, new JSELNumber(lPreviousLastIndex));
-            }
-            else {
+            } else {
                 lPreviousLastIndex = lThisIndex;
             }
 

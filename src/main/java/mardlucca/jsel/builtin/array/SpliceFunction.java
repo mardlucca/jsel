@@ -73,8 +73,7 @@ public class SpliceFunction extends JSELFunction {
                 String lTo = String.valueOf(i + lItemCount);
                 if (lThis.hasProperty(lFrom)) {
                     lThis.put(lTo, lThis.get(lFrom));
-                }
-                else {
+                } else {
                     lThis.delete(lTo);
                 }
             }
@@ -85,8 +84,7 @@ public class SpliceFunction extends JSELFunction {
                     i++) {
                 lThis.delete(String.valueOf(i));
             }
-        }
-        else if (lItemCount > lDeleteCount) {
+        } else if (lItemCount > lDeleteCount) {
             // number of new items is larger than original. We move the tail
             // out a little to leave enough space for the new items.
             for (int i = lLength - lDeleteCount; i > lStart; i--) {
@@ -94,8 +92,7 @@ public class SpliceFunction extends JSELFunction {
                 String lTo = String.valueOf(i + lItemCount -1 );
                 if (lThis.hasProperty(lFrom)) {
                     lThis.put(lTo, lThis.get(lFrom));
-                }
-                else {
+                } else {
                     lThis.delete(lTo);
                 }
             }

@@ -57,8 +57,7 @@ public class JoinFunction extends JSELFunction {
             if (lValue.getType() == Type.NULL
                     || lValue.getType() == Type.UNDEFINED) {
                 lStringBuilder.append("");
-            }
-            else {
+            } else {
                 lStringBuilder.append(lValue.toString());
             }
         }

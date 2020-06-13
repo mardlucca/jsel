@@ -172,8 +172,7 @@ public class JSELObject extends JSELValue {
             if (lCandidate != null && lCandidate.isPrimitive()) {
                 return lCandidate;
             }
-        }
-        else {
+        } else {
             // we try number conversion next
             lCandidate = defaultNumberValue();
             if (lCandidate != null && lCandidate.isPrimitive()) {
@@ -569,8 +568,7 @@ public class JSELObject extends JSELValue {
         if (lCurrent == null && !extensible) {
             return reject(aInThrow, "Cannot define property " + aInProperty
                     +", object is not extensible");
-        }
-        else if (lCurrent == null) {
+        } else if (lCurrent == null) {
             // object is extensible, so we're good. Javascript does not compare
             // against property definitions at the prototype level here.
             properties.put(aInProperty, new PropertyDescriptor(

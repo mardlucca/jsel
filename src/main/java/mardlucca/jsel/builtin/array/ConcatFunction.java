@@ -51,8 +51,7 @@ public class ConcatFunction extends JSELFunction {
                         lItems.add(lArray.get(lStringIndex));
                     }
                 }
-            }
-            else {
+            } else {
                 lItems.add(lElement);
             }
         }

@@ -18,7 +18,7 @@
 
 package mardlucca.jsel;
 
-import mardlucca.parselib.parser.LRParser;
+import mardlucca.parselib.parser.LRParsingTable;
 import mardlucca.parselib.tokenizer.MatchResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,10 +36,10 @@ import static org.mockito.Mockito.when;
 
 public class RegExpRecognizerTest {
     private static RegExpRecognizer recognizer = new RegExpRecognizer();
-    private LRParser<TokenEnum, String>.State divState =
-            mock(LRParser.State.class);
-    private LRParser<TokenEnum, String>.State regexState =
-            mock(LRParser.State.class);
+    private LRParsingTable<TokenEnum>.State divState =
+            mock(LRParsingTable.State.class);
+    private LRParsingTable<TokenEnum>.State regexState =
+            mock(LRParsingTable.State.class);
 
     @Before
     public void setUp() {

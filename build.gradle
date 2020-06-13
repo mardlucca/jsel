@@ -28,8 +28,8 @@ apply plugin : 'java'
 apply plugin : 'maven-publish'
 
 dependencies {
-    implementation 'mardlucca.parselib:parser:1.0.0'
-    implementation 'mardlucca.parselib:tokenizer:1.0.0'
+    implementation 'mardlucca.parselib:parser:1.1.0'
+    implementation 'mardlucca.parselib:tokenizer:1.1.0'
     implementation 'org.apache.commons:commons-lang3:3.10'
     testImplementation 'junit:junit:4.12'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.3.3'

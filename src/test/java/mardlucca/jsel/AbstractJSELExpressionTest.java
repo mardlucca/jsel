@@ -170,8 +170,7 @@ public class AbstractJSELExpressionTest {
         JSELBoolean lBoolean = (JSELBoolean) aInValue;
         if (aInExpected) {
             assertTrue(lBoolean.toBoolean());
-        }
-        else {
+        } else {
             assertFalse(lBoolean.toBoolean());
         }
     }

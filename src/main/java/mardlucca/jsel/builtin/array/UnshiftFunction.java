@@ -46,8 +46,7 @@ public class UnshiftFunction extends JSELFunction {
             String lTo = String.valueOf(i + lArgCount);
             if (lThis.hasProperty(lFrom)) {
                 lThis.put(lTo, lThis.get(lFrom));
-            }
-            else {
+            } else {
                 lThis.delete(lTo);
             }
 

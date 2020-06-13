@@ -85,8 +85,7 @@ public class ExecFunction extends JSELFunction {
         MatchResult lMatchResult = aInThis.match(aInString, lLastIndex);
         if (lMatchResult == null) {
             aInThis.put(LAST_INDEX, new JSELNumber(0));
-        }
-        else if (lGlobal) {
+        } else if (lGlobal) {
             aInThis.put(LAST_INDEX, new JSELNumber(lMatchResult.getEnd()));
         }
 

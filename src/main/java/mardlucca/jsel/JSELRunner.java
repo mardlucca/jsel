@@ -38,8 +38,7 @@ public class JSELRunner {
             for (String lProperty : lObject.getOwnPropertyNames()) {
                 executionContext.bind(lProperty, lObject.getOwn(lProperty));
             }
-        }
-        else {
+        } else {
             executionContext.bind(VALUE, lValue);
         }
     }

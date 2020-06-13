@@ -17,12 +17,12 @@
  */
 package mardlucca.jsel;
 
-import mardlucca.parselib.parser.LRParser;
+import mardlucca.parselib.parser.LRParsingTable;
 import mardlucca.parselib.tokenizer.BaseTokenRecognizer;
 import mardlucca.parselib.tokenizer.IdentifierRecognizer;
 import mardlucca.parselib.tokenizer.MatchResult;
 
-public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum> {
+public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum, String[]> {
     private State state = State.INITIAL;
 
     private int numberOpenBrackets = 0;
@@ -36,10 +36,11 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum> {
 
     @Override
     public MatchResult test(int aInChar, Object aInSyntacticContext) {
-        LRParser<TokenEnum, String>.State lCurrentState =
-                (LRParser<TokenEnum, String>.State) aInSyntacticContext;
+        LRParsingTable<TokenEnum>.State lCurrentState =
+                (LRParsingTable<TokenEnum>.State) aInSyntacticContext;
 
-        if (lCurrentState == null || lCurrentState.hasAction(TokenEnum.DIVIDE)) {
+        if (lCurrentState == null
+                || lCurrentState.hasAction(TokenEnum.DIVIDE)) {
             // if the current state allows for the / (division) operator, we
             // will use that instead, otherwise we assume they're trying to
             // create a regex literal.
@@ -57,7 +58,6 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum> {
                 return handleReadingFlagsState(aInChar);
             case READING_CHARS:
                 return handleReadingCharsState(aInChar);
-            case SUCCESS:
             case FAILURE:
         }
         return failure(null);
@@ -181,7 +181,6 @@ public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum> {
         READING_ESCAPE_CHAR,
         READING_CHARS,
         READING_FLAGS,
-        SUCCESS,
         FAILURE
     }
 }

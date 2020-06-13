@@ -52,8 +52,7 @@ public class ShiftFunction extends JSELFunction {
             boolean lFromPresent = lThis.hasProperty(lFrom);
             if (lFromPresent) {
                 lThis.put(lTo, lThis.get(lFrom));
-            }
-            else {
+            } else {
                 lThis.delete(lTo);
             }
         }
