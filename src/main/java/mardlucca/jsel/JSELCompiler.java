@@ -68,9 +68,11 @@ import mardlucca.parselib.tokenizer.UnrecognizedCharacterSequenceException;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
@@ -100,9 +102,16 @@ public class JSELCompiler {
         if (parser == null) {
             synchronized (this) {
                 if (parser == null) {
+                    Grammar lGrammar = GrammarLoader.load(
+                            new InputStreamReader(
+                                    JSELCompiler.class.getResourceAsStream(
+                                            "/META-INF/jsel.grammar")),
+                            TokenEnum::fromText);
+                    initListeners(lGrammar);
+
                     LRParsingTable<TokenEnum> lParsingTable =
-                            new JSELParserBuilder().build();
-                    initListeners(lParsingTable);
+                            loadTable(lGrammar);
+
                     parser = lParsingTable.buildParser(
                             JSELTokenizerFactory::newTokenizer);
                 }
@@ -111,11 +120,26 @@ public class JSELCompiler {
         return parser;
     }
 
+    private LRParsingTable<TokenEnum> loadTable(Grammar aInGrammar) {
+        LRParsingTable<TokenEnum> lParsingTable = LRParsingTableLoader.build(
+                aInGrammar,
+                ResourceBundle.getBundle("META-INF/jsel-errors"),
+                new InputStreamReader(
+                        JSELCompiler.class.getResourceAsStream(
+                                "/META-INF/jsel.table")),
+                TokenEnum::fromText);
 
-    private synchronized void initListeners(
-            LRParsingTable<TokenEnum> aInParsingTable) {
+        lParsingTable.getState(41).reduceIf(
+                TokenEnum.CLOSE_PARENTHESIS,
+                TokenEnum.ARROW,
+                82);
+        return lParsingTable;
+    }
 
-        aInParsingTable
+
+    private synchronized void initListeners(Grammar aInGrammar) {
+
+        aInGrammar
                 .onDefaultReduce((aInProduction, aInValues) -> aInValues[0])
 
                         // E' -> E
