@@ -113,6 +113,7 @@ public class RegExpRecognizer
     }
 
     private MatchResult handleReadingFlagsState(int aInChar) {
+        // TODO: Improve this. Only allow valid flags
         return identifierRecognizer.test(aInChar);
     }
 

@@ -805,6 +805,28 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest {
     }
 
     @Test
+    public void testStatementLambdaExpression()
+            throws UnrecognizedCharacterSequenceException, IOException {
+        try {
+            JSELExpression.compile("x => {}");
+            fail();
+        }
+        catch (JSELCompilationException e) {
+            assertEquals("Compilation failed with the following errors: "
+                    + "\nStatement lambdas are not supported", e.getMessage());
+        }
+
+        try {
+            JSELExpression.compile("(x, y) => {}");
+            fail();
+        }
+        catch (JSELCompilationException e) {
+            assertEquals("Compilation failed with the following errors: "
+                    + "\nStatement lambdas are not supported", e.getMessage());
+        }
+    }
+
+        @Test
     public void testRegExpression()
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {

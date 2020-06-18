@@ -23,11 +23,11 @@
 # regular id surrounded by parenthesis in which case we tell the parser to
 # reduce "AC -> id". This is done as a special action in Java.
 
-# NOTE2: massaging table so that in states 29 and 124 we don't accept object
+# NOTE2: massaging table so that in states 33 and 130 we don't accept object
 # literals. In ECMAScript, a => followed by a { means we're starting a statement
-# lambda. In JSEL the same sequence would allow an boject literal to be returned
+# lambda. In JSEL the same sequence would allow an object literal to be returned
 # by a lambda. To keep JSEL compatible with EMCAScript 6, we will not allow this
-# sintax.
+# syntax.
 
  	id	=>	(	)	?	:	||	&&	|	^	&	==	===	!=	!==	<=	<	>	>=	in	instof	<<	>>	>>>	+	-	*	/	%	not	~	typeof	void	[	]	.	new	num	str	bool	null	regex	{	}	,	$	E'	E	LO	LA	BO	BX	BA	EQ	REL	SFT	AD	MUL	UNR	CALL	NEW	AC	VAL	ARGS	ARGS2	PROPS	PROPS2	PROP	PARAMS	PARAMS2
 0	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	s32	 	 	 	 	1	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
@@ -63,7 +63,7 @@
 30	 	 	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	r62	 	 	 	 	r62	r62	r62	 	 	 	 	 	 	 	r62	r62	r62
 31	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	r66	 	s24	s26	s27	s28	s29	s30	s32	 	 	 	 	80	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25	78	79
 32	s84	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s85	s86	 	 	 	 	r70	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	81	82	83
-33	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	s32	 	 	 	 	87	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+33	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	e1	 	 	 	 	87	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
 34	 	 	 	s88
 35	 	 	 	s89
 36	 	 	 	r76	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s90
@@ -160,7 +160,7 @@
 127	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	s32	 	 	 	 	140	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
 128	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	s32	 	 	 	 	141	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
 129	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	s32	 	 	 	 	142	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
-130	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	s32	 	 	 	 	143	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
+130	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	e1	 	 	 	 	143	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
 131	 	 	 	r78	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	r78
 132	s2	 	s3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	s15	s16	 	 	 	s17	s18	s19	s20	s31	 	 	s24	s26	s27	s28	s29	s30	s32	 	 	 	 	144	4	5	6	7	8	9	10	11	12	13	14	21	22	23	25
 133	 	 	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	r47	 	 	 	 	r47	r47	r47	 	 	 	 	 	 	 	r47	r47	r47
