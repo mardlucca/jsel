@@ -18,6 +18,10 @@
 
 package mardlucca.jsel;
 
+import mardlucca.jsel.type.JSELBoolean;
+import mardlucca.jsel.type.JSELNull;
+import mardlucca.jsel.type.JSELNumber;
+import mardlucca.jsel.type.JSELString;
 import mardlucca.parselib.tokenizer.Token;
 import mardlucca.parselib.tokenizer.Tokenizer;
 import org.junit.Test;
@@ -28,6 +32,7 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELTokenizerFactory.newTokenizer;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class JSELTokenizerFactoryTest {
     private static String TEST_CASE=
@@ -46,8 +51,6 @@ public class JSELTokenizerFactoryTest {
         for (Token<TokenEnum, ?> lToken : lTokenizer) {
             lTokens.add(lToken);
         }
-
-        assertEquals(TokenEnum.values().length - 1, lTokens.size());
 
         assertSymbol(TokenEnum.IDENTIFIER, lTokens.get(0));
         assertSymbol(TokenEnum.ARROW, lTokens.get(1));
@@ -91,13 +94,13 @@ public class JSELTokenizerFactoryTest {
         assertSymbol(TokenEnum.NEW, lTokens.get(36));
         assertNumber(lTokens.get(37), "1.2", 1.2);
         assertString(lTokens.get(38), "'str'", "str");
-        assertSymbol(TokenEnum.TRUE, lTokens.get(39));
-        assertSymbol(TokenEnum.FALSE, lTokens.get(40));
+        assertBoolean(lTokens.get(39), "true", true);
+        assertBoolean(lTokens.get(40), "false", false);
 
-        assertSymbol(TokenEnum.UNDEFINED, lTokens.get(41));
-        assertSymbol(TokenEnum.NULL, lTokens.get(42));
-        assertSymbol(TokenEnum.NAN, lTokens.get(43));
-        assertSymbol(TokenEnum.INFINITY, lTokens.get(44));
+        assertToken(TokenEnum.IDENTIFIER, "undefined", lTokens.get(41));
+        assertJSELNull(lTokens.get(42));
+        assertToken(TokenEnum.IDENTIFIER, "NaN", lTokens.get(43));
+        assertToken(TokenEnum.IDENTIFIER, "Infinity", lTokens.get(44));
         assertSymbol(TokenEnum.OPEN_CURLY_BRACKETS, lTokens.get(45));
         assertSymbol(TokenEnum.CLOSE_CURLY_BRACKETS, lTokens.get(46));
         assertSymbol(TokenEnum.COMMA, lTokens.get(47));
@@ -111,11 +114,18 @@ public class JSELTokenizerFactoryTest {
         assertEquals(aInSymbol.toString(), aInToken.getValue());
     }
 
+    private void assertToken(
+            TokenEnum aInEnum, String aInValue, Token<TokenEnum, ?> aInToken) {
+        assertEquals(aInEnum, aInToken.getId());
+        assertEquals(aInValue.toString(), aInToken.getValue());
+    }
+
     private void assertString(Token<TokenEnum, ?> aInToken, String aInCharSequence,
             String aInValue) {
         assertEquals(TokenEnum.STRING, aInToken.getId());
         assertEquals(aInCharSequence, aInToken.getCharSequence());
-        assertEquals(aInValue, aInToken.getValue());
+        assertTrue(aInToken.getValue() instanceof JSELString);
+        assertEquals(new JSELString(aInValue), aInToken.getValue());
     }
 
     private void assertNumber(Token<TokenEnum, ?> aInToken,
@@ -123,7 +133,23 @@ public class JSELTokenizerFactoryTest {
                               double aInNumber) {
         assertEquals(TokenEnum.NUMBER, aInToken.getId());
         assertEquals(aInCharSequence, aInToken.getCharSequence());
-        assertEquals(aInNumber, aInToken.getValue());
+        assertTrue(aInToken.getValue() instanceof JSELNumber);
+        assertEquals(new JSELNumber(aInNumber), aInToken.getValue());
     }
 
+    private void assertBoolean(Token<TokenEnum, ?> aInToken,
+                              String aInCharSequence,
+                              boolean aInBoolean) {
+        assertEquals(TokenEnum.BOOLEAN, aInToken.getId());
+        assertEquals(aInCharSequence, aInToken.getCharSequence());
+        assertTrue(aInToken.getValue() instanceof JSELBoolean);
+        assertEquals(new JSELBoolean(aInBoolean), aInToken.getValue());
+    }
+
+    private void assertJSELNull(Token<TokenEnum, ?> aInToken) {
+        assertEquals(TokenEnum.NULL, aInToken.getId());
+        assertEquals("null", aInToken.getCharSequence());
+        assertTrue(aInToken.getValue() instanceof JSELNull);
+        assertEquals(JSELNull.getInstance(), aInToken.getValue());
+    }
 }

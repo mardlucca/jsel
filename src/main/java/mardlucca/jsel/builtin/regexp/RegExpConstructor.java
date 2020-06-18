@@ -24,8 +24,6 @@ import mardlucca.jsel.type.JSELRegExp;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class RegExpConstructor extends JSELFunction {
         super(JSELRegExp.CLASS, asList("pattern", "flags"));
 
         defineOwnProperty(
-                JSELFunction.PROTOTYPE, ExecutionContext.getRetExpPrototype(),
+                JSELFunction.PROTOTYPE, ExecutionContext.getRegExpPrototype(),
                 false, false, false);
     }
 

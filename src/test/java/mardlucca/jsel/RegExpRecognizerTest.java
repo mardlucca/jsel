@@ -18,6 +18,7 @@
 
 package mardlucca.jsel;
 
+import mardlucca.jsel.type.JSELRegExp;
 import mardlucca.parselib.parser.LRParsingTable;
 import mardlucca.parselib.tokenizer.MatchResult;
 import org.junit.Before;
@@ -90,14 +91,11 @@ public class RegExpRecognizerTest {
     @Test
     public void testGetValue() {
         assertNull("", recognizer.getValue("//"));
-        assertArrayEquals(new String[] {"a", ""}, recognizer.getValue("/a/"));
-        assertArrayEquals(new String[] {"aaa", ""},
+        assertRegExpEquals(new String[] {"a", ""}, recognizer.getValue("/a/"));
+        assertRegExpEquals(new String[] {"aaa", ""},
                 recognizer.getValue("/aaa/"));
-        assertArrayEquals(new String[] {"aaa", "b"},
-                recognizer.getValue("/aaa/b"));
-        assertArrayEquals(new String[] {"a[/gim]", "mig"},
+        assertRegExpEquals(new String[] {"a[/gim]", "mig"},
                 recognizer.getValue("/a[/gim]/mig"));
-
     }
 
     private void test(String aInString, Object aInState,
@@ -129,6 +127,13 @@ public class RegExpRecognizerTest {
         while (lChar >= 0);
         assertEquals("Invalid regular expression: missing /",
                 recognizer.getFailureReason());
+    }
+
+    private static void assertRegExpEquals(
+            String[] aInValues, JSELRegExp aInRegExp) {
+        assertNotNull(aInRegExp);
+        assertEquals(aInValues[0], aInRegExp.getBody());
+        assertEquals(aInValues[1], aInRegExp.getFlagsString());
     }
 
 }

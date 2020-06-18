@@ -126,7 +126,7 @@ public class ExecutionContext {
         return getGlobalObjectFromContextOrDefault().getArrayPrototype();
     }
 
-    public static JSELObject getRetExpPrototype() {
+    public static JSELObject getRegExpPrototype() {
         return getGlobalObjectFromContextOrDefault().getRegExpPrototype();
     }
 

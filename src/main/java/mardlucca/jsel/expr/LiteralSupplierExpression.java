@@ -19,13 +19,16 @@ package mardlucca.jsel.expr;
 
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.function.Supplier;
 
 /**
  * Explain nuance why supplier is required (need to instantiate at runtime to
- * pick the right execution context)
+ * pick the right execution context, we can't instantiate at the time we build
+ * the parse tree as the object's prototype is still not bound before an
+ * execution takes place). Note that this does not apply to number, string,
+ * boolean and null literals, as those are not objects so they don't have a
+ * prototype, plus, they are immutable.
  */
 public class LiteralSupplierExpression implements JSELExpression {
     private Supplier<JSELValue> valueSupplier;

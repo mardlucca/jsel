@@ -17,8 +17,11 @@
  */
 package mardlucca.jsel;
 
+import mardlucca.jsel.type.JSELBoolean;
+import mardlucca.jsel.type.JSELNull;
+import mardlucca.jsel.type.JSELNumber;
+import mardlucca.jsel.type.JSELString;
 import mardlucca.parselib.tokenizer.BasicTokenizer.Builder;
-import mardlucca.parselib.tokenizer.Recognizers;
 import mardlucca.parselib.tokenizer.Tokenizer;
 
 import java.io.Reader;
@@ -26,30 +29,25 @@ import java.io.Reader;
 import static mardlucca.parselib.tokenizer.Recognizers.*;
 
 public class JSELTokenizerFactory {
-    public static final String NAN_CHAR_SEQUENCE = "NaN";
-
-    public static final String INFINITY_CHAR_SEQUENCE = "Infinity";
-
     private Builder<TokenEnum> tokenizerBuilder;
 
     private static final JSELTokenizerFactory instance =
             new JSELTokenizerFactory();
 
     private JSELTokenizerFactory() {
+
         tokenizerBuilder = new Builder<TokenEnum>()
-                .recognize(symbol(TokenEnum.FALSE))
+                .recognize(whiteSpaces())
+
+                // keywords
                 .recognize(symbol(TokenEnum.IN))
-                .recognize(symbol(INFINITY_CHAR_SEQUENCE, TokenEnum.INFINITY))
                 .recognize(symbol(TokenEnum.INSTANCEOF))
-                .recognize(symbol(NAN_CHAR_SEQUENCE, TokenEnum.NAN))
                 .recognize(symbol(TokenEnum.NEW))
-                .recognize(symbol(TokenEnum.NULL))
                 .recognize(symbol(TokenEnum.THIS))
-                .recognize(symbol(TokenEnum.TRUE))
                 .recognize(symbol(TokenEnum.TYPEOF))
-                .recognize(symbol(TokenEnum.UNDEFINED))
                 .recognize(symbol(TokenEnum.VOID))
 
+                // symbols
                 .recognize(symbol(TokenEnum.ARROW))
                 .recognize(symbol(TokenEnum.OPEN_PARENTHESIS))
                 .recognize(symbol(TokenEnum.CLOSE_PARENTHESIS))
@@ -85,9 +83,22 @@ public class JSELTokenizerFactory {
                 .recognize(symbol(TokenEnum.DOT))
                 .recognize(symbol(TokenEnum.COMMA))
 
-                .recognize(numbers(TokenEnum.NUMBER))
-                .recognize(strings(TokenEnum.STRING))
-                .recognize(strings(TokenEnum.STRING, '\''))
+                // literals
+                .recognize(transforming(
+                        booleans(TokenEnum.BOOLEAN),
+                        JSELBoolean::new))
+                .recognize(transforming(
+                        symbol("null", TokenEnum.NULL),
+                        aInValue -> JSELNull.getInstance()))
+                .recognize(transforming(
+                        numbers(TokenEnum.NUMBER),
+                        aInNumber -> new JSELNumber(aInNumber.doubleValue())))
+                .recognize(transforming(
+                        strings(TokenEnum.STRING),
+                        JSELString::new))
+                .recognize(transforming(
+                        strings(TokenEnum.STRING, '\''),
+                        JSELString::new))
                 .recognize(RegExpRecognizer::new)
 
                 .recognize(identifiers(TokenEnum.IDENTIFIER))

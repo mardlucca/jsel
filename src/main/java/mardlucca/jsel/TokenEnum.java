@@ -23,17 +23,12 @@ import java.util.Objects;
 public enum TokenEnum {
     IDENTIFIER("id"),
 
-    FALSE("false"),
+    // keywords
     IN("in"),
-    INFINITY("Infinity", "inf"),
     INSTANCEOF("instanceof", "instof"),
-    NAN("NaN", "nan"),
     NEW("new"),
-    NULL("null"),
     THIS("this"),
-    TRUE("true"),
     TYPEOF("typeof"),
-    UNDEFINED("undefined", "undef"),
     VOID("void"),
 
     ARROW("=>"),
@@ -71,9 +66,13 @@ public enum TokenEnum {
     DOT("."),
     COMMA(","),
 
+    // literals
+    BOOLEAN("boolean", "bool"),
+    NULL("null"),
     NUMBER("num"),
     STRING("str"),
     REGEX("regex"),
+
     EOF("$");
 
     TokenEnum(String aInText) {

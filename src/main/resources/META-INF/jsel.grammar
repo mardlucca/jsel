@@ -82,12 +82,8 @@ VAL -> ( E )
 VAL -> id
 VAL -> num
 VAL -> str
-VAL -> true
-VAL -> false
-VAL -> undefined
+VAL -> bool
 VAL -> null
-VAL -> nan
-VAL -> inf
 VAL -> regex
 VAL -> [ ARGS ]
 VAL -> { PROPS }
@@ -99,8 +95,9 @@ PROPS -> PROPS2
 PROPS -> ''
 PROPS2 -> PROPS2 , PROP
 PROPS2 -> PROP
-PROP -> str : E
 PROP -> id : E
+PROP -> num : E
+PROP -> str : E
 PARAMS -> PARAMS2
 PARAMS -> ''
 PARAMS2 -> PARAMS2 , id

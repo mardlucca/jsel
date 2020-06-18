@@ -99,7 +99,7 @@ public class JSELRegExp extends JSELObject {
      * @param aInFlagsString a string containing regular expression flags.
      */
     public JSELRegExp(String aInBody, String aInFlagsString) {
-        this(ExecutionContext.getRetExpPrototype(), aInBody, aInFlagsString);
+        this(ExecutionContext.getRegExpPrototype(), aInBody, aInFlagsString);
     }
 
     /**
