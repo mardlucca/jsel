@@ -1,5 +1,5 @@
 /*
- * File: CallFunction.java
+ * File: ApplyFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -17,33 +17,43 @@
  */
 package mardlucca.jsel.builtin.function;
 
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.JSELRuntimeException;
+import mardlucca.jsel.env.ExecutionContext;
+import mardlucca.jsel.type.*;
 
 import java.util.Collections;
 import java.util.List;
 
-public class CallFunction extends JSELFunction {
-    public static final String NAME = "call";
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
+
+public class ApplyFunction extends JSELFunction {
+    public static final String NAME = "apply";
 
 
-    public CallFunction() {
-        super(NAME, Collections.singletonList("thisArg"));
+    public ApplyFunction() {
+        super(NAME, asList("thisArg", "argArray"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
                           ExecutionContext aInExecutionContext) {
         if (!aInThis.isCallable()) {
-            throw JSELRuntimeException.typeError(aInThis + " is not a function");
+            throw JSELRuntimeException.typeError(
+                    aInThis + " is not a function");
         }
 
-        return aInThis.getValue().call(
-                getArgument(aInArguments),
-                aInArguments.stream().skip(1).collect(
-                        java.util.stream.Collectors.toList()),
+        JSELValue lThisArg = getArgument(aInArguments);
+        JSELValue lArgArray = getArgument(aInArguments, 1);
+        if (lArgArray.getType() == Type.NULL
+                || lArgArray.getType() == Type.UNDEFINED) {
+            return aInThis.call(
+                    lThisArg, Collections.emptyList(), aInExecutionContext);
+        }
+
+        return aInThis.call(
+                lThisArg,
+                lArgArray.toList(),
                 aInExecutionContext);
     }
 }

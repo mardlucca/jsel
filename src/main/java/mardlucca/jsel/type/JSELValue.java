@@ -20,7 +20,10 @@ package mardlucca.jsel.type;
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.JSELRuntimeException;
 
+import java.util.Collections;
 import java.util.List;
+
+import static mardlucca.jsel.JSELRuntimeException.typeError;
 
 /**
  * This is the base class for the JSEL type system. All value types in the
@@ -124,7 +127,7 @@ public abstract class JSELValue {
      * "TypeError".     */
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
             ExecutionContext aInExecutionContext) {
-        throw JSELRuntimeException.typeError("cannot invoke object of type "
+        throw typeError("cannot invoke object of type "
                 + getType().name().toLowerCase());
     }
 
@@ -140,9 +143,19 @@ public abstract class JSELValue {
      */
     public JSELObject instantiate(List<JSELValue> aInArguments,
             ExecutionContext aInExecutionContext) {
-        throw JSELRuntimeException.typeError(this + " is not a constructor");
+        throw typeError(this + " is not a constructor");
     }
 
+    /**
+     * Determines if the given value may have been created by this object.
+     * @param aInValue a value to test.
+     * @return true if the value was created by this object.
+     * @throws JSELRuntimeException a "type-error" if this value is not callable
+     * (i.e. not a function).
+     */
+    public JSELBoolean hasInstance(JSELValue aInValue) {
+        throw typeError(this + " is not callable");
+    }
     /**
      * Used to find a match of this JSELValue inside an input string. This
      * implementation will convert this JSELValue into a {@link JSELString} and
@@ -293,6 +306,17 @@ public abstract class JSELValue {
      */
     public long toUInt32() {
         return new JSELNumber(toNumber()).toUInt32();
+    }
+
+    /**
+     * Creates a list from "array like" objects. This only works for value of
+     * type object, other primitive types return a type error.
+     * @return the list of values
+     * @throws JSELRuntimeException a "type error" if this value is not an
+     * object.
+     */
+    public List<JSELValue> toList() {
+        throw typeError("'" + this + "' is not an 'array-like' object");
     }
 
     /**

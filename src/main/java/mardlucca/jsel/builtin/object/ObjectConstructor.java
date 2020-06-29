@@ -31,6 +31,7 @@ import mardlucca.jsel.type.Type;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
+import static mardlucca.jsel.builtin.object.GetOwnPropertyDescriptorFunction.NAME;
 
 public class ObjectConstructor extends JSELFunction {
     public ObjectConstructor() {
@@ -39,6 +40,33 @@ public class ObjectConstructor extends JSELFunction {
         defineOwnProperty(
                 JSELFunction.PROTOTYPE, ExecutionContext.getObjectPrototype(),
                 false, false, false);
+
+        defineOwnProperty(GetPrototypeOfFunction.NAME,
+                new GetPrototypeOfFunction(), false, true, true);
+        defineOwnProperty(GetOwnPropertyDescriptorFunction.NAME,
+                new GetOwnPropertyDescriptorFunction(), false, true, true);
+        defineOwnProperty(GetOwnPropertyNamesFunction.NAME,
+                new GetOwnPropertyNamesFunction(), false, true, true);
+        defineOwnProperty(CreateFunction.NAME,
+                new CreateFunction(), false, true, true);
+        defineOwnProperty(DefinePropertiesFunction.NAME,
+                new DefinePropertiesFunction(), false, true, true);
+        defineOwnProperty(DefinePropertyFunction.NAME,
+                new DefinePropertyFunction(), false, true, true);
+        defineOwnProperty(SealFunction.NAME,
+                new SealFunction(), false, true, true);
+        defineOwnProperty(FreezeFunction.NAME,
+                new FreezeFunction(), false, true, true);
+        defineOwnProperty(PreventExtensionFunction.NAME,
+                new PreventExtensionFunction(), false, true, true);
+        defineOwnProperty(IsSealedFunction.NAME,
+                new IsSealedFunction(), false, true, true);
+        defineOwnProperty(IsFrozenFunction.NAME,
+                new IsFrozenFunction(), false, true, true);
+        defineOwnProperty(IsExtensibleFunction.NAME,
+                new IsExtensibleFunction(), false, true, true);
+        defineOwnProperty(KeysFunction.NAME,
+                new KeysFunction(), false, true, true);
     }
 
     @Override

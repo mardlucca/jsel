@@ -21,10 +21,7 @@ import mardlucca.jsel.builtin.object.ToStringFunction;
 import mardlucca.jsel.builtin.object.ValueOfFunction;
 import mardlucca.jsel.env.ExecutionContext;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static java.lang.Double.isNaN;
@@ -73,7 +70,7 @@ public class JSELObject extends JSELValue {
      * argument.
      * @param aInPrototype a prototype object
      */
-    protected JSELObject(JSELObject aInPrototype) {
+    public JSELObject(JSELObject aInPrototype) {
         prototype = aInPrototype;
     }
 
@@ -223,6 +220,16 @@ public class JSELObject extends JSELValue {
     @Override
     public JSELValue toPrimitive(GetHint aInHint) {
         return defaultValue(aInHint);
+    }
+
+    @Override
+    public List<JSELValue> toList() {
+        int lLength = (int) get(JSELArray.LENGTH).toUInt32();
+        List<JSELValue> lResult = new ArrayList<>(lLength);
+        for (int i = 0; i < lLength; i++) {
+            lResult.add(get(String.valueOf(i)));
+        }
+        return lResult;
     }
 
     /**
@@ -535,6 +542,28 @@ public class JSELObject extends JSELValue {
     }
 
     /**
+     * Defines or updates a property in an object copying internal values from
+     * another descriptor.
+     * @param aInProperty the property to add
+     * @param aInDescriptor the descriptor to copy
+     * @param aInThrow if true this will cause a TypeError to be raised when the
+     *                 property cannot be added. If this is false, this method
+     *                 will return false in this case.
+     * @throws mardlucca.jsel.JSELRuntimeException a TypeError if the property
+     * cannot be defined.
+     * @see <a href="https://www.ecma-international.org/ecma-262/5.1/#sec-8.12.9">
+     * ECMA-262, 5.1, Section 8.12.9"</a>
+     */
+    public void defineOwnProperty(
+            String aInProperty,
+            PropertyDescriptor aInDescriptor,
+            boolean aInThrow) {
+        defineOwnProperty(aInProperty, aInDescriptor.getValue(),
+                aInDescriptor.isEnumerable(), aInDescriptor.isWritable(),
+                aInDescriptor.isConfigurable(), aInThrow);
+    }
+
+    /**
      * Defines or updates a property value in an object.
      * @param aInProperty the property to add
      * @param aInValue the value
@@ -683,6 +712,11 @@ public class JSELObject extends JSELValue {
      * Property descriptor for properties owned by objects
      */
     public static class PropertyDescriptor {
+        public static final String CONFIGURABLE = "configurable";
+        public static final String ENUMERABLE = "enumerable";
+        public static final String WRITABLE = "writable";
+        public static final String VALUE = "value";
+
         private JSELValue value;
         private boolean enumerable;
         private boolean writable;
@@ -718,5 +752,20 @@ public class JSELObject extends JSELValue {
         public boolean isConfigurable() {
             return configurable;
         }
+
+        public static PropertyDescriptor toPropertyDescriptor(
+                JSELValue aInValue) {
+            if (aInValue.getType() != Type.OBJECT) {
+                throw typeError("Property description must be an object");
+            }
+            JSELObject lObject = aInValue.toObject();
+
+            return new PropertyDescriptor(
+                    lObject.get(VALUE),
+                    lObject.get(ENUMERABLE).toBoolean(),
+                    lObject.get(WRITABLE).toBoolean(),
+                    lObject.get(CONFIGURABLE).toBoolean());
+        }
+
     }
 }

@@ -34,7 +34,13 @@ public class ToStringFunction extends JSELFunction {
     @Override
     public JSELString call(JSELValue aInThis, List<JSELValue> aInArguments,
                            ExecutionContext aInExecutionContext) {
-        return new JSELString("[object "
-                + aInThis.toObject().getObjectClass() + "]");
+        String lString;
+        switch (aInThis.getType()) {
+            case UNDEFINED: lString = "[object Undefined]"; break;
+            case NULL: lString = "[object Null]"; break;
+            default: lString = "[object "
+                    + aInThis.toObject().getObjectClass() + "]";
+        }
+        return new JSELString(lString);
     }
 }

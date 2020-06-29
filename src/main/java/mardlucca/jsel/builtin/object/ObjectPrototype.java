@@ -19,7 +19,7 @@ package mardlucca.jsel.builtin.object;
 
 import mardlucca.jsel.type.JSELObject;
 
-import static mardlucca.jsel.builtin.object.GetOwnPropertyDescriptorFunction.GET_OWN_PROPERTY_DESCRIPTOR;
+import static mardlucca.jsel.builtin.object.GetOwnPropertyDescriptorFunction.NAME;
 
 public class ObjectPrototype extends JSELObject {
     public static final String CONSTRUCTOR_PROPERTY = "constructor";
@@ -27,6 +27,10 @@ public class ObjectPrototype extends JSELObject {
     /**
      * This is the only object in JSEL and ECMAScript 5.1 to not have an
      * internal [[Prototype]] property;
+     * @see <a
+     * href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.4">
+     * ECMA-262, 5.1, Section 15.2.4 - Properties of the Object Prototype
+     * Object</a>
      */
     public ObjectPrototype() {
         super(null);
@@ -36,13 +40,17 @@ public class ObjectPrototype extends JSELObject {
         defineOwnProperty(CONSTRUCTOR_PROPERTY, new ObjectConstructor(),
                 false, true, true);
 
-        defineOwnProperty(GET_OWN_PROPERTY_DESCRIPTOR,
-                new GetOwnPropertyDescriptorFunction(), false, true, true);
         defineOwnProperty(ToStringFunction.NAME, new ToStringFunction(),
                 false, true, true);
-        defineOwnProperty(ValueOfFunction.NAME, new ValueOfFunction(),
-                false, true, true);
-
-
+        defineOwnProperty(ToLocaleStringFunction.NAME,
+                new ToLocaleStringFunction(), false, true, true);
+        defineOwnProperty(ValueOfFunction.NAME,
+                new ValueOfFunction(), false, true, true);
+        defineOwnProperty(HasOwnPropertyFunction.NAME,
+                new HasOwnPropertyFunction(), false, true, true);
+        defineOwnProperty(IsPrototypeOfFunction.NAME,
+                new IsPrototypeOfFunction(), false, true, true);
+        defineOwnProperty(PropertyIsEnumerableFunction.NAME,
+                new PropertyIsEnumerableFunction(), false, true, true);
     }
 }

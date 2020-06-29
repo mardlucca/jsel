@@ -67,4 +67,8 @@ public class JSELFunctionTest {
                 getArgument(asList(JSELBoolean.TRUE, JSELBoolean.FALSE), 1));
     }
 
+    @Test
+    public void name() {
+        System.out.println(Long.parseLong("-123456789012345"));
+    }
 }

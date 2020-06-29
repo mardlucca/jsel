@@ -127,7 +127,7 @@ public class JSELFunction extends JSELObject {
     @Override
     public String toString() {
         return "f" + (getName() == null ? "" : " " + getName())
-                + "() { [" + getSourceCode() + "] }";
+                + "() { " + getSourceCode() + " }";
     }
 
     @Override
@@ -153,7 +153,7 @@ public class JSELFunction extends JSELObject {
      * @return the source code for this function.
      */
     protected String getSourceCode() {
-        return "native code";
+        return "[native code]";
     }
 
     /**
@@ -195,8 +195,19 @@ public class JSELFunction extends JSELObject {
     }
 
     @Override
-    public JSELObject instantiate(List<JSELValue> aInArguments,
-            ExecutionContext aInExecutionContext) {
-        throw JSELRuntimeException.typeError(name + " is not a constructor");
+    public JSELBoolean hasInstance(JSELValue aInValue) {
+        if (aInValue.getType() != Type.OBJECT) { return JSELBoolean.FALSE; }
+
+        JSELValue lThisPrototype = getOwn(PROTOTYPE);
+        if (lThisPrototype.getType() != Type.OBJECT) {
+            throw typeError("'typeof " + name + ".prototype' is not an object");
+        }
+
+        JSELObject lObject = aInValue.toObject();
+        do {
+            lObject = lObject.getPrototype();
+            if (lObject == lThisPrototype) { return JSELBoolean.TRUE; }
+        } while (lObject != null);
+        return null;
     }
 }

@@ -41,6 +41,8 @@ public class FunctionPrototype extends JSELFunction {
                 ToStringFunction.NAME, new DefaultToStringFunction(JSELFunction.CLASS),
                 false, true, true);
         defineOwnProperty(
+                ApplyFunction.NAME, new ApplyFunction(), false, true, true);
+        defineOwnProperty(
                 CallFunction.NAME, new CallFunction(), false, true, true);
     }
 

@@ -1,5 +1,5 @@
 /*
- * File: ParseFloatFunction.java
+ * File: ToLocaleStringFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,32 +15,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package mardlucca.jsel.builtin.global;
+package mardlucca.jsel.builtin.object;
 
 import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELNumber;
+import mardlucca.jsel.type.JSELObject;
+import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.util.DecimalFormat;
 
+import java.util.Collections;
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.notImplemented;
+public class ToLocaleStringFunction extends  JSELFunction {
+    public static final String NAME = "toLocaleString";
 
-public class ParseFloatFunction extends JSELFunction {
-    public static final String NAME = "parseInt";
-
-    public ParseFloatFunction() {
+    public ToLocaleStringFunction() {
         super(NAME);
     }
 
     @Override
-    public JSELNumber call(JSELValue aInThis, List<JSELValue> aInArguments,
-                            ExecutionContext aInExecutionContext) {
-        return new JSELNumber(
-                DecimalFormat.parse(
-                        getArgument(aInArguments).toString().trim()));
+    public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
+                           ExecutionContext aInExecutionContext) {
+        JSELObject lObject = aInThis.toObject();
+        return lObject.get(ToStringFunction.NAME).call(
+                lObject, Collections.emptyList(), aInExecutionContext);
     }
 }

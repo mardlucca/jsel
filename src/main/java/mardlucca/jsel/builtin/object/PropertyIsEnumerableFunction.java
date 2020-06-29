@@ -1,5 +1,5 @@
 /*
- * File: CallFunction.java
+ * File: PropertyIsEnumerableFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,35 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mardlucca.jsel.builtin.function;
+package mardlucca.jsel.builtin.object;
 
 import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.JSELRuntimeException;
+import mardlucca.jsel.type.*;
 
 import java.util.Collections;
 import java.util.List;
 
-public class CallFunction extends JSELFunction {
-    public static final String NAME = "call";
+public class PropertyIsEnumerableFunction extends JSELFunction {
+    public static final String NAME = "propertyIsEnumerable";
 
-
-    public CallFunction() {
-        super(NAME, Collections.singletonList("thisArg"));
+    public PropertyIsEnumerableFunction() {
+        super(NAME, Collections.singletonList("value"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext) {
-        if (!aInThis.isCallable()) {
-            throw JSELRuntimeException.typeError(aInThis + " is not a function");
+                          ExecutionContext aInContext) {
+        PropertyDescriptor lDescriptor = aInThis.toObject().getOwnProperty(
+                getArgument(aInArguments).toString());
+        if (lDescriptor == null) {
+            return JSELBoolean.FALSE;
         }
-
-        return aInThis.getValue().call(
-                getArgument(aInArguments),
-                aInArguments.stream().skip(1).collect(
-                        java.util.stream.Collectors.toList()),
-                aInExecutionContext);
+        return lDescriptor.isEnumerable()
+                ? JSELBoolean.TRUE
+                : JSELBoolean.FALSE;
     }
 }

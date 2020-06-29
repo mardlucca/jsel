@@ -1,5 +1,5 @@
 /*
- * File: CallFunction.java
+ * File: IsPrototypeOfFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,35 +15,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mardlucca.jsel.builtin.function;
+package mardlucca.jsel.builtin.object;
 
 import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.JSELRuntimeException;
+import mardlucca.jsel.type.*;
 
 import java.util.Collections;
 import java.util.List;
 
-public class CallFunction extends JSELFunction {
-    public static final String NAME = "call";
+public class IsPrototypeOfFunction extends JSELFunction {
+    public static final String NAME = "isPrototypeOf";
 
-
-    public CallFunction() {
-        super(NAME, Collections.singletonList("thisArg"));
+    public IsPrototypeOfFunction() {
+        super(NAME, Collections.singletonList("value"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext) {
-        if (!aInThis.isCallable()) {
-            throw JSELRuntimeException.typeError(aInThis + " is not a function");
-        }
+                          ExecutionContext aInContext) {
+        JSELValue lArgument = getArgument(aInArguments);
+        if (lArgument.getType() != Type.OBJECT) { return JSELBoolean.FALSE; }
 
-        return aInThis.getValue().call(
-                getArgument(aInArguments),
-                aInArguments.stream().skip(1).collect(
-                        java.util.stream.Collectors.toList()),
-                aInExecutionContext);
+        return aInThis.toObject() == lArgument.toObject().getPrototype()
+                ? JSELBoolean.TRUE
+                : JSELBoolean.FALSE;
     }
 }

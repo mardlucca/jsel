@@ -33,6 +33,6 @@ public class ValueOfFunction extends JSELFunction {
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
                           ExecutionContext aInContext) {
-        return aInThis;
+        return aInThis.toObject();
     }
 }

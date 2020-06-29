@@ -1,5 +1,5 @@
 /*
- * File: CallFunction.java
+ * File: GetPrototypeOfFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,35 +15,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mardlucca.jsel.builtin.function;
+package mardlucca.jsel.builtin.object;
 
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
+import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.JSELRuntimeException;
+import mardlucca.jsel.type.Type;
 
 import java.util.Collections;
 import java.util.List;
 
-public class CallFunction extends JSELFunction {
-    public static final String NAME = "call";
+import static mardlucca.jsel.JSELRuntimeException.typeError;
 
+public class GetPrototypeOfFunction extends JSELFunction {
+    public static final String NAME = "getPrototypeOf";
 
-    public CallFunction() {
-        super(NAME, Collections.singletonList("thisArg"));
+    public GetPrototypeOfFunction() {
+        super(NAME, Collections.singletonList("object"));
     }
 
     @Override
-    public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext) {
-        if (!aInThis.isCallable()) {
-            throw JSELRuntimeException.typeError(aInThis + " is not a function");
+    public JSELObject call(JSELValue aInThis, List<JSELValue> aInArguments,
+                           ExecutionContext aInContext) {
+        JSELValue lArgument = getArgument(aInArguments);
+        if (lArgument.getType() != Type.OBJECT) {
+            throw typeError("Argument is not an object");
         }
-
-        return aInThis.getValue().call(
-                getArgument(aInArguments),
-                aInArguments.stream().skip(1).collect(
-                        java.util.stream.Collectors.toList()),
-                aInExecutionContext);
+        return lArgument.toObject().getPrototype();
     }
 }

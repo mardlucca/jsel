@@ -18,44 +18,52 @@
 package mardlucca.jsel.builtin.object;
 
 import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELBoolean;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELObject;
-import mardlucca.jsel.type.JSELUndefined;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.*;
 
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static mardlucca.jsel.JSELRuntimeException.typeError;
 
 public class GetOwnPropertyDescriptorFunction extends JSELFunction {
-    public static final String GET_OWN_PROPERTY_DESCRIPTOR =
+    public static final String NAME =
             "getOwnPropertyDescriptor";
     public static final String CONFIGURABLE = "configurable";
     public static final String ENUMERABLE = "enumerable";
+    public static final String VALUE= "value";
     public static final String WRITABLE = "writable";
 
     public GetOwnPropertyDescriptorFunction() {
-        super(GET_OWN_PROPERTY_DESCRIPTOR, asList("o", "propertyKey"));
+        super(NAME, asList("o", "propertyKey"));
     }
 
     @Override
     public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
                           ExecutionContext aInExecutionContext) {
+        JSELValue lArgument = getArgument(aInArguments);
+        if (lArgument.getType() != Type.OBJECT) {
+            throw typeError("Argument is not an object");
+        }
+        String lProperty = getArgument(aInArguments, 1).toString();
         PropertyDescriptor lDescriptor =
-                getArgument(aInArguments).toObject().getOwnProperty(
-                        getArgument(aInArguments, 1).toString());
+                lArgument.toObject().getOwnProperty(lProperty);
         if (lDescriptor == null) {
             return JSELUndefined.getInstance();
         }
 
         JSELObject lObject = new JSELObject();
-        lObject.put(CONFIGURABLE,
-                new JSELBoolean(lDescriptor.isConfigurable()));
-        lObject.put(ENUMERABLE, new JSELBoolean(lDescriptor.isEnumerable()));
-        lObject.put(WRITABLE, new JSELBoolean(lDescriptor.isWritable()));
+        lObject.defineOwnProperty(VALUE, lDescriptor.getValue(),
+                true, true, true, false);
+        lObject.defineOwnProperty(CONFIGURABLE,
+                new JSELBoolean(lDescriptor.isConfigurable()),
+                true, true, true, false);
+        lObject.defineOwnProperty(ENUMERABLE,
+                new JSELBoolean(lDescriptor.isEnumerable()),
+                true, true, true, false);
+        lObject.defineOwnProperty(WRITABLE,
+                new JSELBoolean(lDescriptor.isWritable()),
+                true, true, true, false);
+
 
         return lObject;
     }
