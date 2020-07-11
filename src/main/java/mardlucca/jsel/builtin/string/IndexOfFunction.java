@@ -23,21 +23,14 @@ import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELNumber;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.Type;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
-
 public class IndexOfFunction extends JSELFunction {
-    public static final String INDEX_OF = "indexOf";
+    public static final String NAME = "indexOf";
 
     public IndexOfFunction() {
-        super(INDEX_OF);
+        super(NAME);
     }
 
     @Override

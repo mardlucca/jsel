@@ -21,6 +21,7 @@ package mardlucca.jsel.type;
 import mardlucca.jsel.JSELRuntimeException;
 import mardlucca.jsel.builtin.ConstantFunction;
 import mardlucca.jsel.type.wrapper.JSELNumberObject;
+import mardlucca.jsel.util.DecimalFormat;
 import org.junit.Test;
 
 import static mardlucca.jsel.type.JSELNumber.toChar;
@@ -217,5 +218,11 @@ public class JSELNumberTest {
         assertEquals(1, number1.toUInt32());
         assertEquals(0, numberNaN.toUInt32());
         assertEquals(0, numberInfinity.toUInt32());
+    }
+
+    @Test
+    public void name() {
+        double d = -12.3456;
+        System.out.println(String.format("%1.1g", d));
     }
 }

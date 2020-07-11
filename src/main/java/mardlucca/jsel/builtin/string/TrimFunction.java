@@ -23,21 +23,14 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.Type;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
-
 public class TrimFunction extends JSELFunction {
-    public static final String TRIM = "trim";
+    public static final String NAME = "trim";
 
     public TrimFunction() {
-        super(TRIM);
+        super(NAME);
     }
 
     @Override

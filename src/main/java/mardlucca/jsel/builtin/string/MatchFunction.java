@@ -29,24 +29,19 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static mardlucca.jsel.builtin.regexp.ExecFunction.exec;
-import static mardlucca.jsel.type.JSELRegExp.GLOBAL;
-import static mardlucca.jsel.type.JSELRegExp.LAST_INDEX;
 import static java.util.Arrays.stream;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singletonList;
 
 public class MatchFunction extends JSELFunction {
-    public static final String MATCH = "match";
+    public static final String NAME = "match";
 
     /**
      * Being lazy but this is exactly how the spec describes the implementation
@@ -55,7 +50,7 @@ public class MatchFunction extends JSELFunction {
     private ExecFunction execFunction = new ExecFunction();
 
     public MatchFunction() {
-        super(MATCH, Collections.singletonList("regexp"));
+        super(NAME, Collections.singletonList("regexp"));
     }
 
     @Override

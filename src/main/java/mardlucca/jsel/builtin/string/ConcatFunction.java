@@ -27,10 +27,10 @@ import mardlucca.jsel.JSELRuntimeException;
 import java.util.List;
 
 public class ConcatFunction extends JSELFunction {
-    public static final String CONCAT = "concat";
+    public static final String NAME = "concat";
 
     public ConcatFunction() {
-        super(CONCAT);
+        super(NAME);
     }
 
     @Override

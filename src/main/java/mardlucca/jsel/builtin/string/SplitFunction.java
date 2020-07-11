@@ -24,23 +24,20 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static java.util.Collections.singletonList;
 
 public class SplitFunction extends JSELFunction {
-    public static final String SPLIT = "split";
+    public static final String NAME = "split";
 
     public SplitFunction() {
-        super(SPLIT, asList("separator", "limit"));
+        super(NAME, asList("separator", "limit"));
     }
 
     @Override

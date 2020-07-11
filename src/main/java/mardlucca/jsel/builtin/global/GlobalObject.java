@@ -82,25 +82,25 @@ public class GlobalObject extends JSELObject {
                     false, false, false);
 
             // Adding functions
-            defineOwnProperty(DecodeURIComponentFunction.NAME,
-                    new DecodeURIComponentFunction(),
+            defineOwnProperty(ParseIntFunction.NAME, new ParseIntFunction(),
+                    false, true, true);
+            defineOwnProperty(ParseFloatFunction.NAME, new ParseFloatFunction(),
+                    false, true, true);
+            defineOwnProperty(IsNaNFunction.NAME, new IsNaNFunction(),
+                    false, true, true);
+            defineOwnProperty(IsFiniteFunction.NAME, new IsFiniteFunction(),
                     false, true, true);
             defineOwnProperty(DecodeURIFunction.NAME,
                     new DecodeURIFunction(),
                     false, true, true);
-            defineOwnProperty(EncodeURIComponentFunction.NAME,
-                    new EncodeURIComponentFunction(),
+            defineOwnProperty(DecodeURIComponentFunction.NAME,
+                    new DecodeURIComponentFunction(),
                     false, true, true);
             defineOwnProperty(EncodeURIFunction.NAME,
                     new EncodeURIFunction(),
                     false, true, true);
-            defineOwnProperty(IsFiniteFunction.NAME, new IsFiniteFunction(),
-                    false, true, true);
-            defineOwnProperty(IsNaNFunction.NAME, new IsNaNFunction(),
-                    false, true, true);
-            defineOwnProperty(ParseFloatFunction.NAME, new ParseFloatFunction(),
-                    false, true, true);
-            defineOwnProperty(ParseIntFunction.NAME, new ParseIntFunction(),
+            defineOwnProperty(EncodeURIComponentFunction.NAME,
+                    new EncodeURIComponentFunction(),
                     false, true, true);
 
             // Adding built in constructors to global object

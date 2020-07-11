@@ -16,3 +16,5 @@ a proper implementation of the grammar described in the spec.
 while are not only that, they are also tokens in JSEL's grammar. This should not
 make any difference, really.
 * JSEL does not implement property getters and setters.
+* Array indexes in ECMAScript can go up to 2^32 - 1, while in JSEL, as in Java,
+they can go up to 2^31 - 1. (This may be revisited in the future)

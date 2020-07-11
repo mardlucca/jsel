@@ -30,10 +30,10 @@ import static java.lang.Integer.min;
 import static java.lang.Integer.max;
 
 public class SubstringFunction extends JSELFunction {
-    public static final String SUBSTRING = "substring";
+    public static final String NAME = "substring";
 
     public SubstringFunction() {
-        super(SUBSTRING);
+        super(NAME);
     }
 
     @Override

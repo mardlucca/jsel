@@ -23,17 +23,11 @@ import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.wrapper.JSELStringObject;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELObject;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.wrapper.JSELStringObject;
 
 import java.util.Collections;
 import java.util.List;
 
-import static mardlucca.jsel.builtin.string.FomCharCodeFunction.FROM_CHAR_CODE;
+import static mardlucca.jsel.builtin.string.FromCharCodeFunction.NAME;
 
 public class StringConstructor extends JSELFunction {
     public StringConstructor() {
@@ -44,7 +38,7 @@ public class StringConstructor extends JSELFunction {
                 false, false, false);
 
         defineOwnProperty(
-                FROM_CHAR_CODE, new FomCharCodeFunction(),
+                NAME, new FromCharCodeFunction(),
                 false, true, true);
 
     }

@@ -44,6 +44,8 @@ public class FunctionPrototype extends JSELFunction {
                 ApplyFunction.NAME, new ApplyFunction(), false, true, true);
         defineOwnProperty(
                 CallFunction.NAME, new CallFunction(), false, true, true);
+        defineOwnProperty(
+                BindFunction.NAME, new BindFunction(), false, true, true);
     }
 
     @Override

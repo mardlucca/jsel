@@ -17,26 +17,41 @@
  */
 package mardlucca.jsel.builtin.number;
 
-import mardlucca.jsel.builtin.DefaultToStringFunction;
 import mardlucca.jsel.builtin.DefaultValueOfFunction;
 import mardlucca.jsel.builtin.object.ObjectPrototype;
 import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.wrapper.JSELNumberObject;
-import mardlucca.jsel.builtin.object.ToStringFunction;
 import mardlucca.jsel.builtin.object.ValueOfFunction;
 
 public class NumberPrototype extends JSELNumberObject {
+
     public NumberPrototype(
             ObjectPrototype aInPrototype) {
         super(aInPrototype, new JSELNumber(0));
     }
 
     public void initialize() {
-        put(ToStringFunction.NAME, new DefaultToStringFunction(JSELNumberObject.CLASS));
-        put(ValueOfFunction.NAME, new DefaultValueOfFunction(JSELNumberObject.CLASS));
-
-        defineOwnProperty(ObjectPrototype.CONSTRUCTOR_PROPERTY, new NumberConstructor(),
+        defineOwnProperty(ObjectPrototype.CONSTRUCTOR_PROPERTY,
+                new NumberConstructor(),
                 false, true, true);
 
+        defineOwnProperty(ToStringFunction.NAME,
+                new ToStringFunction(),
+                false, true, true);
+        defineOwnProperty(ToLocaleStringFunction.NAME,
+                new ToLocaleStringFunction(),
+                false, true, true);
+        defineOwnProperty(ValueOfFunction.NAME,
+                new DefaultValueOfFunction(JSELNumberObject.CLASS),
+                false, true, true);
+        defineOwnProperty(ToFixedFunction.NAME,
+                new ToFixedFunction(),
+                false, true, true);
+        defineOwnProperty(ToExponentialFunction.NAME,
+                new ToExponentialFunction(),
+                false, true, true);
+        defineOwnProperty(ToPrecisionFunction.NAME,
+                new ToPrecisionFunction(),
+                false, true, true);
     }
 }

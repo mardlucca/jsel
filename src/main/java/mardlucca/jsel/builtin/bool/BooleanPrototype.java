@@ -32,10 +32,13 @@ public class BooleanPrototype extends JSELBooleanObject {
     }
 
     public void initialize() {
-        put(ToStringFunction.NAME, new DefaultToStringFunction(JSELBooleanObject.CLASS));
-        put(ValueOfFunction.NAME, new DefaultValueOfFunction(JSELBooleanObject.CLASS));
+        put(ToStringFunction.NAME,
+                new DefaultToStringFunction(JSELBooleanObject.CLASS));
+        put(ValueOfFunction.NAME,
+                new DefaultValueOfFunction(JSELBooleanObject.CLASS));
 
-        defineOwnProperty(ObjectPrototype.CONSTRUCTOR_PROPERTY, new BooleanConstructor(),
+        defineOwnProperty(ObjectPrototype.CONSTRUCTOR_PROPERTY,
+                new BooleanConstructor(),
                 false, true, true);
     }
 }

@@ -23,21 +23,14 @@ import mardlucca.jsel.type.JSELNumber;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELNumber;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.Type;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
-
 public class LastIndexOfFunction extends JSELFunction {
-    public static final String LAST_INDEX_OF = "lastIndexOf";
+    public static final String NAME = "lastIndexOf";
 
     public LastIndexOfFunction() {
-        super(LAST_INDEX_OF);
+        super(NAME);
     }
 
     @Override

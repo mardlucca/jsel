@@ -21,19 +21,14 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.notImplemented;
-
 public class LocaleCompareFunction extends JSELFunction {
-    public static final String LOCALE_COMPARE = "localeCompare";
+    public static final String NAME = "localeCompare";
 
     public LocaleCompareFunction() {
-        super(LOCALE_COMPARE);
+        super(NAME);
     }
 
     @Override

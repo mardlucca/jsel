@@ -21,19 +21,14 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.notImplemented;
-
 public class ToLocaleUpperCaseFunction extends JSELFunction {
-    public static final String TO_LOCALE_UPPER_CASE = "toLocaleUpperCase";
+    public static final String NAME = "toLocaleUpperCase";
 
     public ToLocaleUpperCaseFunction() {
-        super(TO_LOCALE_UPPER_CASE);
+        super(NAME);
     }
 
     @Override

@@ -27,10 +27,10 @@ import mardlucca.jsel.JSELRuntimeException;
 import java.util.List;
 
 public class ToLowerCaseFunction extends JSELFunction {
-    public static final String TO_LOWER_CASE = "toLowerCase";
+    public static final String NAME = "toLowerCase";
 
     public ToLowerCaseFunction() {
-        super(TO_LOWER_CASE);
+        super(NAME);
     }
 
     @Override

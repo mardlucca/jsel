@@ -1,5 +1,5 @@
 /*
- * File: ToLocaleLowerCaseFunction.java
+ * File: IsArrayFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,25 +15,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mardlucca.jsel.builtin.string;
+
+package mardlucca.jsel.builtin.array;
 
 import mardlucca.jsel.env.ExecutionContext;
+import mardlucca.jsel.type.JSELArray;
+import mardlucca.jsel.type.JSELBoolean;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.JSELRuntimeException;
 
+import java.util.Collections;
 import java.util.List;
 
-public class ToLocaleLowerCaseFunction extends JSELFunction {
-    public static final String NAME = "toLocaleLowerCase";
+public class IsArrayFunction extends JSELFunction {
+    public static final String NAME = "V";
 
-    public ToLocaleLowerCaseFunction() {
-        super(NAME);
+    public IsArrayFunction() {
+        super(NAME, Collections.singletonList("arg"));
     }
 
     @Override
-    public JSELValue call(JSELValue aInThis, List<JSELValue> aInArguments,
-                          ExecutionContext aInExecutionContext) {
-        throw JSELRuntimeException.notImplemented("String.prototype.toLocaleLowerCase");
+    public JSELValue call(
+            JSELValue aInThis,
+            List<JSELValue> aInArguments,
+            ExecutionContext aInExecutionContext) {
+        return getArgument(aInArguments).isObjectClass(JSELArray.CLASS)
+                ? JSELBoolean.TRUE
+                : JSELBoolean.FALSE;
     }
 }

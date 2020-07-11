@@ -195,6 +195,12 @@ public class JSELFunction extends JSELObject {
     }
 
     @Override
+    public JSELObject instantiate(List<JSELValue> aInArguments,
+                                  ExecutionContext aInExecutionContext) {
+        throw JSELRuntimeException.typeError(name + " is not a constructor");
+    }
+
+    @Override
     public JSELBoolean hasInstance(JSELValue aInValue) {
         if (aInValue.getType() != Type.OBJECT) { return JSELBoolean.FALSE; }
 

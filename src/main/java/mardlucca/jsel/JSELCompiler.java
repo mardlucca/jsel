@@ -77,7 +77,7 @@ import static java.util.Collections.singletonList;
 public class JSELCompiler {
     private static final JSELCompiler instance = new JSELCompiler();
 
-    private Parser parser;
+    private volatile Parser parser;
     
     public static JSELCompiler getInstance() {
         return instance;

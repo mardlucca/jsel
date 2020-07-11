@@ -112,7 +112,7 @@ public class JSELUserFunction extends JSELFunction {
 
     @Override
     protected String getSourceCode() {
-        return "source code";
+        return "[source code]";
     }
 
     /**

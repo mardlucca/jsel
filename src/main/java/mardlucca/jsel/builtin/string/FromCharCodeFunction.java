@@ -21,22 +21,16 @@ import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
 import mardlucca.jsel.type.JSELNumber;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.Collections;
 import java.util.List;
 
-import static mardlucca.jsel.type.JSELNumber.toChar;
+public class FromCharCodeFunction extends JSELFunction {
+    public static final String NAME = "fromCharCode";
 
-public class FomCharCodeFunction extends JSELFunction {
-    public static final String FROM_CHAR_CODE = "fromCharCode";
-
-    public FomCharCodeFunction() {
-        super(FROM_CHAR_CODE, Collections.singletonList("chars"));
+    public FromCharCodeFunction() {
+        super(NAME, Collections.singletonList("chars"));
     }
 
     @Override

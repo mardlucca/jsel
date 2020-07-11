@@ -25,18 +25,14 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.*;
 
 import java.util.List;
 import java.util.regex.Matcher;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
-import static mardlucca.jsel.type.JSELRegExp.GLOBAL;
 import static java.util.Arrays.asList;
 
 public class ReplaceFunction extends JSELFunction {
-    public static final String REPLACE = "replace";
+    public static final String NAME = "replace";
 
     /**
      * Being lazy but this is exactly how the spec describes the implementation
@@ -45,7 +41,7 @@ public class ReplaceFunction extends JSELFunction {
     private ExecFunction execFunction = new ExecFunction();
 
     public ReplaceFunction() {
-        super(REPLACE, asList("searchValue", "replaceValue"));
+        super(NAME, asList("searchValue", "replaceValue"));
     }
 
     @Override

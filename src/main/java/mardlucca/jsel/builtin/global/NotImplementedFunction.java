@@ -34,6 +34,10 @@ public class NotImplementedFunction extends JSELFunction {
         super(NAME);
     }
 
+    public NotImplementedFunction(String aInName) {
+        super(aInName);
+    }
+
     @Override
     public JSELBoolean call(JSELValue aInThis, List<JSELValue> aInArguments,
                             ExecutionContext aInExecutionContext) {

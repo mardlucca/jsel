@@ -112,7 +112,7 @@ public class StringTestSuite extends AbstractJSELExpressionTest {
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
         testString("'1'.toString()", "1");
-        runner.define("number", "1");
+        runner.define("number", "'1'");
         runner.define("ignore", "'ignore me'");
         testString("number.toString(ignore)", "1");
 

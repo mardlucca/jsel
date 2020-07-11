@@ -32,10 +32,10 @@ import static java.util.Collections.emptySet;
 import static java.util.Collections.singletonList;
 
 public class SearchFunction extends JSELFunction {
-    public static final String SEARCH = "search";
+    public static final String NAME = "search";
 
     public SearchFunction() {
-        super(SEARCH, singletonList("regexp"));
+        super(NAME, singletonList("regexp"));
     }
 
     @Override

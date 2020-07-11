@@ -23,21 +23,14 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.Type;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
-
 public class ToUpperCaseFunction extends JSELFunction {
-    public static final String TO_UPPER_CASE = "toUpperCase";
+    public static final String NAME = "toUpperCase";
 
     public ToUpperCaseFunction() {
-        super(TO_UPPER_CASE);
+        super(NAME);
     }
 
     @Override

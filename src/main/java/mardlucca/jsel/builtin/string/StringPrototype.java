@@ -26,16 +26,6 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.wrapper.JSELStringObject;
 
 import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
-import static mardlucca.jsel.builtin.string.CharAtFunction.CHAR_AT;
-import static mardlucca.jsel.builtin.string.CharCodeAtFunction.CHAR_CODE_AT;
-import static mardlucca.jsel.builtin.string.IndexOfFunction.INDEX_OF;
-import static mardlucca.jsel.builtin.string.LastIndexOfFunction.LAST_INDEX_OF;
-import static mardlucca.jsel.builtin.string.LocaleCompareFunction.LOCALE_COMPARE;
-import static mardlucca.jsel.builtin.string.MatchFunction.MATCH;
-import static mardlucca.jsel.builtin.string.ReplaceFunction.REPLACE;
-import static mardlucca.jsel.builtin.string.SearchFunction.SEARCH;
-import static mardlucca.jsel.builtin.string.SliceFunction.SLICE;
-import static mardlucca.jsel.builtin.string.SplitFunction.SPLIT;
 
 public class StringPrototype extends JSELStringObject {
     public StringPrototype(ObjectPrototype aInPrototype) {
@@ -47,45 +37,47 @@ public class StringPrototype extends JSELStringObject {
                 false, true, true);
 
         defineOwnProperty(
-                ToStringFunction.NAME, new DefaultToStringFunction(JSELStringObject.CLASS),
+                ToStringFunction.NAME,
+                new DefaultToStringFunction(JSELStringObject.CLASS),
                 false, true, true);
         defineOwnProperty(
-                ValueOfFunction.NAME, new DefaultValueOfFunction(JSELStringObject.CLASS),
+                ValueOfFunction.NAME,
+                new DefaultValueOfFunction(JSELStringObject.CLASS),
                 false, true, true);
 
-        defineOwnProperty(CHAR_AT,
+        defineOwnProperty(CharAtFunction.NAME,
                 new CharAtFunction(), false, true, true);
-        defineOwnProperty(CHAR_CODE_AT,
+        defineOwnProperty(CharCodeAtFunction.NAME,
                 new CharCodeAtFunction(), false, true, true);
-        defineOwnProperty(INDEX_OF,
+        defineOwnProperty(ConcatFunction.NAME,
+                new ConcatFunction(), false, true, true);
+        defineOwnProperty(IndexOfFunction.NAME,
                 new IndexOfFunction(), false, true, true);
-        defineOwnProperty(LAST_INDEX_OF,
+        defineOwnProperty(LastIndexOfFunction.NAME,
                 new LastIndexOfFunction(), false, true, true);
-        defineOwnProperty(LOCALE_COMPARE,
+        defineOwnProperty(LocaleCompareFunction.NAME,
                 new LocaleCompareFunction(), false, true, true);
-        defineOwnProperty(MATCH,
+        defineOwnProperty(MatchFunction.NAME,
                 new MatchFunction(), false, true, true);
-        defineOwnProperty(REPLACE,
+        defineOwnProperty(ReplaceFunction.NAME,
                 new ReplaceFunction(), false, true, true);
-        defineOwnProperty(SEARCH,
+        defineOwnProperty(SearchFunction.NAME,
                 new SearchFunction(), false, true, true);
-        defineOwnProperty(SLICE,
+        defineOwnProperty(SliceFunction.NAME,
                 new SliceFunction(), false, true, true);
-        defineOwnProperty(SPLIT,
+        defineOwnProperty(SplitFunction.NAME,
                 new SplitFunction(), false, true, true);
-        defineOwnProperty(SubstringFunction.SUBSTRING,
+        defineOwnProperty(SubstringFunction.NAME,
                 new SubstringFunction(), false, true, true);
-        defineOwnProperty(ToLocaleLowerCaseFunction.TO_LOCALE_LOWER_CASE,
-                new ToLocaleLowerCaseFunction(), false, true, true);
-        defineOwnProperty(ToLocaleUpperCaseFunction.TO_LOCALE_UPPER_CASE,
-                new ToLocaleUpperCaseFunction(), false, true, true);
-        defineOwnProperty(ToLowerCaseFunction.TO_LOWER_CASE,
+        defineOwnProperty(ToLowerCaseFunction.NAME,
                 new ToLowerCaseFunction(), false, true, true);
-        defineOwnProperty(ToUpperCaseFunction.TO_UPPER_CASE,
+        defineOwnProperty(ToLocaleLowerCaseFunction.NAME,
+                new ToLocaleLowerCaseFunction(), false, true, true);
+        defineOwnProperty(ToUpperCaseFunction.NAME,
                 new ToUpperCaseFunction(), false, true, true);
-        defineOwnProperty(SubstringFunction.SUBSTRING,
-                new SubstringFunction(), false, true, true);
-        defineOwnProperty(TrimFunction.TRIM,
+        defineOwnProperty(ToLocaleUpperCaseFunction.NAME,
+                new ToLocaleUpperCaseFunction(), false, true, true);
+        defineOwnProperty(TrimFunction.NAME,
                 new TrimFunction(), false, true, true);
     }
 }

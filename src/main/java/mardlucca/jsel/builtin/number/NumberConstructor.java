@@ -28,11 +28,29 @@ import java.util.Collections;
 import java.util.List;
 
 public class NumberConstructor extends JSELFunction {
+    public static final String MAX_VALUE_PROPERTY = "MAX_VALUE";
+    public static final String MIN_VALUE_PROPERTY = "MIN_VALUE";
+    public static final String NAN_PROPERTY = "NaN";
+    public static final String POSITIVE_INFINITY_PROPERTY = "POSITIVE_INFINITY";
+    public static final String NEGATIVE_INFINITY_PROPERTY = "NEGATIVE_INFINITY";
+
     public NumberConstructor() {
         super(JSELNumberObject.CLASS, Collections.singletonList("value"));
 
         defineOwnProperty(
                 JSELFunction.PROTOTYPE, ExecutionContext.getNumberPrototype(),
+                false, false, false);
+
+        defineOwnProperty(MAX_VALUE_PROPERTY, new JSELNumber(Double.MAX_VALUE),
+                false, false, false);
+        defineOwnProperty(MIN_VALUE_PROPERTY, new JSELNumber(Double.MIN_VALUE),
+                false, false, false);
+        defineOwnProperty(NAN_PROPERTY, JSELNumber.NAN,
+                false, false, false);
+        defineOwnProperty(POSITIVE_INFINITY_PROPERTY, JSELNumber.INFINITY,
+                false, false, false);
+        defineOwnProperty(NEGATIVE_INFINITY_PROPERTY,
+                new JSELNumber(Double.NEGATIVE_INFINITY),
                 false, false, false);
     }
 

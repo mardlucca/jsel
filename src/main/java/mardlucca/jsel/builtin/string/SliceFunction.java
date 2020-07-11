@@ -23,23 +23,17 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.Type;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 
 public class SliceFunction extends JSELFunction {
-    public static final String SLICE = "slice";
+    public static final String NAME = "slice";
 
     public SliceFunction() {
-        super(SLICE);
+        super(NAME);
     }
 
     @Override

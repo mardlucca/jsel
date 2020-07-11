@@ -30,13 +30,19 @@ public class DecimalFormat {
     }
 
     public static String format(double aInDouble) {
+        return format(aInDouble, 17);
+    }
+
+    public static String format(double aInDouble, int aInFractionDigits) {
         if (Double.isNaN(aInDouble) || Double.isInfinite(aInDouble)) {
             return String.valueOf(aInDouble);
         }
         if (aInDouble == 0.0) {
             return "0";
         }
-        return formatter.get().format(aInDouble);
+        java.text.DecimalFormat lFormatter = formatter.get();
+        lFormatter.setMaximumFractionDigits(aInFractionDigits);
+        return lFormatter.format(aInDouble);
     }
 
     /**

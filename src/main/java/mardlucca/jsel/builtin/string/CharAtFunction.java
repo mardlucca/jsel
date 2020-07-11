@@ -23,21 +23,14 @@ import mardlucca.jsel.type.JSELString;
 import mardlucca.jsel.type.JSELValue;
 import mardlucca.jsel.type.Type;
 import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.env.ExecutionContext;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELString;
-import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.Type;
 
 import java.util.List;
 
-import static mardlucca.jsel.JSELRuntimeException.typeError;
-
 public class CharAtFunction extends JSELFunction {
-    public static final String CHAR_AT = "charAt";
+    public static final String NAME = "charAt";
 
     public CharAtFunction() {
-        super(CHAR_AT);
+        super(NAME);
     }
 
     @Override

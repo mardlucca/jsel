@@ -38,6 +38,10 @@ public class ArrayConstructor extends JSELFunction {
         defineOwnProperty(
                 JSELFunction.PROTOTYPE, ExecutionContext.getArrayPrototype(),
                 false, false, false);
+
+        defineOwnProperty(
+                IsArrayFunction.NAME, new IsArrayFunction(),
+                false, true, true);
     }
 
     @Override
