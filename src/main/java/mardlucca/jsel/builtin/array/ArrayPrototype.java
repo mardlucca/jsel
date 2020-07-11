@@ -22,6 +22,8 @@ import mardlucca.jsel.type.JSELArray;
 import mardlucca.jsel.builtin.object.ObjectPrototype;
 import mardlucca.jsel.type.JSELArray;
 
+import java.util.Map;
+
 import static mardlucca.jsel.builtin.object.ObjectPrototype.CONSTRUCTOR_PROPERTY;
 
 public class ArrayPrototype extends JSELArray {
@@ -75,6 +77,27 @@ public class ArrayPrototype extends JSELArray {
                 false, true, true);
         defineOwnProperty(LastIndexOfFunction.NAME,
                 new LastIndexOfFunction(),
+                false, true, true);
+        defineOwnProperty(EveryFunction.NAME,
+                new EveryFunction(),
+                false, true, true);
+        defineOwnProperty(SomeFunction.NAME,
+                new SomeFunction(),
+                false, true, true);
+        defineOwnProperty(ForEachFunction.NAME,
+                new EveryFunction(),
+                false, true, true);
+        defineOwnProperty(MapFunction.NAME,
+                new MapFunction(),
+                false, true, true);
+        defineOwnProperty(FilterFunction.NAME,
+                new FilterFunction(),
+                false, true, true);
+        defineOwnProperty(ReduceFunction.NAME,
+                new ReduceFunction(),
+                false, true, true);
+        defineOwnProperty(ReduceRightFunction.NAME,
+                new ReduceRightFunction(),
                 false, true, true);
     }
 }
