@@ -19,6 +19,7 @@ package mardlucca.jsel.builtin.global;
 
 import mardlucca.jsel.builtin.array.ArrayPrototype;
 import mardlucca.jsel.builtin.bool.BooleanPrototype;
+import mardlucca.jsel.builtin.date.DatePrototype;
 import mardlucca.jsel.builtin.function.FunctionPrototype;
 import mardlucca.jsel.builtin.json.JSONObject;
 import mardlucca.jsel.builtin.math.MathObject;
@@ -26,12 +27,7 @@ import mardlucca.jsel.builtin.number.NumberPrototype;
 import mardlucca.jsel.builtin.object.ObjectPrototype;
 import mardlucca.jsel.builtin.regexp.RegExpPrototype;
 import mardlucca.jsel.builtin.string.StringPrototype;
-import mardlucca.jsel.type.JSELArray;
-import mardlucca.jsel.type.JSELFunction;
-import mardlucca.jsel.type.JSELNumber;
-import mardlucca.jsel.type.JSELObject;
-import mardlucca.jsel.type.JSELRegExp;
-import mardlucca.jsel.type.JSELUndefined;
+import mardlucca.jsel.type.*;
 import mardlucca.jsel.type.wrapper.JSELBooleanObject;
 import mardlucca.jsel.type.wrapper.JSELNumberObject;
 import mardlucca.jsel.type.wrapper.JSELStringObject;
@@ -50,6 +46,7 @@ public class GlobalObject extends JSELObject {
     private StringPrototype stringPrototype;
     private ArrayPrototype arrayPrototype;
     private RegExpPrototype regExpPrototype;
+    private DatePrototype datePrototype;
 
     private boolean initialized = false;
 
@@ -62,6 +59,7 @@ public class GlobalObject extends JSELObject {
         stringPrototype = new StringPrototype(objectPrototype);
         arrayPrototype = new ArrayPrototype(objectPrototype);
         regExpPrototype = new RegExpPrototype(objectPrototype);
+        datePrototype = new DatePrototype(objectPrototype);
     }
 
     public void initialize() {
@@ -73,6 +71,7 @@ public class GlobalObject extends JSELObject {
             stringPrototype.initialize();
             arrayPrototype.initialize();
             regExpPrototype.initialize();
+            datePrototype.initialize();
 
             defineOwnProperty(NAN_PROPERTY, JSELNumber.NAN,
                     false, false, false);
@@ -125,6 +124,9 @@ public class GlobalObject extends JSELObject {
             defineOwnProperty(JSELRegExp.CLASS, regExpPrototype.get(
                     ObjectPrototype.CONSTRUCTOR_PROPERTY),
                     false, true, true);
+            defineOwnProperty(JSELDate.CLASS, datePrototype.get(
+                    ObjectPrototype.CONSTRUCTOR_PROPERTY),
+                    false, true, true);
 
             // Adding additional global objects
             defineOwnProperty(MathObject.CLASS, new MathObject(),
@@ -167,5 +169,9 @@ public class GlobalObject extends JSELObject {
 
     public JSELObject getRegExpPrototype() {
         return regExpPrototype;
+    }
+
+    public JSELObject getDatePrototype() {
+        return datePrototype;
     }
 }

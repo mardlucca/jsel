@@ -1,5 +1,5 @@
 /*
- * File: ToLocaleStringFunction.java
+ * File: SetUTCDateFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,12 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mardlucca.jsel.builtin.object;
 
-public class ToLocaleStringFunction extends ToStringFunction {
-    public static final String NAME = "toLocaleString";
+package mardlucca.jsel.builtin.date;
 
-    public ToLocaleStringFunction() {
+import mardlucca.jsel.type.JSELDate;
+
+import java.util.TimeZone;
+
+public class SetUTCDateFunction extends SetDateFunction {
+    public static final String NAME = "setUTCDate";
+
+    public SetUTCDateFunction() {
         super(NAME);
+    }
+
+    @Override
+    protected TimeZone getTimeZone() {
+        return JSELDate.UTC_TIMEZONE;
     }
 }

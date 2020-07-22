@@ -1,5 +1,5 @@
 /*
- * File: DefaultToStringFunction.java
+ * File: DefaultToLocaleStringFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -17,6 +17,7 @@
  */
 package mardlucca.jsel.builtin;
 
+import mardlucca.jsel.builtin.object.ToLocaleStringFunction;
 import mardlucca.jsel.builtin.object.ToStringFunction;
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.type.JSELFunction;
@@ -27,27 +28,8 @@ import java.util.List;
 
 import static mardlucca.jsel.JSELRuntimeException.typeError;
 
-public class DefaultToStringFunction extends JSELFunction {
-    private String objectClass;
-
-    public DefaultToStringFunction(String aInObjectClass) {
-        this(ToStringFunction.NAME, aInObjectClass);
-    }
-
-    protected DefaultToStringFunction(String aInName, String aInObjectClass) {
-        super(aInName);
-        objectClass = aInObjectClass;
-    }
-
-    @Override
-    public JSELString call(JSELValue aInThisValue, List<JSELValue> aInArguments,
-                           ExecutionContext aInExecutionContext) {
-        if (!aInThisValue.isObjectCoercible()
-                || !aInThisValue.toObject().getObjectClass().equals(
-                objectClass)) {
-            throw typeError(objectClass + ".prototype." + getName() +
-                    " requires that 'this' be a " + objectClass);
-        }
-        return new JSELString(aInThisValue.toString());
+public class DefaultToLocaleStringFunction extends DefaultToStringFunction {
+    public DefaultToLocaleStringFunction(String aInObjectClass) {
+        super(ToLocaleStringFunction.NAME, aInObjectClass);
     }
 }

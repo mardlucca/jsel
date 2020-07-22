@@ -28,7 +28,11 @@ public class ToStringFunction extends JSELFunction {
     public static final String NAME = "toString";
 
     public ToStringFunction() {
-        super(NAME);
+        this(NAME);
+    }
+
+    protected ToStringFunction(String aInName) {
+        super(aInName);
     }
 
     @Override

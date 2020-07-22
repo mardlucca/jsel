@@ -1,5 +1,5 @@
 /*
- * File: ToLocaleStringFunction.java
+ * File: ToLocalDateStringFunction.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,12 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mardlucca.jsel.builtin.object;
 
-public class ToLocaleStringFunction extends ToStringFunction {
-    public static final String NAME = "toLocaleString";
+package mardlucca.jsel.builtin.date;
 
-    public ToLocaleStringFunction() {
+public class ToLocaleDateStringFunction extends ToDateStringFunction {
+    public static final String NAME = "toLocaleDateString";
+
+    public ToLocaleDateStringFunction() {
         super(NAME);
     }
 }

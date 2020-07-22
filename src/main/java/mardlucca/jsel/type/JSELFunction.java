@@ -48,7 +48,7 @@ public class JSELFunction extends JSELObject {
     /**
      * Name of the function. This is mostly used in messages.
      */
-    private String name;
+    protected String name;
 
     /**
      * Parameter list. This is mostly used in messages.
@@ -144,7 +144,7 @@ public class JSELFunction extends JSELObject {
      * Gets this function's name.
      * @return the name
      */
-    protected String getName() {
+    public String getName() {
         return name;
     }
 
@@ -197,7 +197,8 @@ public class JSELFunction extends JSELObject {
     @Override
     public JSELObject instantiate(List<JSELValue> aInArguments,
                                   ExecutionContext aInExecutionContext) {
-        throw JSELRuntimeException.typeError(name + " is not a constructor");
+        throw JSELRuntimeException.typeError(
+                getName() + " is not a constructor");
     }
 
     @Override
@@ -206,7 +207,8 @@ public class JSELFunction extends JSELObject {
 
         JSELValue lThisPrototype = getOwn(PROTOTYPE);
         if (lThisPrototype.getType() != Type.OBJECT) {
-            throw typeError("'typeof " + name + ".prototype' is not an object");
+            throw typeError("'typeof " + getName() +
+                    ".prototype' is not an object");
         }
 
         JSELObject lObject = aInValue.toObject();

@@ -130,6 +130,10 @@ public class ExecutionContext {
         return getGlobalObjectFromContextOrDefault().getRegExpPrototype();
     }
 
+    public static JSELObject getDatePrototype() {
+        return getGlobalObjectFromContextOrDefault().getDatePrototype();
+    }
+
     private static GlobalObject getGlobalObjectFromContextOrDefault() {
         ExecutionContext lExecutionContext =
                 ExecutionContext.getThreadContext();

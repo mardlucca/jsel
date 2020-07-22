@@ -1,5 +1,5 @@
 /*
- * File: ToLocaleStringFunction.java
+ * File: JSELDateTest.java
  *
  * Copyright 2020 Marcio D. Lucca
  *
@@ -15,12 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mardlucca.jsel.builtin.object;
 
-public class ToLocaleStringFunction extends ToStringFunction {
-    public static final String NAME = "toLocaleString";
+package mardlucca.jsel.type;
 
-    public ToLocaleStringFunction() {
-        super(NAME);
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class JSELDateTest {
+    @Test
+    public void name() {
+        JSELDate lDate = new JSELDate(2005, 4, 2, 23, 22, 33, 44);
+        System.out.println(lDate);
+        System.out.println(new JSELDate());
     }
 }
