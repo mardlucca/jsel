@@ -20,8 +20,6 @@ package mardlucca.jsel.env;
 import mardlucca.jsel.builtin.global.GlobalObject;
 import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.jsel.type.JSELObject;
-import mardlucca.jsel.type.JSELValue;
 
 import java.util.Stack;
 
@@ -29,7 +27,7 @@ public class ExecutionContext {
     private static final ThreadLocal<ExecutionContext> contextThreadLocal =
             new ThreadLocal<>();
 
-    private static final ExecutionContext globalContext =
+    private static final ExecutionContext defaultContext =
             new ExecutionContext();
 
     private Stack<EnvironmentRecord> environmentRecords = new Stack<>();
@@ -86,8 +84,8 @@ public class ExecutionContext {
         return getEnvironmentRecord().resolve(aInIdentifier);
     }
 
-    public static ExecutionContext getGlobalContext() {
-        return globalContext;
+    public static ExecutionContext getDefaultContext() {
+        return defaultContext;
     }
 
     public static ExecutionContext getThreadContext() {
@@ -96,7 +94,7 @@ public class ExecutionContext {
 
     public static ExecutionContext getContext() {
         ExecutionContext lContext = getThreadContext();
-        return lContext == null ? getGlobalContext() : lContext;
+        return lContext == null ? getDefaultContext() : lContext;
     }
 
     public void setAsThreadContext() {
@@ -108,38 +106,38 @@ public class ExecutionContext {
     }
 
     public static JSELObject getObjectPrototype() {
-        return getGlobalObjectFromContextOrDefault().getObjectPrototype();
+        return getGlobalObjectFromThreadOrDefault().getObjectPrototype();
     }
 
     public static JSELObject getFunctionPrototype() {
-        return getGlobalObjectFromContextOrDefault().getFunctionPrototype();
+        return getGlobalObjectFromThreadOrDefault().getFunctionPrototype();
     }
 
     public static JSELObject getBooleanPrototype() {
-        return getGlobalObjectFromContextOrDefault().getBooleanPrototype();
+        return getGlobalObjectFromThreadOrDefault().getBooleanPrototype();
     }
 
     public static JSELObject getNumberPrototype() {
-        return getGlobalObjectFromContextOrDefault().getNumberPrototype();
+        return getGlobalObjectFromThreadOrDefault().getNumberPrototype();
     }
 
     public static JSELObject getStringPrototype() {
-        return getGlobalObjectFromContextOrDefault().getStringPrototype();
+        return getGlobalObjectFromThreadOrDefault().getStringPrototype();
     }
 
     public static JSELObject getArrayPrototype() {
-        return getGlobalObjectFromContextOrDefault().getArrayPrototype();
+        return getGlobalObjectFromThreadOrDefault().getArrayPrototype();
     }
 
     public static JSELObject getRegExpPrototype() {
-        return getGlobalObjectFromContextOrDefault().getRegExpPrototype();
+        return getGlobalObjectFromThreadOrDefault().getRegExpPrototype();
     }
 
     public static JSELObject getDatePrototype() {
-        return getGlobalObjectFromContextOrDefault().getDatePrototype();
+        return getGlobalObjectFromThreadOrDefault().getDatePrototype();
     }
 
-    private static GlobalObject getGlobalObjectFromContextOrDefault() {
+    private static GlobalObject getGlobalObjectFromThreadOrDefault() {
         return getContext().getGlobalObject();
     }
 }

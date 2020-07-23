@@ -300,6 +300,6 @@ public class ExecutionContextTest {
     }
 
     private GlobalObject getDefaultGlobalObject() {
-        return ExecutionContext.getGlobalContext().getGlobalObject();
+        return ExecutionContext.getDefaultContext().getGlobalObject();
     }
 }
