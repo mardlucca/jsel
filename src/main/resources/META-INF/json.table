@@ -16,27 +16,30 @@
 # limitations under the License.
 #
 
- 	num	str	bool	null	[	]	{	}	,	E	:	$	VAL'	VAL	ARGS	ARGS2	PROPS	PROPS2	PROP
-0	s2	s3	s4	s5	s6	 	s7	 	 	 	 	 	 	1
-1	 	 	 	 	 	 	 	 	 	 	 	acc
-2	 	 	 	 	 	 	 	r1	r1	 	 	r1
-3	 	 	 	 	 	 	 	r2	r2	 	 	r2
-4	 	 	 	 	 	 	 	r3	r3	 	 	r3
-5	 	 	 	 	 	 	 	r4	r4	 	 	r4
-6	 	 	 	 	 	r8	 	 	 	s10	 	 	 	 	8	9
-7	 	s14	 	 	 	 	 	r12	 	 	 	 	 	 	 	 	11	12	13
+# Note that values are separated by tabs and header starts with a white-space
+# character
+
+ 	num	str	bool	null	[	]	{	}	,	:	$	VAL'	VAL	ARGS	ARGS2	PROPS	PROPS2	PROP
+0	s2	s3	s4	s5	s6	 	s7	 	 	 	 	 	1
+1	 	 	 	 	 	 	 	 	 	 	acc
+2	 	 	 	 	 	r1	 	r1	r1	 	r1
+3	 	 	 	 	 	r2	 	r2	r2	 	r2
+4	 	 	 	 	 	r3	 	r3	r3	 	r3
+5	 	 	 	 	 	r4	 	r4	r4	 	r4
+6	s2	s3	s4	s5	s6	r8	s7	 	 	 	 	 	10	8	9
+7	 	s14	 	 	 	 	 	r12	 	 	 	 	 	 	 	11	12	13
 8	 	 	 	 	 	s15
 9	 	 	 	 	 	r7	 	 	s16
 10	 	 	 	 	 	r10	 	 	r10
 11	 	 	 	 	 	 	 	s17
 12	 	 	 	 	 	 	 	r11	s18
 13	 	 	 	 	 	 	 	r14	r14
-14	 	 	 	 	 	 	 	 	 	 	s19
-15	 	 	 	 	 	 	 	r5	r5	 	 	r5
-16	 	 	 	 	 	 	 	 	 	s20
-17	 	 	 	 	 	 	 	r6	r6	 	 	r6
-18	 	s14	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	21
-19	s2	s3	s4	s5	s6	 	s7	 	 	 	 	 	 	22
+14	 	 	 	 	 	 	 	 	 	s19
+15	 	 	 	 	 	r5	 	r5	r5	 	r5
+16	s2	s3	s4	s5	s6	 	s7	 	 	 	 	 	20
+17	 	 	 	 	 	r6	 	r6	r6	 	r6
+18	 	s14	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	21
+19	s2	s3	s4	s5	s6	 	s7	 	 	 	 	 	22
 20	 	 	 	 	 	r9	 	 	r9
 21	 	 	 	 	 	 	 	r13	r13
 22	 	 	 	 	 	 	 	r15	r15
