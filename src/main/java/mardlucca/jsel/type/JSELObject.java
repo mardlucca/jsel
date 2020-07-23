@@ -198,7 +198,7 @@ public class JSELObject extends JSELValue {
         }
         JSELFunction lToStringFn = (JSELFunction) lToStringFnObject;
         return lToStringFn.call(this, Collections.emptyList(),
-                ExecutionContext.getThreadContext());
+                ExecutionContext.getContext());
     }
 
     /**
@@ -214,7 +214,7 @@ public class JSELObject extends JSELValue {
         }
         JSELFunction lValueOfFn = (JSELFunction) lValueOfFnObject;
         return lValueOfFn.call(this, Collections.emptyList(),
-                ExecutionContext.getThreadContext());
+                ExecutionContext.getContext());
     }
 
     @Override

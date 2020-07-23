@@ -94,6 +94,11 @@ public class ExecutionContext {
         return contextThreadLocal.get();
     }
 
+    public static ExecutionContext getContext() {
+        ExecutionContext lContext = getThreadContext();
+        return lContext == null ? getGlobalContext() : lContext;
+    }
+
     public void setAsThreadContext() {
         contextThreadLocal.set(this);
     }
@@ -135,10 +140,6 @@ public class ExecutionContext {
     }
 
     private static GlobalObject getGlobalObjectFromContextOrDefault() {
-        ExecutionContext lExecutionContext =
-                ExecutionContext.getThreadContext();
-        return lExecutionContext == null
-                ? globalContext.getGlobalObject()
-                : lExecutionContext.getGlobalObject();
+        return getContext().getGlobalObject();
     }
 }
