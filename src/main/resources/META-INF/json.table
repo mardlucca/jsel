@@ -1,0 +1,42 @@
+#
+# File: json.table
+#
+# Copyright 2020 Marcio D. Lucca
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+ 	num	str	bool	null	[	]	{	}	,	E	:	$	VAL'	VAL	ARGS	ARGS2	PROPS	PROPS2	PROP
+0	s2	s3	s4	s5	s6	 	s7	 	 	 	 	 	 	1
+1	 	 	 	 	 	 	 	 	 	 	 	acc
+2	 	 	 	 	 	 	 	r1	r1	 	 	r1
+3	 	 	 	 	 	 	 	r2	r2	 	 	r2
+4	 	 	 	 	 	 	 	r3	r3	 	 	r3
+5	 	 	 	 	 	 	 	r4	r4	 	 	r4
+6	 	 	 	 	 	r8	 	 	 	s10	 	 	 	 	8	9
+7	 	s14	 	 	 	 	 	r12	 	 	 	 	 	 	 	 	11	12	13
+8	 	 	 	 	 	s15
+9	 	 	 	 	 	r7	 	 	s16
+10	 	 	 	 	 	r10	 	 	r10
+11	 	 	 	 	 	 	 	s17
+12	 	 	 	 	 	 	 	r11	s18
+13	 	 	 	 	 	 	 	r14	r14
+14	 	 	 	 	 	 	 	 	 	 	s19
+15	 	 	 	 	 	 	 	r5	r5	 	 	r5
+16	 	 	 	 	 	 	 	 	 	s20
+17	 	 	 	 	 	 	 	r6	r6	 	 	r6
+18	 	s14	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	21
+19	s2	s3	s4	s5	s6	 	s7	 	 	 	 	 	 	22
+20	 	 	 	 	 	r9	 	 	r9
+21	 	 	 	 	 	 	 	r13	r13
+22	 	 	 	 	 	 	 	r15	r15

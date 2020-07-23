@@ -1,5 +1,5 @@
 #
-# File: jsel-errors.properties
+# File: json.grammar
 #
 # Copyright 2020 Marcio D. Lucca
 #
@@ -16,4 +16,22 @@
 # limitations under the License.
 #
 
-1=Statement lambdas are not supported
+# Parse table for this can be generated using
+# "http://jsmachines.sourceforge.net/machines/lalr1.html"
+
+VAL' -> VAL
+VAL -> num
+VAL -> str
+VAL -> bool
+VAL -> null
+VAL -> [ ARGS ]
+VAL -> { PROPS }
+ARGS -> ARGS2
+ARGS -> ''
+ARGS2 -> ARGS2 , E
+ARGS2 -> E
+PROPS -> PROPS2
+PROPS -> ''
+PROPS2 -> PROPS2 , PROP
+PROPS2 -> PROP
+PROP -> str : VAL
