@@ -131,7 +131,7 @@ public class GlobalObject extends JSELObject {
             // Adding additional global objects
             defineOwnProperty(MathObject.CLASS, new MathObject(),
                     false, true, true);
-            defineOwnProperty(JSONObject.CLASS, new JSELObject(),
+            defineOwnProperty(JSONObject.CLASS, new JSONObject(),
                     false, true, true);
 
             initialized = true;

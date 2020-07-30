@@ -23,6 +23,13 @@ import mardlucca.jsel.type.JSELObject;
 public class JSONObject extends JSELObject {
     public static final String CLASS = "JSON";
 
+    public JSONObject() {
+        defineOwnProperty(ParseFunction.NAME, new ParseFunction(),
+                false, true, true);
+        defineOwnProperty(StringifyFunction.NAME, new StringifyFunction(),
+                false, true, true);
+    }
+
     @Override
     public String getObjectClass() {
         return CLASS;

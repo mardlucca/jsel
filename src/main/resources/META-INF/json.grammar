@@ -21,6 +21,7 @@
 
 VAL' -> VAL
 VAL -> num
+VAL -> - num
 VAL -> str
 VAL -> bool
 VAL -> null
