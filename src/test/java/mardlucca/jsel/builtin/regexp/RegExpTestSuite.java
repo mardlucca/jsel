@@ -20,6 +20,7 @@ package mardlucca.jsel.builtin.regexp;
 
 import mardlucca.jsel.JSELCompilationException;
 import mardlucca.jsel.AbstractJSELExpressionTest;
+import mardlucca.jsel.JSELCompiler;
 import mardlucca.jsel.expr.JSELExpression;
 import mardlucca.parselib.tokenizer.UnrecognizedCharacterSequenceException;
 import mardlucca.jsel.AbstractJSELExpressionTest;
@@ -41,7 +42,7 @@ public class RegExpTestSuite extends AbstractJSELExpressionTest {
     @Before
     public void setUp() throws UnrecognizedCharacterSequenceException,
                                JSELCompilationException, IOException {
-        runner.bind(JSELExpression.compile(TEST_CASE));
+        runner.bind(JSELCompiler.getInstance().compile(TEST_CASE));
     }
 
     @Test

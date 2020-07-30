@@ -46,7 +46,8 @@ public class JSELRunner {
     public void define(String aInProperty, String aInExpression)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELValue lValue = execute(JSELExpression.compile(aInExpression));
+        JSELValue lValue = execute(
+                JSELCompiler.getInstance().compile(aInExpression));
         executionContext.bind(aInProperty, lValue);
     }
 

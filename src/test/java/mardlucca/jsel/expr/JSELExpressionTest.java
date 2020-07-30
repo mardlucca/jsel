@@ -18,9 +18,7 @@
 
 package mardlucca.jsel.expr;
 
-import mardlucca.jsel.JSELCompilationException;
-import mardlucca.jsel.JSELRuntimeException;
-import mardlucca.jsel.AbstractJSELExpressionTest;
+import mardlucca.jsel.*;
 import mardlucca.jsel.type.Type;
 import mardlucca.parselib.tokenizer.UnrecognizedCharacterSequenceException;
 import mardlucca.jsel.AbstractJSELExpressionTest;
@@ -52,7 +50,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest {
     public void setUp() throws UnrecognizedCharacterSequenceException,
                                JSELCompilationException, IOException {
         runner.define("object",
-                JSELExpression.compile(OBJECT_TEST_CASE));
+                JSELCompiler.getInstance().getInstance().compile(OBJECT_TEST_CASE));
     }
 
     @Test
@@ -808,7 +806,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest {
     public void testStatementLambdaExpression()
             throws UnrecognizedCharacterSequenceException, IOException {
         try {
-            JSELExpression.compile("x => {}");
+            JSELCompiler.getInstance().compile("x => {}");
             fail();
         }
         catch (JSELCompilationException e) {
@@ -817,7 +815,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest {
         }
 
         try {
-            JSELExpression.compile("(x, y) => {}");
+            JSELCompiler.getInstance().compile("(x, y) => {}");
             fail();
         }
         catch (JSELCompilationException e) {

@@ -67,6 +67,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -81,6 +82,12 @@ public class JSELCompiler {
     
     public static JSELCompiler getInstance() {
         return instance;
+    }
+
+    public JSELExpression compile(String aInString)
+            throws IOException, UnrecognizedCharacterSequenceException,
+            JSELCompilationException {
+        return compile(new StringReader(aInString));
     }
 
     public JSELExpression compile(Reader aInReader)

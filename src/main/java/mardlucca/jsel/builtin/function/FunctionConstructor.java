@@ -17,8 +17,7 @@
  */
 package mardlucca.jsel.builtin.function;
 
-import mardlucca.jsel.JSELCompilationException;
-import mardlucca.jsel.JSELRuntimeException;
+import mardlucca.jsel.*;
 import mardlucca.jsel.env.ExecutionContext;
 import mardlucca.jsel.expr.JSELExpression;
 import mardlucca.jsel.type.JSELFunction;
@@ -61,7 +60,8 @@ public class FunctionConstructor extends JSELFunction {
                                   ExecutionContext aInExecutionContext) {
         try {
             JSELExpression lFunctionExpression =
-                    JSELExpression.compile(getFunctionDefinition(aInArguments));
+                    JSELCompiler.getInstance()
+                            .compile(getFunctionDefinition(aInArguments));
 
             return lFunctionExpression.execute(aInExecutionContext).toObject();
         }

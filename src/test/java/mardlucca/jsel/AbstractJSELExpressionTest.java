@@ -42,7 +42,7 @@ public class AbstractJSELExpressionTest {
     protected void testNumber(String aInNumberString, double aInExpected)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(
+        JSELExpression lExpression = JSELCompiler.getInstance().compile(
                 "\n" + aInNumberString + " ");
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -52,7 +52,7 @@ public class AbstractJSELExpressionTest {
     protected void testString(String aInString, String aInExpected)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(
+        JSELExpression lExpression = JSELCompiler.getInstance().compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -62,7 +62,7 @@ public class AbstractJSELExpressionTest {
     protected void testBoolean(String aInString, boolean aInExpected)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(
+        JSELExpression lExpression = JSELCompiler.getInstance().compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -72,7 +72,7 @@ public class AbstractJSELExpressionTest {
     protected void testUndefined(String aInString)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(
+        JSELExpression lExpression = JSELCompiler.getInstance().compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -82,7 +82,8 @@ public class AbstractJSELExpressionTest {
     protected void testNull(String aInString)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(aInString);
+        JSELExpression lExpression =
+                JSELCompiler.getInstance().compile(aInString);
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
         verifyNull(lResult);
@@ -91,7 +92,8 @@ public class AbstractJSELExpressionTest {
     protected void testFunction(String aInString, String ... aInParameters)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(aInString);
+        JSELExpression lExpression =
+                JSELCompiler.getInstance().compile(aInString);
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
         verifyFunction(lResult, aInParameters);
@@ -100,7 +102,7 @@ public class AbstractJSELExpressionTest {
     protected void testArray(String aInString, Verifier... aInVerifiers)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(
+        JSELExpression lExpression = JSELCompiler.getInstance().compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -110,7 +112,7 @@ public class AbstractJSELExpressionTest {
     protected void testObject(String aInString, Verifier... aInVerifiers)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(
+        JSELExpression lExpression = JSELCompiler.getInstance().compile(
                 "\n" + aInString + " ");
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -121,7 +123,7 @@ public class AbstractJSELExpressionTest {
             String aInExpectedToString)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(
+        JSELExpression lExpression = JSELCompiler.getInstance().compile(
                 "\n" + aInRegExpString + " ");
         assertNotNull(lExpression);
         JSELValue lResult = runner.execute(lExpression);
@@ -133,7 +135,7 @@ public class AbstractJSELExpressionTest {
             String aInExpectedMesage)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELExpression lExpression = JSELExpression.compile(
+        JSELExpression lExpression = JSELCompiler.getInstance().compile(
                 "\n" + aInRegExpString + " ");
         assertNotNull(lExpression);
 

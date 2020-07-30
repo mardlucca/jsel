@@ -17,37 +17,9 @@
  */
 package mardlucca.jsel.expr;
 
-import mardlucca.jsel.JSELCompilationException;
-import mardlucca.jsel.JSELCompiler;
 import mardlucca.jsel.env.ExecutionContext;
-
-import mardlucca.jsel.env.ObjectEnvironmentRecord;
-import mardlucca.jsel.type.JSELObject;
 import mardlucca.jsel.type.JSELValue;
-import mardlucca.parselib.tokenizer.UnrecognizedCharacterSequenceException;
-import mardlucca.jsel.JSELCompilationException;
-import mardlucca.jsel.JSELCompiler;
-import mardlucca.jsel.type.JSELValue;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.util.function.Supplier;
 
 public interface JSELExpression {
     JSELValue execute(ExecutionContext aInContext);
-
-    static JSELExpression compile(String aInString)
-            throws IOException,
-                   UnrecognizedCharacterSequenceException,
-            JSELCompilationException {
-        return JSELCompiler.getInstance().compile(new StringReader(aInString));
-    }
-
-    static JSELExpression compile(Reader aInReader)
-            throws IOException,
-                   UnrecognizedCharacterSequenceException,
-                   JSELCompilationException {
-        return JSELCompiler.getInstance().compile(aInReader);
-    }
 }
