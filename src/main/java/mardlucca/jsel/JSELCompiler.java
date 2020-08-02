@@ -342,12 +342,11 @@ public class JSELCompiler {
                 .onReduce("VAL -> null", (aInProduction, aInValues) ->
                         new LiteralExpression(JSELNull.getInstance()))
                 .onReduce("VAL -> regex", (aInProduction, aInValues) -> {
-                    JSELRegExp lRegExp =
-                            ((Token<?,JSELRegExp>)aInValues[0]).getValue();
+                    String[] lValue = (String[])
+                            ((Token<?,?>)aInValues[0]).getValue();
                     try {
                         return new LiteralSupplierExpression(()->
-                                new JSELRegExp(lRegExp.getBody(),
-                                        lRegExp.getFlagsString()));
+                                new JSELRegExp(lValue[0], lValue[1]));
                     }
                     catch (JSELRuntimeException e) {
                         throw new ParsingException(e.getMessage());

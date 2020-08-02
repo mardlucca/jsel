@@ -17,14 +17,12 @@
  */
 package mardlucca.jsel;
 
-import mardlucca.jsel.type.JSELRegExp;
 import mardlucca.parselib.parser.LRParsingTable;
 import mardlucca.parselib.tokenizer.BaseTokenRecognizer;
 import mardlucca.parselib.tokenizer.IdentifierRecognizer;
 import mardlucca.parselib.tokenizer.MatchResult;
 
-public class RegExpRecognizer
-        extends BaseTokenRecognizer<TokenEnum, JSELRegExp> {
+public class RegExpRecognizer extends BaseTokenRecognizer<TokenEnum, String[]> {
     private State state = State.INITIAL;
 
     private int numberOpenBrackets = 0;
@@ -158,17 +156,18 @@ public class RegExpRecognizer
     }
 
     @Override
-    public JSELRegExp getValue(String aInCharSequence) {
+    public String[] getValue(String aInCharSequence) {
         if (aInCharSequence.length() < 3) {
             return null;
         }
 
         int lLastSlash = aInCharSequence.lastIndexOf('/');
-        return new JSELRegExp(
+        return new String[] {
                 aInCharSequence.substring(1, lLastSlash),
                 lLastSlash + 1 < aInCharSequence.length()
                         ? aInCharSequence.substring(lLastSlash + 1)
-                        : "");
+                        : ""
+        };
     }
 
     private MatchResult failure(String aInReason) {

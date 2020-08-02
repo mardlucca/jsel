@@ -27,8 +27,6 @@ import mardlucca.parselib.tokenizer.UnrecognizedCharacterSequenceException;
 import java.io.IOException;
 
 public class JSELRunner {
-    private static final String VALUE = "value";
-
     private ExecutionContext executionContext = new ExecutionContext();
 
     public void bind(JSELExpression aInExpression) {
@@ -38,19 +36,14 @@ public class JSELRunner {
             for (String lProperty : lObject.getOwnPropertyNames()) {
                 executionContext.bind(lProperty, lObject.getOwn(lProperty));
             }
-        } else {
-            executionContext.bind(VALUE, lValue);
         }
     }
 
     public void define(String aInProperty, String aInExpression)
             throws UnrecognizedCharacterSequenceException,
                    JSELCompilationException, IOException {
-        JSELValue lValue = execute(
-                JSELCompiler.getInstance().compile(aInExpression));
-        executionContext.bind(aInProperty, lValue);
+        define(aInProperty, JSELCompiler.getInstance().compile(aInExpression));
     }
-
 
     public void define(String aInProperty, JSELExpression aInExpression) {
         JSELValue lValue = execute(aInExpression);

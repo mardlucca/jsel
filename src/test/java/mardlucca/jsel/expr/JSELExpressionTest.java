@@ -49,8 +49,7 @@ public class JSELExpressionTest extends AbstractJSELExpressionTest {
     @Before
     public void setUp() throws UnrecognizedCharacterSequenceException,
                                JSELCompilationException, IOException {
-        runner.define("object",
-                JSELCompiler.getInstance().getInstance().compile(OBJECT_TEST_CASE));
+        runner.define("object", OBJECT_TEST_CASE);
     }
 
     @Test
