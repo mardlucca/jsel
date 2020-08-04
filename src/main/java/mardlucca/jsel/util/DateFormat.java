@@ -47,15 +47,21 @@ public class DateFormat {
     private static ThreadLocal<java.text.DateFormat> isoDateFormat =
             ThreadLocal.withInitial(() -> {
                 SimpleDateFormat lFormat = new SimpleDateFormat(
-                        "yyyy-MM-dd'T'HH:mm:ss.sss'Z'");
+                        "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 lFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
                 return lFormat;
             });
 
+    private static final String DATE_PART =
+            "(\\d{4})(?:-(\\d\\d)(?:-(\\d\\d))?)?";
+    private static final String TIME_PART =
+            "T(\\d{2}):(\\d{2})(?::(\\d{2})(?:\\.(\\d{3}))?)?";
+    private static final String TIME_ZONE =
+            "(Z|[+\\-](?:\\d{4}|\\d{2}:\\d{2}))?";
+
     private static Pattern datePattern =
-            Pattern.compile("(\\d{4})(?:-(\\d\\d)(?:-(\\d\\d))?)?" +
-                    "(?:T(\\d\\d):(\\d\\d)(?::(\\d\\d)(?:\\.(\\d{3}))?)?)?" +
-                    "(Z|[+\\-]\\d{4})?");
+            Pattern.compile(DATE_PART +
+                    "(?:" + TIME_PART + TIME_ZONE + ")?");
 
     private DateFormat() {
     }
@@ -88,11 +94,14 @@ public class DateFormat {
             return null;
         }
 
-        TimeZone lTimeZone =
-                lMatcher.group(8) != null && !"Z".equals(lMatcher.group(8))
-                ? TimeZone.getTimeZone(ZoneOffset.of(lMatcher.group(8)))
-                : TimeZone.getTimeZone("GMT");
-        System.out.println(lTimeZone);
+        TimeZone lTimeZone = lMatcher.group(8) == null
+                ? lMatcher.group(4) == null
+                        ? TimeZone.getTimeZone("GMT")
+                        : TimeZone.getDefault()
+                : "Z".equals(lMatcher.group(8))
+                        ? TimeZone.getTimeZone("GMT")
+                        : TimeZone.getTimeZone(
+                                ZoneOffset.of(lMatcher.group(8)));
 
         GregorianCalendar lCalendar = new GregorianCalendar(lTimeZone);
         lCalendar.set(Calendar.YEAR, Integer.parseInt(lMatcher.group(1)));

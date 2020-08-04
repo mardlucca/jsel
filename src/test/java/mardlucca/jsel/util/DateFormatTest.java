@@ -18,35 +18,112 @@
 
 package mardlucca.jsel.util;
 
-import org.junit.Test;
+import org.junit.*;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.ZoneOffset;
 import java.util.TimeZone;
 
+import static mardlucca.jsel.util.DateFormat.formatISO;
+import static mardlucca.jsel.util.DateFormat.parse;
+import static org.junit.Assert.assertEquals;
+
 public class DateFormatTest {
+    private static TimeZone defaultTimezone;
 
-    @Test
-    public void testToDateString() {
-        System.out.println(DateFormat.toDateString(new Date()));
+    @BeforeClass
+    public static void beforeClass() {
+        defaultTimezone = TimeZone.getDefault();
+        TimeZone.setDefault(TimeZone.getTimeZone(ZoneOffset.of("-0500")));
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        TimeZone.setDefault(defaultTimezone);
     }
 
     @Test
-    public void testToTimeString() {
-        System.out.println(DateFormat.toTimeString(new Date()));
+    public void testParseYear() {
+        assertEquals("2020-01-01T00:00:00.000Z",
+                formatISO(parse("2020")));
+        assertEquals("2020-01-01T17:23:00.000Z",
+                formatISO(parse("2020T12:23")));
+        assertEquals("2020-01-02T04:45:30.000Z",
+                formatISO(parse("2020T23:45:30")));
+        assertEquals("2020-01-02T04:45:30.123Z",
+                formatISO(parse("2020T23:45:30.123")));
+
+        assertEquals("2020-01-01T12:23:00.000Z",
+                formatISO(parse("2020T12:23Z")));
+        assertEquals("2020-01-01T23:45:30.000Z",
+                formatISO(parse("2020T23:45:30Z")));
+        assertEquals("2020-01-01T23:45:30.123Z",
+                formatISO(parse("2020T23:45:30.123Z")));
+
+        assertEquals("2020-01-01T08:23:00.000Z",
+                formatISO(parse("2020T12:23+0400")));
+        assertEquals("2020-01-02T00:45:30.000Z",
+                formatISO(parse("2020T23:45:30-01:00")));
+        assertEquals("2020-01-02T03:45:30.123Z",
+                formatISO(parse("2020T23:45:30.123-0400")));
     }
 
     @Test
-    public void testFormat() {
-        Date d = new Date();
-        System.out.println(DateFormat.format(d));
-        System.out.println(DateFormat.formatUTC(d));
-        System.out.println(DateFormat.formatISO(d));
+    public void testParseYearMonth() {
+        assertEquals("2020-02-01T00:00:00.000Z",
+                formatISO(parse("2020-02")));
+        assertEquals("2020-02-01T17:23:00.000Z",
+                formatISO(parse("2020-02T12:23")));
+        assertEquals("2020-02-02T04:45:30.000Z",
+                formatISO(parse("2020-02T23:45:30")));
+        assertEquals("2020-02-02T04:45:30.123Z",
+                formatISO(parse("2020-02T23:45:30.123")));
+
+        assertEquals("2020-02-01T12:23:00.000Z",
+                formatISO(parse("2020-02T12:23Z")));
+        assertEquals("2020-02-01T23:45:30.000Z",
+                formatISO(parse("2020-02T23:45:30Z")));
+        assertEquals("2020-02-01T23:45:30.123Z",
+                formatISO(parse("2020-02T23:45:30.123Z")));
+
+        assertEquals("2020-02-01T08:23:00.000Z",
+                formatISO(parse("2020-02T12:23+0400")));
+        assertEquals("2020-02-02T00:45:30.000Z",
+                formatISO(parse("2020-02T23:45:30-01:00")));
+        assertEquals("2020-02-02T03:45:30.123Z",
+                formatISO(parse("2020-02T23:45:30.123-0400")));
     }
 
     @Test
-    public void name() {
-        System.out.println(DateFormat.parse("1290-08-01T13:34:56.789-0500"));
-        System.out.println(TimeZone.getDefault().getOffset(System.currentTimeMillis()) / (60*1000));
+    public void testParseYearMonthDay() {
+        assertEquals("2020-02-10T00:00:00.000Z",
+                formatISO(parse("2020-02-10")));
+        assertEquals("2020-02-10T17:23:00.000Z",
+                formatISO(parse("2020-02-10T12:23")));
+        assertEquals("2020-02-11T04:45:30.000Z",
+                formatISO(parse("2020-02-10T23:45:30")));
+        assertEquals("2020-02-11T04:45:30.123Z",
+                formatISO(parse("2020-02-10T23:45:30.123")));
+
+        assertEquals("2020-02-10T12:23:00.000Z",
+                formatISO(parse("2020-02-10T12:23Z")));
+        assertEquals("2020-02-10T23:45:30.000Z",
+                formatISO(parse("2020-02-10T23:45:30Z")));
+        assertEquals("2020-02-10T23:45:30.123Z",
+                formatISO(parse("2020-02-10T23:45:30.123Z")));
+
+        assertEquals("2020-02-10T08:23:00.000Z",
+                formatISO(parse("2020-02-10T12:23+0400")));
+        assertEquals("2020-02-11T00:45:30.000Z",
+                formatISO(parse("2020-02-10T23:45:30-01:00")));
+        assertEquals("2020-02-11T03:45:30.123Z",
+                formatISO(parse("2020-02-10T23:45:30.123-0400")));
+    }
+
+    @Test
+    public void testParseInvalid() {
+        assertEquals("2020-01-01T00:00:00.000Z",
+                formatISO(parse("2020Z")));
+        assertEquals("2019-12-31T20:00:00.000Z",
+                formatISO(parse("2020+04:00")));
     }
 }

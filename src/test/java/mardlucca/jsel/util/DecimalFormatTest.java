@@ -20,8 +20,6 @@ package mardlucca.jsel.util;
 
 import org.junit.Test;
 
-import java.text.ParseException;
-
 import static org.junit.Assert.*;
 
 public class DecimalFormatTest {
@@ -31,11 +29,18 @@ public class DecimalFormatTest {
         assertEquals("0", DecimalFormat.format(-0.0));
         assertEquals("0.12345678901234568",
                 DecimalFormat.format(0.12345678901234567890));
+        assertEquals("NaN", DecimalFormat.format(Double.NaN));
+        assertEquals("Infinity",
+                DecimalFormat.format(Double.POSITIVE_INFINITY));
+        assertEquals("-Infinity",
+                DecimalFormat.format(Double.NEGATIVE_INFINITY));
     }
 
     @Test
-    public void parse() throws ParseException {
+    public void parse() {
         assertEquals(0, DecimalFormat.parse("0"), 0.0);
+        assertEquals(0, DecimalFormat.parse(""), 0.0);
+        assertEquals(0, DecimalFormat.parse("   "), 0.0);
         assertEquals(1.2e10, DecimalFormat.parse("1.2e10"), 0.0);
         assertEquals(-1.2e10, DecimalFormat.parse("-1.2e10"), 0.0);
         assertEquals(Double.NaN, DecimalFormat.parse("a"), 0.0);
